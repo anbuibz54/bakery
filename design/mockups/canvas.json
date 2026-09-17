@@ -1,6 +1,10 @@
 {
   "pages": [
     {
+      "id": "page-3",
+      "name": "Vòng 3 — Quản lý & chiến lược"
+    },
+    {
       "id": "page-2",
       "name": "Hướng C — luồng đặt bánh"
     },
@@ -126,6 +130,60 @@
       "y": 0,
       "w": 390,
       "h": 542
+    },
+    {
+      "file": "AdminDashboard.dc.html",
+      "title": "Số liệu (máy tính)",
+      "page": "page-3",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1320
+    },
+    {
+      "file": "AdminCost.dc.html",
+      "title": "Giá vốn một món",
+      "page": "page-3",
+      "x": 0,
+      "y": 1440,
+      "w": 390,
+      "h": 1724
+    },
+    {
+      "file": "AdminIngredients.dc.html",
+      "title": "Nguyên liệu & giá",
+      "page": "page-3",
+      "x": 470,
+      "y": 1440,
+      "w": 390,
+      "h": 1044
+    },
+    {
+      "file": "AdminReceipt.dc.html",
+      "title": "Chụp hóa đơn → duyệt",
+      "page": "page-3",
+      "x": 940,
+      "y": 1440,
+      "w": 390,
+      "h": 880
+    },
+    {
+      "file": "AdminCostSettings.dc.html",
+      "title": "Cách tính giá vốn",
+      "page": "page-3",
+      "x": 1410,
+      "y": 1440,
+      "w": 390,
+      "h": 844
+    },
+    {
+      "file": "AdminBakeDay.dc.html",
+      "title": "Mẻ nướng theo ngày",
+      "page": "page-3",
+      "x": 1880,
+      "y": 1440,
+      "w": 390,
+      "h": 1180
     }
   ],
   "annotations": [
@@ -168,10 +226,18 @@
       "y": -300,
       "w": 1300,
       "text": "Vibe Bánh — vòng 2 (đã duyệt): hướng C \"Hộp quà pastel\", vẽ trọn luồng: trang chủ → menu → chi tiết bánh kem → giỏ + đặt bánh → thanh toán cọc → theo dõi đơn.\nIcon: bỏ emoji, vẽ bộ icon riêng kiểu \"tem in lệch\" — nét mực tròn đầu + mảng màu in lệch phía sau, như con tem dán hộp bánh (xem bảng icon ở cuối).\nCọc = 50% bánh kem + toàn bộ bánh làm sẵn + phí giao; phần còn lại trả khi nhận. Không cần tài khoản: số điện thoại (Zalo) + link theo dõi đơn.\nĐã chốt: tên tiệm Vibe Bánh; thanh toán qua SePay (VietQR, webhook xác nhận tiền về)."
+    },
+    {
+      "id": "r3",
+      "page": "page-3",
+      "x": 0,
+      "y": -330,
+      "w": 1440,
+      "text": "Vibe Bánh — vòng 3: trang quản lý cho chủ tiệm (chỉ bạn đăng nhập mới thấy). Số trên mockup là minh họa nhưng tính khớp nhau.\nCookbook giữ công thức (cách làm); bakery giữ giá nguyên liệu, nơi mua, bao bì, công và phí (kinh doanh). Giá vốn mỗi món = công thức cookbook × giá mới nhất + chi phí khác. Mỗi đơn chụp lại giá vốn lúc đặt.\nĐã chốt: chưa theo dõi tồn kho; nhập giá bằng gõ tay, chụp hóa đơn (AI) và nhờ Claude qua MCP; tính bao bì, gas/điện, công làm, phí giao và phí thanh toán.\nHàng dưới (điện thoại): giá vốn một món → bảng giá nguyên liệu → duyệt hóa đơn → cách tính → mẻ nướng theo ngày. Cần bạn xem: dashboard có đúng những câu hỏi bạn muốn trả lời không, thiếu gì, thừa gì."
     }
   ],
   "launch": {
     "view": "canvas",
-    "page": "page-2"
+    "page": "page-3"
   }
 }

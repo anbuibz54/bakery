@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&amp;family=Nunito:wght@400;600;700;800&amp;display=swap">
+  <style>
+    body { margin: 0; background: #FFF8FB; }
+  </style>
+</helmet>
+<!-- Vòng 3 — Cài đặt cách tính: công, điện, phí, mục tiêu lãi. -->
+<div style="width: 390px; min-height: 844px; background: #FFF8FB; color: #3A2E39; font-family: Nunito, system-ui, sans-serif; font-size: 15px; line-height: 1.5; box-sizing: border-box; font-variant-numeric: tabular-nums; position: relative; padding-bottom: 104px;">
+
+  
+  <div style="display: grid; grid-template-columns: 42px minmax(0, 1fr) 42px; align-items: center; padding: 14px 20px 6px;">
+    <span style="width: 42px; height: 42px; border-radius: 21px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></span>
+    <div style="text-align: center;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Cách tính giá vốn</div><div style="font-size: 12px; color: #857684;">áp dụng cho mọi món</div></div>
+    <span></span>
+  </div>
+  <div style="margin: 14px 20px 8px;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Công & năng lượng</div></div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); margin: 0 20px; padding: 4px 16px;">
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 0px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Công mỗi giờ</div><div style="font-size: 12px; color: #857684;">giá trị bạn muốn trả cho chính mình</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">40.000đ</span>
+  </div>
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Giá điện</div><div style="font-size: 12px; color: #857684;">hóa đơn điện gần nhất</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">3.000đ/kWh</span>
+  </div>
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Công suất lò</div><div style="font-size: 12px; color: #857684;">ghi trên nhãn lò</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">2 kW</span>
+  </div></div>
+  <div style="margin: 18px 20px 8px;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Phí theo đơn</div></div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); margin: 0 20px; padding: 4px 16px;">
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 0px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Phí SePay mỗi tháng</div><div style="font-size: 12px; color: #857684;">chia đều cho số đơn trong tháng</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">nhập gói</span>
+  </div>
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Tiệm bù phí giao</div><div style="font-size: 12px; color: #857684;">khi freeship hoặc giao xa hơn báo giá</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">0đ</span>
+  </div></div>
+  <div style="margin: 18px 20px 8px;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Mục tiêu</div></div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); margin: 0 20px; padding: 4px 16px;">
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 0px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Nguyên liệu tối đa</div><div style="font-size: 12px; color: #857684;">của giá bán — vượt thì cảnh báo</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">35%</span>
+  </div>
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: center;">
+    <div><div style="font-weight: 700; font-size: 14px;">Lãi thật mong muốn</div><div style="font-size: 12px; color: #857684;">sau khi trừ công và mọi chi phí</div></div>
+    <span style="min-width: 92px; height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: 14px; background: #FFF8FB; display: flex; align-items: center; justify-content: flex-end; font-weight: 700;">35%</span>
+  </div></div>
+  <div style="margin: 14px 20px 0; background: #CFE8F3; border-radius: 22px; padding: 14px 16px; font-size: 14px; color: #3F5563;">
+    Đổi số ở đây, giá vốn mọi món tính lại ngay. Đơn đã đặt giữ nguyên giá vốn lúc đặt.
+  </div>
+  
+  <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; background: #3A2E39; border-radius: 26px; padding: 8px 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 6h16v22l-3-2-3 2-3-2-3 2-4-2z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M8 5h16v22l-3-2-3 2-3-2-3 2-4-2z M12 11h8 M12 15h8 M12 19h5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Đơn</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 9h20v18H7z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M6 8h20v18H6z M6 13h20 M10 17h12v6H10z M10 10.5h.1 M13.5 10.5h.1" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Mẻ nướng</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; background: #F6C1D4;">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 7h11l11 11-10 10L6 17z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M5 6h11l11 11-10 10L5 16z M10.5 11.5h.1" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #3A2E39;">Giá vốn</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 7h21v21H7z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M6 6v20.5h21 M10.5 21v-5 M15.5 21v-9 M20.5 21v-6.5 M25 21V9" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Số liệu</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

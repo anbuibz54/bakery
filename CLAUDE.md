@@ -222,6 +222,33 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 zones and fees, orders per day/slot, time slots, the menu itself and prices,
 TikTok link (Instagram and Facebook set 2026-09-17), reminder channel, the "hủy trước 48 giờ được hoàn cọc" policy.
 
+## Costing, supply and dashboard (decided 2026-09-17, mockup round 3)
+
+Canvas page "Vòng 3 — Quản lý & chiến lược". Not built yet; needs owner sign-in
+(build order step 5) first.
+
+- **Split:** cookbook owns recipes (how to make). Bakery owns ingredient prices,
+  suppliers, packaging, labour and fees (business). Bakery reads
+  `cookbook.recipes` / `recipe_ingredients` / `foods` read-only, no FKs.
+- **Product components:** a product (or a size option) = several cookbook
+  recipes × multiplier + extra lines (e.g. 250g dâu).
+- **Prices:** history per ingredient (food id, pack size, price, supplier,
+  bought on). Unit cost = latest price. Entry by hand, receipt photo (AI parses,
+  owner reviews), and Claude over MCP.
+- **Cost includes:** ingredients, packaging per product, gas/electricity per
+  bake (oven kW × minutes), labour (hours × owner rate), payment fee (SePay plan
+  spread over orders), delivery subsidy. Settings hold the rates and targets
+  (max ingredient %, target real margin).
+- **Snapshot** unit cost on `order_items` at order time, so past margins never
+  change when prices move. Missing prices are reported, never guessed.
+- **No inventory tracking yet.** Bake-day list = orders of a day × components,
+  grouped by supplier, sendable to the cookbook shopping list.
+- **Dashboard:** revenue, orders, AOV, real margin, capacity used, abandoned
+  checkouts; revenue/margin trend; menu-engineering matrix (sold × margin);
+  slot heatmap; channels (Instagram/Facebook/other); repeat and gift share,
+  lead time; next 30 days (booked orders, saved birthdays); rule-based
+  suggestions computed from the data (no AI guessing).
+
 ## Deferred — do not build yet
 
 Drops/limited batches table, loyalty, subscriptions, referral, discount codes,

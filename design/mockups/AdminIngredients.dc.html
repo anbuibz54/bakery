@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&amp;family=Nunito:wght@400;600;700;800&amp;display=swap">
+  <style>
+    body { margin: 0; background: #FFF8FB; }
+  </style>
+</helmet>
+<!-- Vòng 3 — Bảng giá nguyên liệu có lịch sử, 3 cách nhập, cảnh báo thiếu giá và tăng giá. -->
+<div style="width: 390px; min-height: 1044px; background: #FFF8FB; color: #3A2E39; font-family: Nunito, system-ui, sans-serif; font-size: 15px; line-height: 1.5; box-sizing: border-box; font-variant-numeric: tabular-nums; position: relative; padding-bottom: 104px;">
+
+  
+  <div style="display: grid; grid-template-columns: 42px minmax(0, 1fr) 42px; align-items: center; padding: 14px 20px 6px;">
+    <span style="width: 42px; height: 42px; border-radius: 21px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></span>
+    <div style="text-align: center;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Nguyên liệu & giá</div><div style="font-size: 12px; color: #857684;">24 nguyên liệu · 4 nơi mua</div></div>
+    <span></span>
+  </div>
+  <div style="margin: 8px 20px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+    <div style="background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 20px; padding: 12px 6px; text-align: center;"><svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 7h11l11 11-10 10L6 17z" fill="#F2A3BD" transform="translate(2.6 2.4)"></path><path d="M5 6h11l11 11-10 10L5 16z M10.5 11.5h.1" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="font-size: 13px; font-weight: 700;">Gõ tay</div></div><div style="background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 20px; padding: 12px 6px; text-align: center;"><svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 13h22v13H6z" fill="#94CBE3" transform="translate(2.6 2.4)"></path><path d="M5 12h5.5l2-3h7l2 3H27v13H5z M12 18.5a4 4 0 1 0 8 0 4 4 0 1 0-8 0" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="font-size: 13px; font-weight: 700;">Chụp bill</div></div><div style="background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 20px; padding: 12px 6px; text-align: center;"><svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M17 5l2.6 7.4L27 15l-7.4 2.6L17 25l-2.6-7.4L7 15l7.4-2.6z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M16 4l2.6 7.4L26 14l-7.4 2.6L16 24l-2.6-7.4L6 14l7.4-2.6z M25 22v5 M22.5 24.5h5" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="font-size: 13px; font-weight: 700;">Nhờ Claude</div></div>
+  </div>
+  <div style="margin: 12px 20px 0; background: #FFF0B3; border-radius: 20px; padding: 12px 14px; font-size: 14px; color: #5C4A12;">
+    <b>3 nguyên liệu chưa có giá</b> nên giá vốn 2 món còn thiếu: vani bean, gelatin lá, bột cacao.
+  </div>
+  <div style="margin: 12px 20px 0; display: flex; gap: 8px; overflow: hidden;">
+    <span style="height: 34px; padding: 0 14px; border-radius: 17px; display: flex; align-items: center; white-space: nowrap; font-size: 14px; background: #3A2E39; color: #FFF; font-weight: 700;">Tất cả</span><span style="height: 34px; padding: 0 14px; border-radius: 17px; display: flex; align-items: center; white-space: nowrap; font-size: 14px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">Tăng giá</span><span style="height: 34px; padding: 0 14px; border-radius: 17px; display: flex; align-items: center; white-space: nowrap; font-size: 14px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">Bếp Bánh Q.7</span><span style="height: 34px; padding: 0 14px; border-radius: 17px; display: flex; align-items: center; white-space: nowrap; font-size: 14px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">Chợ Tân Mỹ</span><span style="height: 34px; padding: 0 14px; border-radius: 17px; display: flex; align-items: center; white-space: nowrap; font-size: 14px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">Bách Hóa Xanh</span>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); margin: 12px 20px 0; padding: 4px 16px;">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 0px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Bột mì số 8</div><div style="font-size: 12px; color: #857684;">1kg · 25.000đ · Bách Hóa Xanh</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">25k/kg</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #F4EEF2; color: #857684; font-size: 12px; font-weight: 700; white-space: nowrap; ">ổn định</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Trứng gà</div><div style="font-size: 12px; color: #857684;">10 quả · 38.000đ · Chợ Tân Mỹ</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">4k/quả</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #FDE3EC; color: #B23A6B; font-size: 12px; font-weight: 700; white-space: nowrap; ">▲ 5%</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Đường cát trắng</div><div style="font-size: 12px; color: #857684;">1kg · 25.000đ · Bách Hóa Xanh</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">25k/kg</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #F4EEF2; color: #857684; font-size: 12px; font-weight: 700; white-space: nowrap; ">ổn định</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Bơ lạt Anchor</div><div style="font-size: 12px; color: #857684;">1kg · 290.000đ · Bếp Bánh Q.7</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">290k/kg</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #FDE3EC; color: #B23A6B; font-size: 12px; font-weight: 700; white-space: nowrap; ">▲ 12%</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Sữa tươi không đường</div><div style="font-size: 12px; color: #857684;">1L · 32.000đ · Bách Hóa Xanh</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">32k/L</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #F4EEF2; color: #857684; font-size: 12px; font-weight: 700; white-space: nowrap; ">ổn định</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Cream cheese Anchor</div><div style="font-size: 12px; color: #857684;">1kg · 260.000đ · Bếp Bánh Q.7</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">260k/kg</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #F4EEF2; color: #857684; font-size: 12px; font-weight: 700; white-space: nowrap; ">ổn định</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Whipping cream Anchor</div><div style="font-size: 12px; color: #857684;">1L · 185.000đ · Bếp Bánh Q.7</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">185k/L</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #D5EFE3; color: #2F7A5B; font-size: 12px; font-weight: 700; white-space: nowrap; ">▼ 3%</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px 0; border-top: 1px dashed #F1DDE6;">
+      <div style="min-width: 0;"><div style="font-weight: 700;">Dâu Đà Lạt</div><div style="font-size: 12px; color: #857684;">500g · 90.000đ · Chợ Tân Mỹ</div></div>
+      <div style="text-align: right;"><div style="font-weight: 700;">180k/kg</div><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #FDE3EC; color: #B23A6B; font-size: 12px; font-weight: 700; white-space: nowrap; ">▲ 20%</span></div>
+    </div></div>
+  <div style="margin: 12px 20px 0; background: #CFE8F3; border-radius: 22px; padding: 14px 16px; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px;">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 7h21v21H7z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M6 6v20.5h21 M10.5 21v-5 M15.5 21v-9 M20.5 21v-6.5 M25 21V9" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div style="font-size: 14px; color: #3F5563;"><b style="color: #3A2E39;">Bơ Anchor tăng 12%</b> trong 3 tuần. Ảnh hưởng: Bánh táo ngàn lớp (lãi 48% → 45%), Croissant bơ Pháp (44% → 39%).</div>
+  </div>
+  
+  <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; background: #3A2E39; border-radius: 26px; padding: 8px 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 6h16v22l-3-2-3 2-3-2-3 2-4-2z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M8 5h16v22l-3-2-3 2-3-2-3 2-4-2z M12 11h8 M12 15h8 M12 19h5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Đơn</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 9h20v18H7z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M6 8h20v18H6z M6 13h20 M10 17h12v6H10z M10 10.5h.1 M13.5 10.5h.1" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Mẻ nướng</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; background: #F6C1D4;">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 7h11l11 11-10 10L6 17z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M5 6h11l11 11-10 10L5 16z M10.5 11.5h.1" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #3A2E39;">Giá vốn</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 7h21v21H7z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M6 6v20.5h21 M10.5 21v-5 M15.5 21v-9 M20.5 21v-6.5 M25 21V9" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Số liệu</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

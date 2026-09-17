@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&amp;family=Nunito:wght@400;600;700;800&amp;display=swap">
+  <style>
+    body { margin: 0; background: #FFF8FB; }
+  </style>
+</helmet>
+<!-- Vòng 3 — Chụp hóa đơn: AI tách dòng, khớp với nguyên liệu, dòng lạ phải chọn tay. -->
+<div style="width: 390px; min-height: 880px; background: #FFF8FB; color: #3A2E39; font-family: Nunito, system-ui, sans-serif; font-size: 15px; line-height: 1.5; box-sizing: border-box; font-variant-numeric: tabular-nums; position: relative; padding-bottom: 104px;">
+
+  
+  <div style="display: grid; grid-template-columns: 42px minmax(0, 1fr) 42px; align-items: center; padding: 14px 20px 6px;">
+    <span style="width: 42px; height: 42px; border-radius: 21px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></span>
+    <div style="text-align: center;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Duyệt hóa đơn</div><div style="font-size: 12px; color: #857684;">AI đọc từ ảnh, bạn kiểm lại</div></div>
+    <span></span>
+  </div>
+  <div style="margin: 8px 20px 0; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: center;">
+    <div style="height: 128px; border-radius: 18px; background: #EDE6D8; display: flex; align-items: flex-end; padding: 8px; box-sizing: border-box; font-size: 10px; color: #7A6E58;">[ảnh bill]</div>
+    <div>
+      <div style="font-size: 12px; color: #857684;">Nơi mua</div>
+      <div style="font-weight: 700;">Bếp Bánh Q.7</div>
+      <div style="font-size: 12px; color: #857684; margin-top: 6px;">Ngày</div>
+      <div style="font-weight: 700;">16/9/2026</div>
+      <div style="margin-top: 6px;"><span style="display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; background: #D5EFE3; color: #2F7A5B; font-size: 12px; font-weight: 700; white-space: nowrap; ">Tổng khớp bill: 1,08tr</span></div>
+    </div>
+  </div>
+  <div style="margin: 16px 20px 8px;"><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">5 dòng đọc được</div></div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); margin: 0 20px; padding: 6px 16px;">
+    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0;  align-items: start;">
+      <span style="width: 22px; height: 22px; border-radius: 7px; margin-top: 2px; background: #B23A6B; display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>
+      <div style="min-width: 0;">
+        <div style="font-size: 14px;">Bơ lạt Anchor 1kg</div>
+        <div style="font-size: 12px; color: #2F7A5B;">→ Bơ lạt Anchor</div>
+      </div>
+      <div style="font-weight: 700; font-size: 14px;">290k</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: start;">
+      <span style="width: 22px; height: 22px; border-radius: 7px; margin-top: 2px; background: #B23A6B; display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>
+      <div style="min-width: 0;">
+        <div style="font-size: 14px;">Cream cheese Anchor 1kg</div>
+        <div style="font-size: 12px; color: #2F7A5B;">→ Cream cheese Anchor</div>
+      </div>
+      <div style="font-weight: 700; font-size: 14px;">260k</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: start;">
+      <span style="width: 22px; height: 22px; border-radius: 7px; margin-top: 2px; background: #B23A6B; display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>
+      <div style="min-width: 0;">
+        <div style="font-size: 14px;">Whipping Anchor 1L × 2</div>
+        <div style="font-size: 12px; color: #2F7A5B;">→ Whipping cream Anchor</div>
+      </div>
+      <div style="font-weight: 700; font-size: 14px;">370k</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: start;">
+      <span style="width: 22px; height: 22px; border-radius: 7px; margin-top: 2px; background: #B23A6B; display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>
+      <div style="min-width: 0;">
+        <div style="font-size: 14px;">Hộp bánh kem 18cm (10 cái)</div>
+        <div style="font-size: 12px; color: #2F7A5B;">→ Bao bì · hộp 18cm</div>
+      </div>
+      <div style="font-weight: 700; font-size: 14px;">120k</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-top: 1px dashed #F1DDE6; align-items: start;">
+      <span style="width: 22px; height: 22px; border-radius: 7px; margin-top: 2px; box-shadow: inset 0 0 0 2px #B8AAB6; display: flex; align-items: center; justify-content: center;"></span>
+      <div style="min-width: 0;">
+        <div style="font-size: 14px;">Túi zip 20×30</div>
+        <div style="font-size: 12px; color: #B23A6B; font-weight: 700;">Chưa khớp · chọn: nguyên liệu / bao bì / bỏ qua</div>
+      </div>
+      <div style="font-weight: 700; font-size: 14px;">35k</div>
+    </div></div>
+  <div style="margin: 12px 20px 0; font-size: 13px; color: #857684;">Giá mới được lưu kèm ngày mua. Giá cũ vẫn giữ để xem xu hướng và để lãi của đơn cũ không đổi.</div>
+  <div style="margin: 16px 20px 0; height: 52px; border-radius: 26px; background: #B23A6B; color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 700;">Lưu 4 giá mới</div>
+  <div style="margin: 14px 20px 0; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 22px; padding: 12px 14px; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: center;">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M17 5l2.6 7.4L27 15l-7.4 2.6L17 25l-2.6-7.4L7 15l7.4-2.6z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M16 4l2.6 7.4L26 14l-7.4 2.6L16 24l-2.6-7.4L6 14l7.4-2.6z M25 22v5 M22.5 24.5h5" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div style="font-size: 13px; color: #5E4B5C;">Hoặc nói với Claude: <i>"bơ Anchor 1kg 290k ở Bếp Bánh Q.7"</i> — Claude ghi vào đây qua MCP.</div>
+  </div>
+  
+  <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; background: #3A2E39; border-radius: 26px; padding: 8px 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 6h16v22l-3-2-3 2-3-2-3 2-4-2z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M8 5h16v22l-3-2-3 2-3-2-3 2-4-2z M12 11h8 M12 15h8 M12 19h5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Đơn</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 9h20v18H7z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M6 8h20v18H6z M6 13h20 M10 17h12v6H10z M10 10.5h.1 M13.5 10.5h.1" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Mẻ nướng</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; background: #F6C1D4;">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 7h11l11 11-10 10L6 17z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M5 6h11l11 11-10 10L5 16z M10.5 11.5h.1" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #3A2E39;">Giá vốn</span>
+    </div><div style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border-radius: 18px; ">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 7h21v21H7z" fill="rgba(255,255,255,0.18)" transform="translate(2.6 2.4)"></path><path d="M6 6v20.5h21 M10.5 21v-5 M15.5 21v-9 M20.5 21v-6.5 M25 21V9" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size: 11px; font-weight: 700; color: #FFFFFF;">Số liệu</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
