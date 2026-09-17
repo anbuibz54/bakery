@@ -1,0 +1,24 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Ba hướng phong cách" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html",    "title": "A · Tiệm tạp hóa vui — Trang chủ",   "page": "page-1", "x": 0,    "y": 0, "w": 390, "h": 1500 },
+    { "file": "ADetail.dc.html", "title": "A · Chi tiết bánh kem",             "page": "page-1", "x": 470,  "y": 0, "w": 390, "h": 1180 },
+    { "file": "BHome.dc.html",   "title": "B · Nhật ký lò nướng — Trang chủ",  "page": "page-1", "x": 1060, "y": 0, "w": 390, "h": 1860 },
+    { "file": "BDetail.dc.html", "title": "B · Chi tiết bánh kem",             "page": "page-1", "x": 1530, "y": 0, "w": 390, "h": 1380 },
+    { "file": "CHome.dc.html",   "title": "C · Hộp quà pastel — Trang chủ",    "page": "page-1", "x": 2120, "y": 0, "w": 390, "h": 1350 },
+    { "file": "CDetail.dc.html", "title": "C · Chi tiết bánh kem",             "page": "page-1", "x": 2590, "y": 0, "w": 390, "h": 1170 }
+  ],
+  "annotations": [
+    { "id": "intro", "page": "page-1", "x": 0, "y": -420, "w": 1300,
+      "text": "Bánh Nhà Dev (tên tạm) — vòng 1: ba hướng phong cách, cùng nội dung, chỉ khác cách nói chuyện với khách.\nMỗi hướng có trang chủ và trang chi tiết bánh kem (size, cốt, chữ trên bánh, ngày nhận còn slot, cọc 50%).\nChọn một hướng (hoặc trộn: \"bố cục của B, màu của A\") là tui vẽ trọn luồng: menu, giỏ + đặt hàng không cần tài khoản, thanh toán QR có cọc, theo dõi đơn kiểu kể chuyện." },
+    { "id": "a", "page": "page-1", "x": 0, "y": -150, "w": 860,
+      "text": "A · Tiệm tạp hóa vui — sticker, viền đậm, bóng lệch, dâu + bơ + bạc hà (Baloo 2, Nunito).\nVui nhộn rõ nhất, dễ nhớ, hợp Facebook/TikTok. Cùng \"họ\" với app Sổ công thức." },
+    { "id": "b", "page": "page-1", "x": 1060, "y": -150, "w": 860,
+      "text": "B · Nhật ký lò nướng — kiểu tạp chí, chữ có chân, nâu caramel + xanh rêu (Lora, Be Vietnam Pro, chữ viết tay).\nẤm và \"thủ công\" nhất; kể chuyện người làm bánh và bánh tuần này. Giá trị cảm nhận cao, bớt vui nhộn." },
+    { "id": "c", "page": "page-1", "x": 2120, "y": -150, "w": 860,
+      "text": "C · Hộp quà pastel — bo tròn, hồng + xanh trời + vàng chanh (Quicksand, Nunito).\nNói theo dịp tặng (\"Hôm nay tặng ai?\"), chế độ quà tặng nằm ngay trên bánh. Hợp khách mua tặng, nhẹ nhàng." }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}

@@ -24,3 +24,7 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# assembled design canvases (large, rebuilt from the .dc.html sources)
+/design/mockups/*.html
+!/design/mockups/*.dc.html
