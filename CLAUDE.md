@@ -220,7 +220,7 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 
 **Open questions for the owner (placeholders in code):** pickup address, delivery
 zones and fees, orders per day/slot, time slots, the menu itself and prices,
-Instagram / Facebook / TikTok links, reminder channel, the "hủy trước 48 giờ được hoàn cọc" policy.
+TikTok link (Instagram and Facebook set 2026-09-17), reminder channel, the "hủy trước 48 giờ được hoàn cọc" policy.
 
 ## Deferred — do not build yet
 
