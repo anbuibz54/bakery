@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&amp;family=Nunito:wght@400;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; background: #FFF8FB; }
+  </style>
+</helmet>
+<!-- Hướng C — Menu, lọc theo ngày nhận. -->
+<div style="width: 390px; min-height: 1120px; background: #FFF8FB; color: #3A2E39; font-family: Nunito, system-ui, sans-serif; font-size: 15px; line-height: 1.5; box-sizing: border-box; padding-bottom: 40px;">
+
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px;">
+    <span style="width: 42px; height: 42px; border-radius: 21px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></span><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 18px; line-height: 1.2; ">Menu</div><span style="width: 42px;"></span>
+  </div>
+  <div style="margin: 4px 20px 0; display: flex; gap: 8px; overflow: hidden;">
+    <span style="height: 38px; padding: 0 16px; border-radius: 19px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; white-space: nowrap;">Tất cả</span><span style="height: 38px; padding: 0 16px; border-radius: 19px; background: #3A2E39; color: #FFFFFF; font-weight: 700; display: flex; align-items: center; white-space: nowrap;">Bánh kem</span><span style="height: 38px; padding: 0 16px; border-radius: 19px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; white-space: nowrap;">Pastry</span><span style="height: 38px; padding: 0 16px; border-radius: 19px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; white-space: nowrap;">Bánh Việt</span><span style="height: 38px; padding: 0 16px; border-radius: 19px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; white-space: nowrap;">Trung thu</span>
+  </div>
+  <div style="margin: 14px 20px 0; background: #FFF0B3; border-radius: 20px; padding: 10px 14px; display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; align-items: center;">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 10h20v17H7z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M6 9h20v17H6z M6 14h20 M11 6v5 M21 6v5 M18.5 19h3v3h-3z" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div style="font-size: 14px; color: #5C4A12;">Đang xem bánh nhận được vào <b>thứ bảy 20/9</b></div>
+    <span style="font-size: 13px; font-weight: 700; color: #B23A6B;">Đổi</span>
+  </div>
+  <div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 20px; line-height: 1.2; margin: 22px 20px 4px;">Bánh kem sinh nhật</div>
+  <div style="margin: 0 20px 12px; font-size: 13px; color: #857684;">Đặt trước 2 ngày · cọc 50% · viết chữ miễn phí</div>
+  <div style="margin: 0 20px; display: flex; flex-direction: column; gap: 12px;">
+    
+    <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border-radius: 22px; padding: 10px; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">
+      <div style="height: 92px; border-radius: 16px; background: #F6C1D4; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #8C3B5E;">[ảnh]</div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
+        <div><div style="font-weight: 700; line-height: 1.25;">Kem dâu phô mai</div><div style="font-size: 13px; color: #857684;">Kem phô mai ít ngọt, dâu Đà Lạt</div></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 700;">từ 320.000đ</span><span style="font-size: 12px; font-weight: 700; color: #B23A6B; background: #FDE3EC; padding: 2px 10px; border-radius: 999px;">được yêu nhất</span></div>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border-radius: 22px; padding: 10px; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">
+      <div style="height: 92px; border-radius: 16px; background: #E9D3B5; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #6E5230;">[ảnh]</div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
+        <div><div style="font-weight: 700; line-height: 1.25;">Tiramisu cà phê Buôn Ma Thuột</div><div style="font-size: 13px; color: #857684;">Mascarpone, cà phê phin, cacao</div></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 700;">từ 380.000đ</span></div>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border-radius: 22px; padding: 10px; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">
+      <div style="height: 92px; border-radius: 16px; background: #D8E8C9; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #4E6B36;">[ảnh]</div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
+        <div><div style="font-weight: 700; line-height: 1.25;">Kem trà xanh đậu đỏ</div><div style="font-size: 13px; color: #857684;">Matcha Nhật, đậu đỏ sên nhà làm</div></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 700;">từ 360.000đ</span></div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; background: #F4EEF2; border-radius: 22px; padding: 10px; color: #B8AAB6;">
+      <div style="height: 92px; border-radius: 16px; background: #EDE3E9;"></div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div><div style="font-weight: 700;">Bánh kem xoài chanh dây</div><div style="font-size: 13px;">Hết mùa xoài, quay lại tháng 4</div></div>
+        <span style="font-size: 13px; font-weight: 700; color: #B23A6B;">Báo tui khi có lại</span>
+      </div>
+    </div>
+  </div>
+  <div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 20px; line-height: 1.2; margin: 24px 20px 4px;">Pastry &amp; ngàn lớp</div>
+  <div style="margin: 0 20px 12px; font-size: 13px; color: #857684;">Nướng theo mẻ, thứ bảy còn <b style="color: #3A2E39;">12 hộp</b></div>
+  <div style="margin: 0 20px; display: flex; flex-direction: column; gap: 12px;">
+    
+    <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border-radius: 22px; padding: 10px; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">
+      <div style="height: 92px; border-radius: 16px; background: #F7DDB0; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #7A5A1E;">[ảnh]</div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
+        <div><div style="font-weight: 700; line-height: 1.25;">Bánh táo ngàn lớp</div><div style="font-size: 13px; color: #857684;">Hộp 4 cái · vỏ tự cán, nhân quế</div></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 700;">140.000đ</span><span style="width: 30px; height: 30px; border-radius: 15px; background: #B23A6B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700;">+</span></div>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border-radius: 22px; padding: 10px; box-shadow: 0 4px 16px rgba(58,46,57,0.06);">
+      <div style="height: 92px; border-radius: 16px; background: #F0D9A8; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #7A5A1E;">[ảnh]</div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
+        <div><div style="font-weight: 700; line-height: 1.25;">Croissant bơ Pháp</div><div style="font-size: 13px; color: #857684;">Hộp 6 cái · 27 lớp bơ</div></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 700;">210.000đ</span><span style="width: 30px; height: 30px; border-radius: 15px; background: #FDE3EC; color: #B23A6B; display: flex; align-items: center; justify-content: center; font-weight: 700;">+</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

@@ -7,89 +7,59 @@
 <body>
 <x-dc>
 <helmet>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&amp;family=Nunito:wght@400;600;700;800&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&amp;family=Nunito:wght@400;600;700&amp;display=swap">
   <style>
-    body { margin: 0; background: #FFF6E9; }
+    body { margin: 0; background: #FFF8FB; }
   </style>
 </helmet>
-<!-- Hướng A — "Tiệm tạp hóa vui": sticker, viền đậm, bóng lệch, màu dâu + bơ + bạc hà -->
-<div style="width: 390px; min-height: 1500px; background: #FFF6E9; color: #2B1D14; font-family: Nunito, system-ui, sans-serif; font-size: 15px; line-height: 1.45; box-sizing: border-box; padding: 0 0 40px;">
+<!-- Hướng C đã chọn — Trang chủ. Icon: bộ vẽ riêng "tem in lệch", không dùng emoji. -->
+<div style="width: 390px; min-height: 1360px; background: #FFF8FB; color: #3A2E39; font-family: Nunito, system-ui, sans-serif; font-size: 15px; line-height: 1.5; box-sizing: border-box; padding-bottom: 40px;">
 
-  <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 18px;">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <div style="width: 38px; height: 38px; border-radius: 12px; background: #E5484D; border: 2px solid #2B1D14; display: flex; align-items: center; justify-content: center; transform: rotate(-6deg);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFF6E9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20v-7h12v7M6 13c0-3 2.5-5 6-5s6 2 6 5M12 8V5"></path></svg>
-      </div>
-      <span style="font-family: 'Baloo 2', system-ui; font-weight: 800; font-size: 22px; line-height: 1;">Bánh Nhà Dev</span>
-    </div>
-    <div style="position: relative; width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; border: 2px solid #2B1D14; display: flex; align-items: center; justify-content: center;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B1D14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.5 12h-11z"></path><path d="M9 7a3 3 0 0 1 6 0"></path></svg>
-      <span style="position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; border-radius: 10px; background: #E5484D; color: #FFFFFF; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 2px solid #2B1D14;">2</span>
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px;">
+    <span style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 22px; color: #B23A6B;">bánh nhà dev</span>
+    <div style="display: flex; gap: 10px;">
+      <span style="width: 42px; height: 42px; border-radius: 21px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; justify-content: center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3A2E39" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4-4"></path></svg></span>
+      <span style="position: relative; width: 42px; height: 42px; border-radius: 21px; background: #FFFFFF; box-shadow: 0 4px 16px rgba(58,46,57,0.06); display: flex; align-items: center; justify-content: center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3A2E39" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.3 11.5H6.3z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg><span style="position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; border-radius: 8px; background: #B23A6B; color: #FFFFFF; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;">2</span></span>
     </div>
   </div>
-
-  <div style="margin: 4px 18px 0; position: relative; background: #F7C948; border: 2px solid #2B1D14; border-radius: 26px; box-shadow: 5px 5px 0 #2B1D14; padding: 20px 18px 18px; overflow: hidden;">
-    <span style="display: inline-block; background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; transform: rotate(-3deg);">nướng mỗi sáng · Q.7</span>
-    <h1 style="margin: 12px 0 6px; font-family: 'Baloo 2', system-ui; font-weight: 800; font-size: 36px; line-height: 0.98;">Bánh nhà làm,<br>đặt hôm trước<br>nhận hôm sau</h1>
-    <p style="margin: 0 0 14px; font-size: 14px; max-width: 220px;">Một mình nướng, mỗi ngày chỉ nhận vừa đủ để cái nào cũng ngon.</p>
-    <div style="display: flex; gap: 8px;">
-      <span style="height: 46px; padding: 0 18px; border-radius: 999px; background: #2B1D14; color: #FFF6E9; display: flex; align-items: center; font-weight: 800; box-shadow: 3px 3px 0 #E5484D;">Đặt bánh</span>
-      <span style="height: 46px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; border: 2px solid #2B1D14; display: flex; align-items: center; font-weight: 700;">Chat Zalo</span>
-    </div>
-    <div style="position: absolute; right: -22px; top: -22px; width: 96px; height: 96px; border-radius: 48px; background: #F2A65A; border: 2px solid #2B1D14; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #6B3E12; transform: rotate(8deg);">[ảnh]</div>
+  <div style="margin: 6px 20px 0; background: #F6C1D4; border-radius: 32px; padding: 24px 22px 22px; position: relative; overflow: hidden;">
+    <div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 31px; line-height: 1.2; ">Một chiếc bánh,<br>một lời chúc<br>đúng ngày.</div>
+    <p style="margin: 10px 0 16px; font-size: 14px; color: #5E4B5C; max-width: 200px;">Làm tại nhà theo đơn. Viết lời chúc, giấu giá, giao tận tay người nhận.</p>
+    <span style="height: 48px; padding: 0 22px; border-radius: 24px; background: #B23A6B; color: #FFFFFF; display: inline-flex; align-items: center; font-weight: 700;">Chọn bánh để tặng</span>
+    <div style="position: absolute; right: 18px; bottom: 16px; transform: rotate(9deg);"><svg width="82" height="82" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 15h20v12H7z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M6 14h20v12.5H6z M5 10h22v4H5z M16 10v16.5 M16 10c-2.2-4.2-7.2-4-6-1.1C10.8 10.8 16 10 16 10z M16 10c2.2-4.2 7.2-4 6-1.1-.8 1.9-6 1.1-6 1.1z" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
   </div>
 
-  <div style="margin: 26px 18px 0; display: flex; justify-content: space-between; align-items: baseline;">
-    <h2 style="margin: 0; font-family: 'Baloo 2', system-ui; font-weight: 800; font-size: 24px;">Lịch nướng tuần này</h2>
-    <span style="font-size: 13px; color: #8A6F5C;">đặt trước 1 ngày</span>
-  </div>
-  <div style="margin: 10px 18px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;">
-    <div style="background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 16px; padding: 8px 6px; text-align: center;"><div style="font-size: 12px; color: #8A6F5C;">T5</div><div style="font-family: 'Baloo 2'; font-weight: 800; font-size: 22px; line-height: 1;">18</div><div style="margin-top: 4px; font-size: 11px; font-weight: 800; color: #2E8B62;">còn 3</div></div>
-    <div style="background: #F0E6D6; border: 2px dashed #C9B49A; border-radius: 16px; padding: 8px 6px; text-align: center; color: #A89078;"><div style="font-size: 12px;">T6</div><div style="font-family: 'Baloo 2'; font-weight: 800; font-size: 22px; line-height: 1;">19</div><div style="margin-top: 4px; font-size: 11px; font-weight: 800;">hết slot</div></div>
-    <div style="background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 16px; padding: 8px 6px; text-align: center;"><div style="font-size: 12px; color: #8A6F5C;">T7</div><div style="font-family: 'Baloo 2'; font-weight: 800; font-size: 22px; line-height: 1;">20</div><div style="margin-top: 4px; font-size: 11px; font-weight: 800; color: #2E8B62;">còn 5</div></div>
-    <div style="background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 16px; padding: 8px 6px; text-align: center;"><div style="font-size: 12px; color: #8A6F5C;">CN</div><div style="font-family: 'Baloo 2'; font-weight: 800; font-size: 22px; line-height: 1;">21</div><div style="margin-top: 4px; font-size: 11px; font-weight: 800; color: #D98B1F;">còn 1</div></div>
+  <div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 22px; line-height: 1.2; margin: 28px 20px 12px;">Hôm nay tặng ai?</div>
+  <div style="margin: 0 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+    <div style="background: #FFFFFF; border-radius: 24px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 24px;"><svg width="48" height="48" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 17h19v10H7z" fill="#F2A3BD" transform="translate(2.6 2.4)"></path><path d="M6 16c2 2.2 3.2 2.2 5 0s3.3-2.2 5 0 3.2 2.2 5 0 3.3-2.1 5 0v10.5H6z M16 9.5v5.5 M16 4.5c1.5 1.4 1.5 2.9 0 4.2-1.5-1.3-1.5-2.8 0-4.2z M9 21.5h14" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="margin-top: 8px; font-weight: 700;">Sinh nhật mẹ</div><div style="font-size: 12px; color: #857684;">bánh kem ít ngọt</div></div>
+    <div style="background: #FFFFFF; border-radius: 24px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 24px;"><svg width="48" height="48" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 11h21v15H6z" fill="#94CBE3" transform="translate(2.6 2.4)"></path><path d="M5 9.5h21.5v15.5H5z M5.5 10.5l10.4 8.6 10.2-8.6 M22 4.8c.9-1.9 3.9-1.8 3.9.9 0 2.1-3.9 4.2-3.9 4.2s-3.9-2.1-3.9-4.2c0-2.7 3-2.8 3.9-.9z" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="margin-top: 8px; font-weight: 700;">Người thương</div><div style="font-size: 12px; color: #857684;">giấu giá, kèm thiệp</div></div>
+    <div style="background: #FFFFFF; border-radius: 24px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 24px;"><svg width="48" height="48" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 21c2-7 8-11 11-11s9 4 11 11c-3 1-5 0-6-2-2 3-8 3-10 0-1 2-3 3-6 2z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M5 20c2-7 8-11.2 11-11.2S25 13 27 20c-3 1.1-5 .1-6-1.9-2 3.1-8 3.1-10 0-1 2-3 3-6 1.9z M12.2 11.8l2 6.6 M19.8 11.8l-2 6.6" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="margin-top: 8px; font-weight: 700;">Cả văn phòng</div><div style="font-size: 12px; color: #857684;">hộp pastry 12 cái</div></div>
+    <div style="background: #FFFFFF; border-radius: 24px; padding: 16px; box-shadow: 0 4px 16px rgba(58,46,57,0.06); border-radius: 24px;"><svg width="48" height="48" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M11 12h12c2 3 2 9 0 12H11c-2-3-2-9 0-12z" fill="#F6B48A" transform="translate(2.6 2.4)"></path><path d="M10 11h12c2.1 3 2.1 9 0 12H10c-2.1-3-2.1-9 0-12z M12 7.8h8v3.2h-8z M16 3.8v4 M16 23v5.2 M14 11c-1.1 3-1.1 9 0 12 M18 11c1.1 3 1.1 9 0 12" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div style="margin-top: 8px; font-weight: 700;">Trung thu</div><div style="font-size: 12px; color: #857684;">hộp quà, đặt đến 25/9</div></div>
   </div>
 
-  <h2 style="margin: 26px 18px 10px; font-family: 'Baloo 2', system-ui; font-weight: 800; font-size: 24px;">Hôm nay ăn gì</h2>
-  <div style="margin: 0 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
-    <div style="background: #E5484D; color: #FFFFFF; border: 2px solid #2B1D14; border-radius: 20px; padding: 14px; height: 112px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-family: 'Baloo 2'; font-weight: 800; font-size: 20px; line-height: 1.05;">Bánh kem sinh nhật</span><span style="font-size: 12px; font-weight: 700;">từ 320.000đ · đặt riêng</span></div>
-    <div style="background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 20px; padding: 14px; height: 112px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-family: 'Baloo 2'; font-weight: 800; font-size: 20px; line-height: 1.05;">Pastry &amp; ngàn lớp</span><span style="font-size: 12px; font-weight: 700; color: #8A6F5C;">từ 35.000đ/cái</span></div>
-    <div style="background: #7CC6A4; border: 2px solid #2B1D14; border-radius: 20px; padding: 14px; height: 112px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-family: 'Baloo 2'; font-weight: 800; font-size: 20px; line-height: 1.05;">Bánh Việt, fusion</span><span style="font-size: 12px; font-weight: 700;">bông lan trứng muối…</span></div>
-    <div style="position: relative; background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 20px; padding: 14px; height: 112px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-family: 'Baloo 2'; font-weight: 800; font-size: 20px; line-height: 1.05;">Hộp quà Trung thu</span><span style="font-size: 12px; font-weight: 700; color: #8A6F5C;">đặt trước 25/9</span><span style="position: absolute; top: -9px; right: -6px; background: #F7C948; border: 2px solid #2B1D14; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 800; transform: rotate(8deg);">mùa này</span></div>
+  <div style="margin: 28px 20px 12px; display: flex; justify-content: space-between; align-items: baseline;">
+    <div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 22px; line-height: 1.2; ">Bánh được yêu nhất</div><span style="font-size: 13px; color: #B23A6B; font-weight: 700;">Xem menu</span>
+  </div>
+  <div style="margin: 0 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+    <div style="background: #FFFFFF; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 16px rgba(58,46,57,0.06);"><div style="height: 140px; border-radius: 0px; background: #F6C1D4; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #8C3B5E;">[ảnh]</div><div style="padding: 10px 12px 12px;"><div style="font-weight: 700;">Kem dâu phô mai</div><div style="margin-top: 2px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 13px; color: #857684;">từ 320k</span><span style="width: 30px; height: 30px; border-radius: 15px; background: #B23A6B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700;">+</span></div></div></div>
+    <div style="background: #FFFFFF; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 16px rgba(58,46,57,0.06);"><div style="height: 140px; border-radius: 0px; background: #F7DDB0; display: flex; align-items: flex-end; padding: 8px 10px; box-sizing: border-box; font-size: 10px; color: #7A5A1E;">[ảnh]</div><div style="padding: 10px 12px 12px;"><div style="font-weight: 700;">Bánh táo ngàn lớp</div><div style="margin-top: 2px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 13px; color: #857684;">hộp 4 · 140k</span><span style="width: 30px; height: 30px; border-radius: 15px; background: #FDE3EC; color: #B23A6B; display: flex; align-items: center; justify-content: center; font-weight: 700;">+</span></div></div></div>
   </div>
 
-  <div style="margin: 26px 18px 10px; display: flex; justify-content: space-between; align-items: baseline;">
-    <h2 style="margin: 0; font-family: 'Baloo 2', system-ui; font-weight: 800; font-size: 24px;">Được đặt nhiều</h2>
-    <span style="font-size: 13px; color: #E5484D; font-weight: 700;">Xem menu</span>
-  </div>
-  <div style="margin: 0 18px; display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 20px; padding: 10px; box-shadow: 4px 4px 0 #2B1D14;">
-      <div style="height: 96px; border-radius: 14px; background: #F5B7B1; display: flex; align-items: flex-end; padding: 6px; box-sizing: border-box; font-size: 10px; color: #8C3B33;">[ảnh]</div>
-      <div style="display: flex; flex-direction: column; justify-content: space-between;">
-        <div><div style="font-weight: 800; font-size: 16px; line-height: 1.2;">Bánh kem dâu kem phô mai</div><div style="font-size: 13px; color: #8A6F5C;">Kem ít ngọt, dâu Đà Lạt</div></div>
-        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 800;">từ 320.000đ</span><span style="width: 34px; height: 34px; border-radius: 17px; background: #E5484D; border: 2px solid #2B1D14; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800;">+</span></div>
-      </div>
-    </div>
-    <div style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 20px; padding: 10px;">
-      <div style="height: 96px; border-radius: 14px; background: #E8B86D; display: flex; align-items: flex-end; padding: 6px; box-sizing: border-box; font-size: 10px; color: #6B4A12;">[ảnh]</div>
-      <div style="display: flex; flex-direction: column; justify-content: space-between;">
-        <div><div style="font-weight: 800; font-size: 16px; line-height: 1.2;">Bánh táo ngàn lớp</div><div style="font-size: 13px; color: #8A6F5C;">Hộp 4 cái · vỏ giòn, nhân quế</div></div>
-        <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: 800;">140.000đ</span><span style="width: 34px; height: 34px; border-radius: 17px; background: #FFFFFF; border: 2px solid #2B1D14; display: flex; align-items: center; justify-content: center; font-weight: 800;">+</span></div>
-      </div>
+  <div style="margin: 26px 20px 0; background: #CFE8F3; border-radius: 28px; padding: 18px 20px; display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 10px; align-items: center;">
+    <div><div style="font-family: Quicksand, system-ui; font-weight: 700; font-size: 19px; line-height: 1.2; ">Đừng để lỡ ngày quan trọng</div><div style="margin-top: 6px; font-size: 14px; color: #3F5563;">Lưu sinh nhật, tiệm nhắn Zalo trước 7 ngày kèm gợi ý bánh.</div></div>
+    <svg width="60" height="60" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 10h20v17H7z" fill="#F5D163" transform="translate(2.6 2.4)"></path><path d="M6 9h20v17H6z M6 14h20 M11 6v5 M21 6v5 M18.5 19h3v3h-3z" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div style="grid-column: 1 / -1; display: flex; gap: 8px;">
+      <span style="flex: 1; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; padding: 0 16px; font-size: 14px; color: #8AA0AD;">Mẹ · 12/10</span>
+      <span style="height: 44px; padding: 0 18px; border-radius: 22px; background: #3A2E39; color: #FFFFFF; display: flex; align-items: center; font-weight: 700;">Lưu</span>
     </div>
   </div>
 
-  <div style="margin: 26px 18px 0; background: #7CC6A4; border: 2px solid #2B1D14; border-radius: 24px; padding: 18px; position: relative;">
-    <span style="position: absolute; top: -12px; left: 16px; background: #FFFFFF; border: 2px solid #2B1D14; border-radius: 999px; padding: 1px 10px; font-size: 12px; font-weight: 800; transform: rotate(-4deg);">không bao giờ quên nữa</span>
-    <div style="font-family: 'Baloo 2'; font-weight: 800; font-size: 22px; line-height: 1.1; margin-top: 4px;">Lưu sinh nhật người thương, tiệm nhắn trước 7 ngày</div>
-    <div style="margin-top: 8px; font-size: 14px;">Qua Zalo, một tin mỗi năm. Tắt bất cứ lúc nào.</div>
-    <span style="margin-top: 12px; height: 42px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; border: 2px solid #2B1D14; display: inline-flex; align-items: center; font-weight: 800;">Lưu một ngày sinh nhật</span>
+  <div style="margin: 24px 20px 0; box-shadow: 0 4px 16px rgba(58,46,57,0.06); background: #FFFFFF; border-radius: 24px; padding: 16px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start;">
+    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 13h22v13H6z" fill="#F2A3BD" transform="translate(2.6 2.4)"></path><path d="M5 12h5.5l2-3h7l2 3H27v13H5z M12 18.5a4 4 0 1 0 8 0 4 4 0 1 0-8 0" stroke="#3A2E39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div><div style="font-size: 14px;">"Mẹ khóc khi đọc chữ trên bánh. Cảm ơn tiệm."</div><div style="margin-top: 4px; font-size: 12px; color: #857684;">chị Vy, Q.7 · gửi kèm ảnh bánh</div></div>
   </div>
 
-  <div style="margin: 26px 18px 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center;">
-    <div style="width: 64px; height: 64px; border-radius: 32px; background: #D9B48F; border: 2px solid #2B1D14; display: flex; align-items: center; justify-content: center; font-size: 10px;">[chủ tiệm]</div>
-    <div><div style="font-weight: 800;">"Sợ AI giành việc, nên quay về nướng bánh."</div><div style="font-size: 13px; color: #8A6F5C;">Chuyện của tiệm · 2 phút đọc</div></div>
-  </div>
 </div>
 </x-dc>
 </body>
