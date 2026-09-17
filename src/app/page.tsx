@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { connection } from 'next/server'
 import { CartButton } from '@/components/cart-button'
+import { SocialLinks } from '@/components/social-links'
 import { PRINT, StampIcon, type StampName } from '@/components/stamp-icon'
 import { buttonClass, ProductArt, SectionTitle } from '@/components/ui'
 import { category } from '@/lib/catalog'
@@ -89,6 +90,12 @@ export default async function HomePage() {
           <p className="text-sm">Bánh nào cũng được chụp lại trước khi rời bếp. Bạn xem ảnh chiếc bánh thật của mình ngay trên trang theo dõi đơn.</p>
           <p className="mt-1 text-xs text-muted">lời hứa của tiệm</p>
         </div>
+      </section>
+
+      <section className="mt-8 text-center">
+        <SectionTitle className="text-xl">Ghé tiệm trên mạng</SectionTitle>
+        <p className="mt-1 mb-3 text-sm text-muted">Bánh mới mỗi tuần, hỏi gì cứ nhắn.</p>
+        <SocialLinks withAction />
       </section>
     </main>
   )

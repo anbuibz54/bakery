@@ -10,7 +10,7 @@ export const PICKUP_ADDRESS = 'Nguyễn Thị Thập, Q.7'
 
 /**
  * PLACEHOLDER: flat delivery fees by area, until there is a distance API.
- * The checkout says the fee is an estimate and the shop confirms over Zalo.
+ * The checkout says the fee is an estimate and the shop confirms by message.
  */
 export const DELIVERY_ZONES = [
   { id: 'gan', label: 'Q.7, Q.4, Nhà Bè', feeVnd: 25_000 },
@@ -18,6 +18,21 @@ export const DELIVERY_ZONES = [
   { id: 'xa', label: 'Quận khác trong TP.HCM', feeVnd: 50_000 },
 ] as const
 export type DeliveryZoneId = (typeof DELIVERY_ZONES)[number]['id']
+
+/**
+ * Where customers talk to the shop. No Zalo on purpose — the shop lives on
+ * Instagram, Facebook and TikTok. PLACEHOLDER: fill in the real links; an empty
+ * url shows the name without a link.
+ *
+ * Link straight into a chat where the platform allows it:
+ * Instagram DM `https://ig.me/m/<username>`, Messenger `https://m.me/<page>`.
+ */
+export const SOCIALS = [
+  { id: 'instagram', label: 'Instagram', action: 'nhắn DM', url: '' },
+  { id: 'facebook', label: 'Facebook', action: 'Messenger', url: '' },
+  { id: 'tiktok', label: 'TikTok', action: 'xem bánh mới', url: '' },
+] as const
+export type SocialId = (typeof SOCIALS)[number]['id']
 
 /** Receiving windows, Vietnam time. `scheduled_for` stores the start. */
 export const SLOTS = [

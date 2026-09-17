@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { SocialLinks } from '@/components/social-links'
 import { PRINT, StampIcon, type StampName } from '@/components/stamp-icon'
 import { buttonClass, Card } from '@/components/ui'
 import { inlineDay, stamp, vnDate, vnHour } from '@/lib/dates'
@@ -66,7 +67,10 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
 
       <div className="px-5">
         {order.status === 'cancelled' ? (
-          <Card className="mt-5 text-center">Đơn này đã huỷ. Có gì thắc mắc, bạn nhắn Zalo tiệm nhé.</Card>
+          <Card className="mt-5 flex flex-col gap-3 text-center">
+            <p>Đơn này đã huỷ. Có gì thắc mắc, bạn nhắn tiệm nhé.</p>
+            <SocialLinks />
+          </Card>
         ) : (
           <>
             {unpaid && (
@@ -146,7 +150,11 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
           </div>
         )}
 
-        <p className="mt-4 text-center text-[13px] text-muted">Link này không cần đăng nhập, gửi cho người nhà xem cũng được.</p>
+        <div className="mt-5 text-center text-[13px] text-muted">
+          <p className="mb-2">Cần dặn thêm? Nhắn tiệm kèm mã đơn {order.code}:</p>
+          <SocialLinks />
+          <p className="mt-4">Link này không cần đăng nhập, gửi cho người nhà xem cũng được.</p>
+        </div>
       </div>
     </main>
   )

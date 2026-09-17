@@ -6,7 +6,7 @@ import { saveOccasionAction, type OccasionState } from './_actions/shop'
 
 const field = 'h-11 min-w-0 rounded-full bg-surface px-4 text-sm placeholder:text-[#8AA0AD] focus-visible:outline-2 focus-visible:outline-berry'
 
-/** "Đừng để lỡ ngày quan trọng": save a birthday, get a Zalo nudge 7 days before. */
+/** "Đừng để lỡ ngày quan trọng": save a birthday, get a text 7 days before. */
 export function OccasionForm() {
   const [state, action, pending] = useActionState<OccasionState, FormData>(saveOccasionAction, null)
   const [open, setOpen] = useState(false)
@@ -17,7 +17,7 @@ export function OccasionForm() {
     <section className="grid grid-cols-[minmax(0,1fr)_64px] items-center gap-2.5 rounded-[28px] bg-sky px-5 py-[18px]">
       <div>
         <h2 className="font-display text-[19px] leading-tight font-bold">Đừng để lỡ ngày quan trọng</h2>
-        <p className="mt-1.5 text-sm text-[#3F5563]">Lưu sinh nhật, tiệm nhắn Zalo trước 7 ngày kèm gợi ý bánh.</p>
+        <p className="mt-1.5 text-sm text-[#3F5563]">Lưu sinh nhật, tiệm nhắn tin nhắc trước 7 ngày kèm gợi ý bánh.</p>
       </div>
       <StampIcon name="calendar" size={60} print={PRINT.lemon} />
 
@@ -40,8 +40,8 @@ export function OccasionForm() {
           </div>
           {open && (
             <>
-              <label className="sr-only" htmlFor="occ-phone">Số điện thoại Zalo của bạn</label>
-              <input id="occ-phone" name="phone" value={v.phone} onChange={(e) => setV({ ...v, phone: e.target.value })} required type="tel" inputMode="tel" autoComplete="tel" placeholder="Số Zalo của bạn" className={`${field} w-full`} />
+              <label className="sr-only" htmlFor="occ-phone">Số điện thoại của bạn</label>
+              <input id="occ-phone" name="phone" value={v.phone} onChange={(e) => setV({ ...v, phone: e.target.value })} required type="tel" inputMode="tel" autoComplete="tel" placeholder="Số điện thoại của bạn" className={`${field} w-full`} />
               <label className="flex items-start gap-2 text-[13px] text-[#3F5563]">
                 <input type="checkbox" name="consent" checked={v.consent} onChange={(e) => setV({ ...v, consent: e.target.checked })} required className="mt-0.5 size-4 accent-berry" />
                 Tôi đồng ý để tiệm lưu ngày này và số điện thoại để nhắn nhắc. Một tin mỗi năm, tắt lúc nào cũng được.

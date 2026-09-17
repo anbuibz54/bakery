@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState, useSyncExternalStore } from 'react'
+import { SocialLinks } from '@/components/social-links'
 import { StampIcon, PRINT } from '@/components/stamp-icon'
 import { formatVnd } from '@/lib/money'
 import type { PaymentView } from '@/server/payments/service'
@@ -25,7 +26,7 @@ function secured(status: PaymentView['paymentStatus']) {
  * Polls while the tab is visible, and immediately when the customer comes back
  * from their banking app.
  */
-export function PaymentLive({ token, initial, zaloUrl }: { token: string; initial: PaymentView; zaloUrl: string | null }) {
+export function PaymentLive({ token, initial }: { token: string; initial: PaymentView }) {
   const [view, setView] = useState(initial)
   const now = useSyncExternalStore(subscribeClock, clockNow, clockServer)
   const waiting = !view.cancelled && !secured(view.paymentStatus)
@@ -69,23 +70,23 @@ export function PaymentLive({ token, initial, zaloUrl }: { token: string; initia
       </header>
 
       {view.cancelled ? (
-        <Notice icon="calendar" title="Đơn này đã huỷ" zaloUrl={zaloUrl}>
+        <Notice icon="calendar" title="Đơn này đã huỷ">
           Nếu bạn đã chuyển khoản, tiệm sẽ liên hệ để hoàn tiền.
         </Notice>
       ) : secured(view.paymentStatus) ? (
         <Paid view={view} token={token} />
       ) : expired ? (
-        <Notice icon="calendar" title="Hết giờ giữ lịch nướng" zaloUrl={zaloUrl}>
-          Đơn {view.code} chưa nhận được cọc trong 15 phút. Nhắn Zalo tiệm để giữ lại lịch nhé.
+        <Notice icon="calendar" title="Hết giờ giữ lịch nướng">
+          Đơn {view.code} chưa nhận được cọc trong 15 phút. Nhắn tiệm qua Instagram hoặc Facebook để giữ lại lịch nhé.
         </Notice>
       ) : (
-        <Waiting view={view} msLeft={msLeft} zaloUrl={zaloUrl} />
+        <Waiting view={view} msLeft={msLeft} />
       )}
     </>
   )
 }
 
-function Waiting({ view, msLeft, zaloUrl }: { view: PaymentView; msLeft: number | null; zaloUrl: string | null }) {
+function Waiting({ view, msLeft }: { view: PaymentView; msLeft: number | null }) {
   return (
     <div className="flex flex-col gap-3.5">
       <div className="text-center">
@@ -138,16 +139,10 @@ function Waiting({ view, msLeft, zaloUrl }: { view: PaymentView; msLeft: number 
         </div>
       </section>
 
-      <p className="text-center text-[13px] text-muted">
-        Chuyển thiếu hoặc lỡ ghi sai nội dung?{' '}
-        {zaloUrl ? (
-          <a href={zaloUrl} className="font-bold text-berry">
-            Nhắn Zalo tiệm
-          </a>
-        ) : (
-          <span className="font-bold text-berry">Nhắn Zalo tiệm</span>
-        )}
-      </p>
+      <div className="text-center text-[13px] text-muted">
+        <p className="mb-2">Chuyển thiếu hoặc lỡ ghi sai nội dung? Nhắn tiệm kèm mã đơn {view.code}:</p>
+        <SocialLinks />
+      </div>
     </div>
   )
 }
@@ -175,17 +170,13 @@ function Paid({ view, token }: { view: PaymentView; token: string }) {
   )
 }
 
-function Notice({ icon, title, children, zaloUrl }: { icon: 'calendar'; title: string; children: React.ReactNode; zaloUrl: string | null }) {
+function Notice({ icon, title, children }: { icon: 'calendar'; title: string; children: React.ReactNode }) {
   return (
     <section className="flex flex-col items-center gap-3 rounded-3xl bg-surface px-5 py-8 text-center shadow-[var(--shadow-soft)]">
       <StampIcon name={icon} size={56} print={PRINT.lemon} />
       <p className="font-display text-xl font-bold">{title}</p>
       <p className="text-muted">{children}</p>
-      {zaloUrl && (
-        <a href={zaloUrl} className="mt-1 rounded-full bg-berry px-6 py-3 font-bold text-white">
-          Nhắn Zalo tiệm
-        </a>
-      )}
+      <SocialLinks className="mt-1" />
     </section>
   )
 }

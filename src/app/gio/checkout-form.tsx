@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useActionState, useState } from 'react'
+import { SocialLinks } from '@/components/social-links'
 import { PRINT, StampIcon } from '@/components/stamp-icon'
 import { buttonClass, Card, ProductArt, SectionTitle } from '@/components/ui'
 import { dayState, slotOpen, type DayAvailability } from '@/lib/availability'
@@ -118,7 +119,10 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
         <fieldset className="min-w-0">
           <legend className="mb-2.5 font-bold">Ngày nhận</legend>
           {openDays.length === 0 ? (
-            <p className="text-sm text-muted">Hai tuần tới đã kín lịch. Nhắn Zalo tiệm để hỏi thêm nhé.</p>
+            <div className="text-sm text-muted">
+              <p className="mb-2">Hai tuần tới đã kín lịch. Nhắn tiệm để hỏi thêm nhé.</p>
+              <SocialLinks />
+            </div>
           ) : (
             <div className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
               {openDays.map((d) => (
@@ -161,7 +165,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
       <Card className="flex flex-col gap-3">
         <div>
           <label htmlFor="phone" className={label}>
-            Số điện thoại (Zalo)
+            Số điện thoại
           </label>
           <input id="phone" type="tel" inputMode="tel" autoComplete="tel" required value={f.phone} onChange={set('phone')} placeholder="0908 123 456" aria-invalid={bad('phone')} className={input} />
         </div>
@@ -171,7 +175,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
           </label>
           <input id="name" autoComplete="given-name" value={f.name} onChange={set('name')} placeholder="Vy" className={input} />
         </div>
-        <p className="text-xs text-muted">Không cần tạo tài khoản. Tiệm nhắn Zalo khi bánh bắt đầu làm và khi sẵn sàng.</p>
+        <p className="text-xs text-muted">Không cần tạo tài khoản. Tiến độ bánh xem ở trang theo dõi đơn; tiệm chỉ gọi khi cần hỏi thêm.</p>
       </Card>
 
       <div className="mt-6 mb-3 flex items-center justify-between gap-3">
@@ -257,7 +261,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
             <p className="font-bold">
               Lưu ngày {dayMonth(date)} là sinh nhật {gift && f.recipientName ? f.recipientName : 'người nhận bánh'}?
             </p>
-            <p className="mt-0.5 text-[13px] text-[#3F5563]">Năm sau tiệm nhắn Zalo cho bạn trước 7 ngày. Một tin mỗi năm, tắt lúc nào cũng được.</p>
+            <p className="mt-0.5 text-[13px] text-[#3F5563]">Năm sau tiệm nhắn tin nhắc bạn trước 7 ngày. Một tin mỗi năm, tắt lúc nào cũng được.</p>
             <label className="mt-2 flex items-start gap-2.5 text-sm">
               <input type="checkbox" checked={saveOccasion} onChange={(e) => setSaveOccasion(e.target.checked)} className="mt-0.5 size-5 accent-berry" />
               Tôi đồng ý để tiệm lưu ngày này và số điện thoại của tôi để nhắn nhắc.

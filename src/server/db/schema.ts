@@ -55,7 +55,7 @@ export const orderStatusEnum = bakery.enum('order_status', [
  * Derived from the money actually received (`orders.paid_vnd`), never set by
  * hand: see `derivePaymentStatus` in src/server/payments/status.ts.
  * `underpaid` = something arrived but less than the deposit (a typo in the
- * amount); the owner sorts it out over Zalo.
+ * amount); the owner sorts it out by message.
  */
 export const paymentStatusEnum = bakery.enum('payment_status', [
   'unpaid',
@@ -136,7 +136,7 @@ export const productOptions = bakery.table('product_options', {
 
 /**
  * Keyed by phone number — that is how Vietnamese customers identify themselves
- * (Zalo, delivery drivers, COD). No password, no Supabase Auth account: buying
+ * (delivery drivers, COD, bank transfers). No password, no Supabase Auth account: buying
  * a cake must not require signing up, and customers must not land in the auth
  * user table shared with the owner's personal apps.
  *
@@ -151,6 +151,7 @@ export const customers = bakery.table('customers', {
   phone: text('phone').notNull(),
   name: text('name'),
   email: text('email'),
+  /** Unused: the shop does not use Zalo. Kept to avoid a migration; drop when convenient. */
   zaloUserId: text('zalo_user_id'),
   /** Allergies, preferences, "không thích quá ngọt". Shown on every order. */
   notes: text('notes'),

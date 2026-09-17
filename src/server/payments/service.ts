@@ -116,7 +116,7 @@ function paymentMessage(amount: number, status: PaymentStatus, t: { paidVnd: num
     case 'deposit_paid':
       return `${got} Lịch nướng của bạn đã được giữ. Còn ${formatVnd(t.totalVnd - t.paidVnd)} trả khi nhận bánh.`
     case 'underpaid':
-      return `${got} Còn thiếu ${formatVnd(dueNowVnd(t))} tiền cọc — chuyển thêm hoặc nhắn Zalo tiệm nhé.`
+      return `${got} Còn thiếu ${formatVnd(dueNowVnd(t))} tiền cọc — chuyển thêm hoặc nhắn tiệm qua Instagram / Facebook nhé.`
     default:
       return got
   }

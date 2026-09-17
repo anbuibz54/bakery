@@ -21,7 +21,7 @@ export default async function PaymentPage({ params, searchParams }: PageProps<'/
   return (
     <main className="mx-auto min-h-dvh w-full max-w-md px-5 pb-10">
       {moi === '1' && <ClearCart />}
-      <PaymentLive token={token} initial={view} zaloUrl={process.env.SHOP_ZALO_URL ?? null} />
+      <PaymentLive token={token} initial={view} />
     </main>
   )
 }

@@ -101,7 +101,7 @@ Lives in the **LifeOS Supabase project**: LifeOS owns `public`, the cookbook own
 Retention features that fit a one-person bakery, in priority order:
 
 1. **Occasion reminders** — save birthdays at checkout (explicit consent), remind
-   7–10 days before via Zalo. The most distinctive feature for a birthday-cake shop.
+   7–10 days before by text message. The most distinctive feature for a birthday-cake shop.
 2. **Story-style order tracking** — "Cốt bánh đang nướng… đang phủ kem…" plus a
    real photo before it leaves.
 3. **QR in the box** → thank-you page: note from the baker, storage tips, photo
@@ -118,8 +118,11 @@ Vietnam specifics:
 - **Payments:** SePay (chosen 2026-09-17 over payOS) — see "Payments" below.
   MoMo/ZaloPay later.
 - **Delivery:** Ahamove / Lalamove APIs, GrabExpress.
-- **Messaging:** Zalo OA + ZNS (~200–800đ per delivered message). Customers
-  expect to chat before buying — offer "Đặt qua Zalo".
+- **Messaging: no Zalo** (owner decision 2026-09-17). The shop is on Instagram,
+  Facebook and TikTok; every "contact the shop" spot shows `SocialLinks`
+  (links in `SOCIALS`, `src/lib/shop.ts` — Instagram DM `ig.me/m/…`, Messenger
+  `m.me/…`). Order progress lives on the tracking page, not in messages.
+  `customers.zalo_user_id` is unused.
 - **Social:** Facebook dominates social commerce; TikTok Shop VN restricts fresh
   bakery goods, so TikTok is content that links to the site.
 - **Legal:** Law 91/2025 on personal data (in force 2026-01-01): explicit,
@@ -189,7 +192,8 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
    upload, customer notes. Owner signs in with Supabase Auth.
 6. ✅ Tracking page (`/don/[trackToken]`). QR thank-you page still to do.
 7. ✅ Occasions saved at checkout and from the home page. Daily reminder job
-   (Zalo ZNS) still to do.
+   still to do — channel undecided (SMS brandname, or the owner texting by hand
+   from a daily list).
 8. UTM capture, analytics, consent log review.
 
 ## Storefront (built 2026-09-17)
@@ -216,10 +220,10 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 
 **Open questions for the owner (placeholders in code):** pickup address, delivery
 zones and fees, orders per day/slot, time slots, the menu itself and prices,
-Zalo link, the "hủy trước 48 giờ được hoàn cọc" policy.
+Instagram / Facebook / TikTok links, reminder channel, the "hủy trước 48 giờ được hoàn cọc" policy.
 
 ## Deferred — do not build yet
 
 Drops/limited batches table, loyalty, subscriptions, referral, discount codes,
-delivery API booking, Zalo Mini App, MoMo/ZaloPay, SEO district pages, B2B
-gifting, multi-language, an MCP server for orders/marketing.
+delivery API booking, MoMo/ZaloPay, SEO district pages, B2B
+gifting, multi-language, an MCP server for orders/marketing. Zalo anything.
