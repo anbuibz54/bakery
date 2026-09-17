@@ -10,7 +10,11 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "check:payments": "tsx scripts/check-payments.mts",
+    "payments:demo-order": "tsx --env-file=.env.local scripts/demo-order.mts",
+    "payments:simulate": "tsx --env-file=.env.local scripts/simulate-webhook.mts",
+    "payments:reconcile": "tsx --env-file=.env.local scripts/reconcile.mts"
   },
   "dependencies": {
     "clsx": "^2.1.1",

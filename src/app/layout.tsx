@@ -1,28 +1,35 @@
 import type { Metadata, Viewport } from 'next'
-import { Be_Vietnam_Pro } from 'next/font/google'
+import { Nunito, Quicksand } from 'next/font/google'
 import './globals.css'
 
-const beVietnam = Be_Vietnam_Pro({
-  variable: '--font-be-vietnam',
+const nunito = Nunito({
+  variable: '--font-nunito',
   subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   display: 'swap',
 })
 
-// Placeholder until the shop has a name.
+const quicksand = Quicksand({
+  variable: '--font-quicksand',
+  subsets: ['latin', 'vietnamese'],
+  weight: ['600', '700'],
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'Tiệm bánh',
+  title: 'Vibe Bánh',
   description: 'Bánh làm tay, đặt trước, giao tận nơi.',
   formatDetection: { telephone: false, date: false, address: false, email: false },
 }
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
+  themeColor: '#fff8fb',
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="vi" className={`${beVietnam.variable} h-full antialiased`}>
+    <html lang="vi" className={`${nunito.variable} ${quicksand.variable} h-full antialiased`}>
       <body className="min-h-full font-sans">{children}</body>
     </html>
   )

@@ -1,20 +1,44 @@
 @import "tailwindcss";
 
 /*
- * Placeholder. The brand (name, palette, type) is not decided yet — the
- * direction is "ấm áp, vui nhộn". Replace these tokens when it is.
+ * Vibe Bánh — direction C "Hộp quà pastel", approved 2026-09-17.
+ * Source of truth: design/mockups (canvas page "Hướng C — luồng đặt bánh").
+ * One deliberate look (a pastel gift box), so a single light theme.
  */
 :root {
-  --background: #fbf8f3;
-  --foreground: #2a2420;
-  --muted: #75695f;
+  --background: #fff8fb;
+  --surface: #ffffff;
+  --foreground: #3a2e39;
+  --muted: #857684;
+  --berry: #b23a6b;
+  --pink: #f6c1d4;
+  --blush: #fde3ec;
+  --sky: #cfe8f3;
+  --lemon: #fff0b3;
+  --lilac: #e4daf5;
+  --line: #f1dde6;
+  --mint: #d5efe3;
+  --mint-ink: #2f7a5b;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
-  --font-sans: var(--font-be-vietnam), system-ui, sans-serif;
+  --color-berry: var(--berry);
+  --color-pink: var(--pink);
+  --color-blush: var(--blush);
+  --color-sky: var(--sky);
+  --color-lemon: var(--lemon);
+  --color-lilac: var(--lilac);
+  --color-line: var(--line);
+  --color-mint: var(--mint);
+  --color-mint-ink: var(--mint-ink);
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+  --font-display: var(--font-quicksand), var(--font-nunito), system-ui, sans-serif;
+  --shadow-soft: 0 4px 16px rgb(58 46 57 / 0.06);
 }
 
 body {

@@ -167,7 +167,7 @@
       "x": 0,
       "y": -300,
       "w": 1300,
-      "text": "Bánh Nhà Dev (tên tạm) — vòng 2: hướng C \"Hộp quà pastel\", vẽ trọn luồng: trang chủ → menu → chi tiết bánh kem → giỏ + đặt bánh → thanh toán cọc → theo dõi đơn.\nIcon: bỏ emoji, vẽ bộ icon riêng kiểu \"tem in lệch\" — nét mực tròn đầu + mảng màu in lệch phía sau, như con tem dán hộp bánh (xem bảng icon ở cuối).\nCọc = 50% bánh kem + toàn bộ bánh làm sẵn + phí giao; phần còn lại trả khi nhận. Không cần tài khoản: số điện thoại (Zalo) + link theo dõi đơn.\nCòn chờ chốt: tên tiệm, cổng thanh toán (payOS hay SePay) — mockup đang vẽ VietQR chung."
+      "text": "Vibe Bánh — vòng 2 (đã duyệt): hướng C \"Hộp quà pastel\", vẽ trọn luồng: trang chủ → menu → chi tiết bánh kem → giỏ + đặt bánh → thanh toán cọc → theo dõi đơn.\nIcon: bỏ emoji, vẽ bộ icon riêng kiểu \"tem in lệch\" — nét mực tròn đầu + mảng màu in lệch phía sau, như con tem dán hộp bánh (xem bảng icon ở cuối).\nCọc = 50% bánh kem + toàn bộ bánh làm sẵn + phí giao; phần còn lại trả khi nhận. Không cần tài khoản: số điện thoại (Zalo) + link theo dõi đơn.\nĐã chốt: tên tiệm Vibe Bánh; thanh toán qua SePay (VietQR, webhook xác nhận tiền về)."
     }
   ],
   "launch": {

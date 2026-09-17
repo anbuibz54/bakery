@@ -8,6 +8,20 @@
       "when": 1789463551539,
       "tag": "0000_fresh_bloodaxe",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789631211083,
+      "tag": "0001_drop_payos",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789631213015,
+      "tag": "0002_sepay_payments",
+      "breakpoints": true
     }
   ]
 }

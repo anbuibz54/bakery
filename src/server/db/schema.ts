@@ -17,7 +17,6 @@
 
 import { sql } from 'drizzle-orm'
 import {
-  bigint,
   boolean,
   index,
   integer,
@@ -52,11 +51,18 @@ export const orderStatusEnum = bakery.enum('order_status', [
   'cancelled',
 ])
 
+/**
+ * Derived from the money actually received (`orders.paid_vnd`), never set by
+ * hand: see `derivePaymentStatus` in src/server/payments/status.ts.
+ * `underpaid` = something arrived but less than the deposit (a typo in the
+ * amount); the owner sorts it out over Zalo.
+ */
 export const paymentStatusEnum = bakery.enum('payment_status', [
   'unpaid',
   'deposit_paid', // custom cakes take a deposit
   'paid',
   'refunded',
+  'underpaid',
 ])
 
 export const fulfillmentEnum = bakery.enum('fulfillment', ['pickup', 'delivery'])
@@ -179,8 +185,10 @@ export const occasions = bakery.table('occasions', {
  * Totals are stored, not derived: an order is a record of what was charged,
  * and must not change if a product's price changes later.
  *
- * `payosOrderCode` is payOS's numeric order code, set when a payment QR is
- * created; the payment webhook finds the order by it.
+ * `code` doubles as the bank transfer memo ("VB123456"): SePay extracts it
+ * from the transfer content, and the webhook finds the order by it.
+ * `paidVnd` caches the sum of `payments` for this order, rewritten in the
+ * same transaction that records a payment.
  */
 export const orders = bakery.table('orders', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -207,7 +215,9 @@ export const orders = bakery.table('orders', {
   discountVnd: integer('discount_vnd').notNull().default(0),
   totalVnd: integer('total_vnd').notNull(),
   depositVnd: integer('deposit_vnd').notNull().default(0),
-  payosOrderCode: bigint('payos_order_code', { mode: 'number' }),
+  paidVnd: integer('paid_vnd').notNull().default(0),
+  /** The deposit must arrive by then or the bake slot is released. */
+  paymentDueAt: timestamp('payment_due_at', { withTimezone: true }),
 
   /** Customer-facing note from checkout ("giao trước 5h chiều"). */
   customerNote: text('customer_note'),
@@ -219,7 +229,6 @@ export const orders = bakery.table('orders', {
 }, (t) => [
   uniqueIndex('orders_code_idx').on(t.code),
   uniqueIndex('orders_track_token_idx').on(t.trackToken),
-  uniqueIndex('orders_payos_code_idx').on(t.payosOrderCode),
   index('orders_customer_idx').on(t.customerId, t.createdAt),
   // The bake-day list: "what do I make tomorrow".
   index('orders_scheduled_idx').on(t.scheduledFor),
@@ -266,4 +275,38 @@ export const orderEvents = bakery.table('order_events', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [
   index('order_events_order_idx').on(t.orderId, t.createdAt),
+])
+
+/**
+ * Money that arrived, one row per bank transaction — the ledger. Order payment
+ * status is derived from these rows, so a lost or doubled webhook can never
+ * leave an order "paid" without the money, or count the money twice.
+ *
+ * `(provider, providerRef)` is unique: SePay retries webhooks and the
+ * reconcile job re-reads the same transactions; the insert that loses the race
+ * does nothing. `providerRef` is SePay's transaction id.
+ *
+ * `orderId` is null when a transfer matched no order (wrong memo). Those rows
+ * are kept for the owner to match by hand — the money is real either way.
+ */
+export const payments = bakery.table('payments', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  orderId: uuid('order_id').references(() => orders.id, { onDelete: 'set null' }),
+  provider: text('provider').notNull(),
+  providerRef: text('provider_ref').notNull(),
+  amountVnd: integer('amount_vnd').notNull(),
+  /** Transfer memo exactly as the bank sent it. */
+  content: text('content'),
+  /** The bank's own reference (FT24012345678). */
+  bankRef: text('bank_ref'),
+  bank: text('bank'),
+  receivedAt: timestamp('received_at', { withTimezone: true }).notNull(),
+  /** `webhook` or `reconcile` — which path saw it first. */
+  source: text('source').notNull(),
+  raw: jsonb('raw').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [
+  uniqueIndex('payments_provider_ref_idx').on(t.provider, t.providerRef),
+  index('payments_order_idx').on(t.orderId),
+  index('payments_unmatched_idx').on(t.receivedAt).where(sql`${t.orderId} is null`),
 ])
