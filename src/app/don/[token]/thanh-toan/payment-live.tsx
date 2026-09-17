@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { StampIcon, PRINT } from '@/components/stamp-icon'
 import { formatVnd } from '@/lib/money'
@@ -55,10 +56,16 @@ export function PaymentLive({ token, initial, zaloUrl }: { token: string; initia
 
   return (
     <>
-      <header className="flex items-center justify-center py-4">
-        <h1 className="font-display text-lg font-bold">
+      <header className="grid grid-cols-[42px_minmax(0,1fr)_42px] items-center py-3.5">
+        <Link href={`/don/${token}`} aria-label="Xem đơn" className="flex size-[42px] items-center justify-center rounded-full bg-surface shadow-[var(--shadow-soft)]">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </Link>
+        <h1 className="text-center font-display text-lg font-bold">
           {secured(view.paymentStatus) ? 'Đã nhận tiền' : view.isDeposit ? 'Thanh toán cọc' : 'Thanh toán'}
         </h1>
+        <span />
       </header>
 
       {view.cancelled ? (
@@ -66,7 +73,7 @@ export function PaymentLive({ token, initial, zaloUrl }: { token: string; initia
           Nếu bạn đã chuyển khoản, tiệm sẽ liên hệ để hoàn tiền.
         </Notice>
       ) : secured(view.paymentStatus) ? (
-        <Paid view={view} />
+        <Paid view={view} token={token} />
       ) : expired ? (
         <Notice icon="calendar" title="Hết giờ giữ lịch nướng" zaloUrl={zaloUrl}>
           Đơn {view.code} chưa nhận được cọc trong 15 phút. Nhắn Zalo tiệm để giữ lại lịch nhé.
@@ -145,7 +152,7 @@ function Waiting({ view, msLeft, zaloUrl }: { view: PaymentView; msLeft: number 
   )
 }
 
-function Paid({ view }: { view: PaymentView }) {
+function Paid({ view, token }: { view: PaymentView; token: string }) {
   const full = view.paymentStatus === 'paid'
   return (
     <section className="flex flex-col items-center gap-3 rounded-3xl bg-surface px-5 py-8 text-center shadow-[var(--shadow-soft)]">
@@ -161,6 +168,9 @@ function Paid({ view }: { view: PaymentView }) {
           Còn <b>{formatVnd(view.remainingVnd)}</b> trả khi nhận bánh.
         </p>
       )}
+      <Link href={`/don/${token}`} className="mt-2 inline-flex h-12 items-center rounded-full bg-berry px-6 font-bold text-white">
+        Theo dõi đơn
+      </Link>
     </section>
   )
 }

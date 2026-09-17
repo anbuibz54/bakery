@@ -1,6 +1,6 @@
 /**
- * Placing an order. The checkout page (build order step 4) calls this; until
- * it exists, `pnpm payments:demo-order` does.
+ * Writing an order. Prices must already be computed on the server — the
+ * checkout (src/server/checkout) does that; `pnpm payments:demo-order` too.
  *
  * No `next/*` imports.
  */
@@ -9,7 +9,7 @@ import { randomBytes, randomInt } from 'node:crypto'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '../db'
-import { customers, orderEvents, orderItems, orders } from '../db/schema'
+import { customers, occasions, orderEvents, orderItems, orders } from '../db/schema'
 import { depositFor } from '../payments/status'
 import { ORDER_CODE_PREFIX } from '../payments/sepay'
 
@@ -49,6 +49,10 @@ export const orderInput = z.object({
   giftNote: z.string().max(300).optional(),
   hidePrice: z.boolean().default(false),
   customerNote: z.string().max(500).optional(),
+  /** "Lưu ngày này" ticked at checkout: the customer consented just now. */
+  occasion: z
+    .object({ label: z.string().max(80), personName: z.string().max(80).optional(), month: z.number().int().min(1).max(12), day: z.number().int().min(1).max(31) })
+    .optional(),
 })
 export type OrderInput = z.input<typeof orderInput>
 
@@ -117,8 +121,11 @@ export async function createOrder(raw: OrderInput) {
             lineTotalVnd: l.lineTotalVnd,
           })),
         )
+        if (input.occasion) {
+          await trx.insert(occasions).values({ customerId: customer.id, ...input.occasion, consentAt: new Date() })
+        }
         await trx.insert(orderEvents).values({ orderId: order.id, status: 'pending', message: 'Tiệm đã nhận đơn của bạn.' })
-        return { ...order, totalVnd, depositVnd }
+        return { ...order, customerId: customer.id, totalVnd, depositVnd }
       })
     } catch (error) {
       if (attempt < 4 && isUniqueViolation(error, 'orders_code_idx')) continue

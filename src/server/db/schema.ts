@@ -85,11 +85,24 @@ export const products = bakery.table('products', {
   slug: text('slug').notNull(),
   name: text('name').notNull(),
   description: text('description'),
+  /** One line under the name on menu cards: "Hộp 4 cái · vỏ tự cán, nhân quế". */
+  summary: text('summary'),
+  /** Slug from src/lib/catalog.ts CATEGORIES. */
   category: text('category').notNull(),
   basePriceVnd: integer('base_price_vnd').notNull(),
   /** Hours of notice needed. Drives the earliest date the checkout offers. */
   leadTimeHours: integer('lead_time_hours').notNull().default(24),
   recipeId: uuid('recipe_id'),
+  /** Made to order (custom cakes): 50% deposit. Otherwise paid in full up front. */
+  takesDeposit: boolean('takes_deposit').notNull().default(false),
+  /** Shown under "Bánh được yêu nhất" on the home page. */
+  featured: boolean('featured').notNull().default(false),
+  /** Set = listed but not orderable, with this reason ("Hết mùa xoài, quay lại tháng 4"). */
+  soldOutNote: text('sold_out_note'),
+  /** Placeholder colour until there is a photo. */
+  tone: text('tone').notNull().default('#FDE3EC'),
+  /** Supabase Storage key of the product photo. */
+  photoKey: text('photo_key'),
   isActive: boolean('is_active').notNull().default(true),
   position: smallint('position').notNull().default(0),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -108,6 +121,8 @@ export const productOptions = bakery.table('product_options', {
   productId: uuid('product_id').notNull().references(() => products.id, { onDelete: 'cascade' }),
   group: text('group').notNull(),
   label: text('label').notNull(),
+  /** Second line on the choice chip: "18cm". */
+  detail: text('detail'),
   priceDeltaVnd: integer('price_delta_vnd').notNull().default(0),
   isActive: boolean('is_active').notNull().default(true),
   position: smallint('position').notNull().default(0),

@@ -180,14 +180,43 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 1. ✅ Repo, schema, migrations.
 2. ✅ Brand (name, palette, type) → home page + ordering flow **mockup, approved by
    the owner before coding**.
-3. Menu + product page + custom options.
-4. Checkout (no account, phone first). ✅ SePay payment page, webhook, ledger,
-   reconcile (tested with simulated webhooks; real account not connected yet).
+3. ✅ Menu (`/menu`), product page + options (`/banh/[slug]`), starting menu
+   from the mockup (`pnpm menu:seed`).
+4. ✅ Cart + checkout (`/gio`, no account, phone first, gift mode, birthday
+   consent), SePay payment page, webhook, ledger, reconcile (tested with
+   simulated webhooks; real SePay account not connected yet).
 5. Admin: orders by bake day, status buttons that write `order_events`, photo
    upload, customer notes. Owner signs in with Supabase Auth.
-6. Tracking page (`/don/[trackToken]`) + QR thank-you page.
-7. Occasions at checkout + daily reminder job (Zalo ZNS).
+6. ✅ Tracking page (`/don/[trackToken]`). QR thank-you page still to do.
+7. ✅ Occasions saved at checkout and from the home page. Daily reminder job
+   (Zalo ZNS) still to do.
 8. UTM capture, analytics, consent log review.
+
+## Storefront (built 2026-09-17)
+
+- Pages: `/` home, `/menu?loai=`, `/banh/[slug]`, `/gio` cart + checkout,
+  `/don/[token]` tracking, `/don/[token]/thanh-toan` payment. All mobile-first,
+  max-w-md.
+- **Cart is localStorage** (`src/lib/cart.ts`, `useSyncExternalStore`, null on
+  the server). It holds choices and display prices; `src/server/checkout`
+  re-prices everything, checks options, lead time and slot capacity.
+- **Capacity**: `ORDERS_PER_DAY` / `ORDERS_PER_SLOT` in `src/lib/shop.ts`. An
+  order holds its slot while not cancelled and either paid something or inside
+  its 15-minute payment hold, so abandoned checkouts free slots by themselves.
+- Pure calendar rules (`dayState`, `slotOpen`) live in `src/lib/availability.ts`
+  so client components can use them without importing the database.
+- Products have `takes_deposit`, `featured`, `sold_out_note`, `tone` (placeholder
+  colour + category stamp until `photo_key` photos exist).
+- Gotchas hit while building: a `<fieldset>` needs `min-w-0` or a horizontal
+  chip row stretches the page; `sr-only` radios inside a scroll row need a
+  `relative` ancestor or they overflow the page; React resets forms after a
+  server action, so forms that can return an error use controlled inputs.
+- The home page has no customer testimonial on purpose — add a real one (with
+  permission) when there is one.
+
+**Open questions for the owner (placeholders in code):** pickup address, delivery
+zones and fees, orders per day/slot, time slots, the menu itself and prices,
+Zalo link, the "hủy trước 48 giờ được hoàn cọc" policy.
 
 ## Deferred — do not build yet
 

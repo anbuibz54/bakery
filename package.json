@@ -14,7 +14,8 @@
     "check:payments": "tsx scripts/check-payments.mts",
     "payments:demo-order": "tsx --env-file=.env.local scripts/demo-order.mts",
     "payments:simulate": "tsx --env-file=.env.local scripts/simulate-webhook.mts",
-    "payments:reconcile": "tsx --env-file=.env.local scripts/reconcile.mts"
+    "payments:reconcile": "tsx --env-file=.env.local scripts/reconcile.mts",
+    "menu:seed": "tsx --env-file=.env.local scripts/seed-menu.mts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
