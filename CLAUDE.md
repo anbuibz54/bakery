@@ -122,8 +122,8 @@ Vietnam specifics:
 - **Delivery:** Ahamove / Lalamove APIs, GrabExpress.
 - **Messaging: no Zalo** (owner decision 2026-09-17). The shop is on Instagram,
   Facebook and TikTok; every "contact the shop" spot shows `SocialLinks`
-  (links in `SOCIALS`, `src/lib/shop.ts` — Instagram DM `ig.me/m/…`, Messenger
-  `m.me/…`). Order progress lives on the tracking page, not in messages.
+  (links in brand settings, editable at `/quan-ly/thuong-hieu` — Instagram DM
+  `ig.me/m/…`, Messenger `m.me/…`). Order progress lives on the tracking page, not in messages.
   `customers.zalo_user_id` is unused.
 - **Social:** Facebook dominates social commerce; TikTok Shop VN restricts fresh
   bakery goods, so TikTok is content that links to the site.
