@@ -392,11 +392,14 @@ export const ingredientPrices = bakery.table('ingredient_prices', {
   boughtOn: date('bought_on').notNull(),
   /** 'hand' | 'receipt' | 'mcp' — how it got here. */
   source: text('source').notNull().default('hand'),
+  /** `cookbook.receipt_lines.id` when imported from a receipt — each line is imported once. */
+  sourceRef: text('source_ref'),
   note: text('note'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [
   index('ingredient_prices_latest_idx').on(t.ingredientId, t.boughtOn),
   index('ingredient_prices_supplier_idx').on(t.supplierId),
+  uniqueIndex('ingredient_prices_source_ref_idx').on(t.sourceRef).where(sql`${t.sourceRef} is not null`),
 ])
 
 /**

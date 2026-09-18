@@ -15,7 +15,8 @@
     "payments:demo-order": "tsx --env-file=.env.local scripts/demo-order.mts",
     "payments:simulate": "tsx --env-file=.env.local scripts/simulate-webhook.mts",
     "payments:reconcile": "tsx --env-file=.env.local scripts/reconcile.mts",
-    "menu:seed": "tsx --env-file=.env.local scripts/seed-menu.mts"
+    "menu:seed": "tsx --env-file=.env.local scripts/seed-menu.mts",
+    "check:costing": "tsx --env-file-if-exists=.env.local scripts/check-costing.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

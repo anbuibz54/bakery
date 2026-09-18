@@ -9,6 +9,7 @@ import { advanceStatus, addNote, type OrderStatus } from '@/server/admin/orders'
 import { CostingError, addComponent, recordPrice, removeComponent, setProductTimes } from '@/server/costing/ingredients'
 import { saveSettings } from '@/server/costing/service'
 import { BrandError, removeLogo, saveBrand, uploadLogo } from '@/server/brand/service'
+import { importReceiptLines } from '@/server/costing/receipts'
 import { db } from '@/server/db'
 import { benchmarks, competitorPrices, products } from '@/server/db/schema'
 import { eq } from 'drizzle-orm'
@@ -65,7 +66,8 @@ export async function recordPriceAction(_prev: AdminState, form: FormData): Prom
     await recordPrice({
       ingredientId: String(form.get('ingredientId') ?? '') || undefined,
       name: String(form.get('name') ?? '') || undefined,
-      unit: (String(form.get('unit') ?? 'g') as 'g' | 'ml' | 'cai') ?? 'g',
+      // Only a new ingredient chooses its unit; an existing one keeps its own.
+      unit: form.get('ingredientId') ? undefined : ((String(form.get('unit') ?? 'g') as 'g' | 'ml' | 'cai') || 'g'),
       isPackaging: form.get('isPackaging') === 'on',
       packQuantity: num(form, 'packQuantity'),
       packLabel: String(form.get('packLabel') ?? '') || undefined,
@@ -253,5 +255,23 @@ export async function removeLogoAction(): Promise<AdminState> {
     return { ok: 'Đã bỏ logo, cửa hàng dùng chữ.' }
   } catch (error) {
     return fail(error, 'Chưa bỏ được logo.')
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Receipt prices from the cookbook                                            */
+/* -------------------------------------------------------------------------- */
+
+export async function importReceiptPricesAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    const ids = form.getAll('lineId').map(String).filter(Boolean)
+    if (ids.length === 0) return { error: 'Chọn ít nhất một dòng.' }
+    const { imported, skipped } = await importReceiptLines(ids)
+    revalidatePath('/quan-ly/nguyen-lieu')
+    revalidatePath('/quan-ly/gia-von')
+    return { ok: `Đã nhập ${imported} giá.${skipped.length ? ` Bỏ qua: ${skipped.join(', ')}.` : ''}` }
+  } catch (error) {
+    return fail(error, 'Chưa nhập được giá từ hóa đơn.')
   }
 }

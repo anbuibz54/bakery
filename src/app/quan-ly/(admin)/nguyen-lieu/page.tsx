@@ -4,7 +4,9 @@ import { Card, SectionTitle } from '@/components/ui'
 import { vnDate } from '@/lib/dates'
 import { formatVnd } from '@/lib/money'
 import { listIngredients, listSuppliers } from '@/server/costing/ingredients'
+import { pendingReceiptLines } from '@/server/costing/receipts'
 import { PriceForm } from './price-form'
+import { ReceiptImport } from './receipt-import'
 
 export const metadata: Metadata = { title: 'Nguyên liệu', robots: { index: false } }
 
@@ -12,7 +14,7 @@ const unitLabel: Record<string, string> = { g: 'kg', ml: 'lít', cai: 'cái' }
 
 export default async function IngredientsPage() {
   await connection()
-  const [rows, suppliers] = await Promise.all([listIngredients(), listSuppliers()])
+  const [rows, suppliers, pending] = await Promise.all([listIngredients(), listSuppliers(), pendingReceiptLines()])
   const unpriced = rows.filter((r) => r.unitCostVnd == null)
 
   return (
@@ -21,6 +23,8 @@ export default async function IngredientsPage() {
       <p className="mt-1 text-sm text-muted">
         {rows.length} nguyên liệu · {suppliers.length} nơi mua. Giá cũ được giữ lại để xem xu hướng.
       </p>
+
+      <ReceiptImport lines={pending} />
 
       <PriceForm ingredients={rows.map((r) => ({ id: r.id, name: r.name, unit: r.unit }))} suppliers={suppliers.map((s) => s.name)} today={vnDate()} />
 

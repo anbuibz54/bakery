@@ -1,0 +1,2 @@
+ALTER TABLE "bakery"."ingredient_prices" ADD COLUMN "source_ref" text;--> statement-breakpoint
+CREATE UNIQUE INDEX "ingredient_prices_source_ref_idx" ON "bakery"."ingredient_prices" USING btree ("source_ref") WHERE "bakery"."ingredient_prices"."source_ref" is not null;

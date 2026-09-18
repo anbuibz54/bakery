@@ -111,7 +111,8 @@ export const priceInput = z.object({
   /** Existing ingredient, or a name to create one. */
   ingredientId: z.string().uuid().optional(),
   name: z.string().trim().min(1).max(120).optional(),
-  unit: z.enum(['g', 'ml', 'cai']).default('g'),
+  /** Required for a new ingredient (defaults to g); for an existing one it is checked if given. */
+  unit: z.enum(['g', 'ml', 'cai']).optional(),
   isPackaging: z.boolean().default(false),
   packQuantity: z.number().positive(),
   packLabel: z.string().trim().max(60).optional(),
@@ -120,27 +121,44 @@ export const priceInput = z.object({
   boughtOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   source: z.enum(['hand', 'receipt', 'mcp']).default('hand'),
   note: z.string().trim().max(200).optional(),
+  /** Receipt line id when imported from the cookbook: a second import of it is a no-op. */
+  sourceRef: z.string().max(80).optional(),
 })
 export type PriceInput = z.input<typeof priceInput>
 
 /** Record a purchase price, creating the ingredient the first time it is bought. */
-export async function recordPrice(raw: PriceInput) {
+export async function recordPrice(raw: PriceInput): Promise<{ ingredientId: string; inserted: boolean }> {
   const input = priceInput.parse(raw)
   let ingredientId = input.ingredientId
 
+  const UNIT_LABEL: Record<string, string> = { g: 'gram', ml: 'ml', cai: 'cái' }
   if (!ingredientId) {
     if (!input.name) throw new CostingError('Thiếu tên nguyên liệu.')
     const key = matchKey(input.name)
+    // Same name, different unit: a price per box must never land on an
+    // ingredient costed per gram (it would read as millions per kg).
+    const [existing] = await db.select({ unit: ingredients.unit }).from(ingredients).where(eq(ingredients.matchKey, key))
+    if (existing && existing.unit !== (input.unit ?? 'g')) {
+      throw new CostingError(`"${input.name}" đã có trong bảng giá, tính theo ${UNIT_LABEL[existing.unit] ?? existing.unit}. Nhập lại theo đơn vị đó.`)
+    }
     const [row] = await db
       .insert(ingredients)
-      .values({ name: input.name, matchKey: key, unit: input.unit, isPackaging: input.isPackaging })
+      .values({ name: input.name, matchKey: key, unit: input.unit ?? 'g', isPackaging: input.isPackaging })
       .onConflictDoUpdate({ target: ingredients.matchKey, set: { name: input.name } })
       .returning({ id: ingredients.id })
     ingredientId = row.id
   }
 
+  else {
+    const [existing] = await db.select({ unit: ingredients.unit, name: ingredients.name }).from(ingredients).where(eq(ingredients.id, ingredientId))
+    if (!existing) throw new CostingError('Không tìm thấy nguyên liệu.')
+    if (input.unit && existing.unit !== input.unit) {
+      throw new CostingError(`"${existing.name}" tính theo ${UNIT_LABEL[existing.unit] ?? existing.unit}, giá vừa nhập theo ${UNIT_LABEL[input.unit] ?? input.unit}.`)
+    }
+  }
+
   const supplierId = input.supplier ? await ensureSupplier(input.supplier) : null
-  await db.insert(ingredientPrices).values({
+  const rows = await db.insert(ingredientPrices).values({
     ingredientId,
     supplierId,
     packLabel: input.packLabel,
@@ -149,8 +167,9 @@ export async function recordPrice(raw: PriceInput) {
     boughtOn: input.boughtOn,
     source: input.source,
     note: input.note,
-  })
-  return { ingredientId }
+    sourceRef: input.sourceRef ?? null,
+  }).onConflictDoNothing().returning({ id: ingredientPrices.id })
+  return { ingredientId: ingredientId!, inserted: rows.length > 0 }
 }
 
 /** Ingredients a recipe needs that this shop has never bought — the gaps in costing. */

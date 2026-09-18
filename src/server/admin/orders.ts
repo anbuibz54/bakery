@@ -14,7 +14,7 @@ import { db } from '../db'
 import { customers, orderEvents, orderItems, orders, productComponents, products } from '../db/schema'
 import { cbRecipeIngredients } from '../db/cookbook'
 import { vnDate, vnInstant } from '../../lib/dates'
-import { matchKey, pricedIngredients } from '../costing/service'
+import { lineQuantity, matchKey, pricedIngredients } from '../costing/service'
 
 export type OrderStatus = (typeof orders.status.enumValues)[number]
 
@@ -168,8 +168,13 @@ export async function bakeDayShopping(date: string): Promise<{ groups: { supplie
       if (c.optionId && chosen.length > 0 && !chosen.includes(c.optionId)) continue
       if (c.recipeId) {
         for (const l of recipeLines.filter((l) => l.recipeId === c.recipeId)) {
-          const quantity = (l.grams ?? l.quantity ?? 0) * c.multiplier * item.quantity
           const match = pool.find((i) => (l.foodId && i.foodId === l.foodId) || i.matchKey === matchKey(l.name))
+          const perLine = match ? lineQuantity(l, match.unit) : (l.grams ?? l.quantity)
+          const quantity = (perLine ?? 0) * c.multiplier * item.quantity
+          if (match && perLine == null) {
+            missing.push(`${match.name} (đơn vị không khớp)`)
+            continue
+          }
           if (!match) {
             missing.push(l.name)
             add(`?${matchKey(l.name)}`, { ingredientId: null, name: l.name, quantity, unit: l.grams != null ? 'g' : (l.unit ?? ''), costVnd: null, supplier: 'Chưa có trong bảng giá' })

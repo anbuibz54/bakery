@@ -12,7 +12,7 @@
  * No `next/*` imports.
  */
 
-import { pgSchema, real, smallint, text, uuid } from 'drizzle-orm/pg-core'
+import { boolean, pgSchema, real, smallint, text, uuid } from 'drizzle-orm/pg-core'
 
 export const cookbook = pgSchema('cookbook')
 
@@ -34,4 +34,29 @@ export const cbRecipeIngredients = cookbook.table('recipe_ingredients', {
   unit: text('unit'),
   foodId: uuid('food_id'),
   grams: real('grams'),
+})
+
+export const cbUsers = cookbook.table('users', {
+  id: uuid('id').primaryKey(),
+  email: text('email').notNull(),
+})
+
+/** Receipts the cookbook read from photos or from Claude (see cookbook CLAUDE.md "Receipts"). */
+export const cbReceipts = cookbook.table('receipts', {
+  id: uuid('id').primaryKey(),
+  userId: uuid('user_id').notNull(),
+  storeName: text('store_name'),
+  boughtOn: text('bought_on').notNull(),
+  appliedAt: text('applied_at'),
+})
+
+export const cbReceiptLines = cookbook.table('receipt_lines', {
+  id: uuid('id').primaryKey(),
+  receiptId: uuid('receipt_id').notNull(),
+  position: smallint('position').notNull(),
+  name: text('name').notNull(),
+  quantity: real('quantity'),
+  unit: text('unit'),
+  priceVnd: real('price_vnd'),
+  forBakery: boolean('for_bakery').notNull(),
 })

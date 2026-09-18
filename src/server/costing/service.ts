@@ -124,6 +124,33 @@ export async function pricedIngredients(): Promise<PricedIngredient[]> {
   }))
 }
 
+const MASS: Record<string, number> = { g: 1, kg: 1000, mg: 0.001, lạng: 100 }
+const VOLUME: Record<string, number> = { ml: 1, l: 1000 }
+
+/**
+ * How much of an ingredient one recipe line uses, in THAT ingredient's price
+ * unit. A line can carry grams (weighed or estimated by the cookbook) and a
+ * count ("5 quả"); which one applies depends on how the shop buys it — eggs
+ * priced per piece must be counted, flour priced per gram must be weighed.
+ * Null when the line cannot be expressed in that unit.
+ */
+export function lineQuantity(line: { quantity: number | null; unit: string | null; grams: number | null }, ingredientUnit: string): number | null {
+  const unit = line.unit?.toLowerCase() ?? null
+  if (ingredientUnit === 'cai') {
+    // A count: anything that is not a weight or volume ("quả", "cái", bare number).
+    if (line.quantity == null) return null
+    return unit && (MASS[unit] || VOLUME[unit]) ? null : line.quantity
+  }
+  if (ingredientUnit === 'ml') {
+    if (line.quantity != null && unit && VOLUME[unit]) return line.quantity * VOLUME[unit]
+    // Liquids in cake recipes are close enough to 1 g per ml.
+    return line.grams
+  }
+  if (line.grams != null) return line.grams
+  if (line.quantity != null && unit && MASS[unit]) return line.quantity * MASS[unit]
+  return null
+}
+
 function findIngredient(pool: PricedIngredient[], opts: { foodId?: string | null; name: string }) {
   if (opts.foodId) {
     const byFood = pool.find((i) => i.foodId === opts.foodId)
@@ -174,11 +201,15 @@ export async function costProduct(
       const recipe = recipes.find((r) => r.id === c.recipeId)
       for (const l of recipeLines.filter((l) => l.recipeId === c.recipeId)) {
         const match = findIngredient(priced, { foodId: l.foodId, name: l.name })
-        const quantity = (l.grams ?? l.quantity ?? 0) * c.multiplier
         const unit = l.grams != null ? 'g' : (l.unit ?? '')
+        const perLine = match ? lineQuantity(l, match.unit) : (l.grams ?? l.quantity)
+        const quantity = perLine != null ? perLine * c.multiplier : null
         if (!match) {
           missing.push(l.name)
           lines.push({ name: l.name, quantity, unit, costVnd: null, missing: 'ingredient' })
+        } else if (quantity == null) {
+          missing.push(`${match.name} (đơn vị không khớp)`)
+          lines.push({ name: match.name, quantity: null, unit: l.unit ?? '', costVnd: null, missing: 'price' })
         } else if (match.unitCostVnd == null) {
           missing.push(match.name)
           lines.push({ name: match.name, quantity, unit: match.unit, costVnd: null, missing: 'price' })

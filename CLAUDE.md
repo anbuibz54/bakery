@@ -305,16 +305,22 @@ Mockup: canvas page "Vòng 3 — Quản lý & chiến lược". Admin lives unde
 - **"So với tiệm khác" is manual by design:** `benchmarks` (a range plus its
   source) and `competitor_prices` (a real observed price) are typed in at
   `/quan-ly/cai-dat`. Nothing scrapes a competitor, and no number is invented.
+- **Prices from receipts** (built 2026-09-18 with the cookbook): the owner
+  photographs a receipt in the cookbook (or sends it to Claude, MCP
+  `record_receipt`) and marks lines "giá cho tiệm bánh". `/quan-ly/nguyen-lieu`
+  lists applied, not-yet-imported lines of the OWNER_EMAILS cookbook accounts
+  (`src/server/costing/receipts.ts`, read-only on the cookbook schema) and
+  imports them as prices with `source_ref` = the line id (unique → each line
+  once). kg/l become g/ml; counts become `cai`.
+- **A price never lands on an ingredient with another unit** (`recordPrice`
+  refuses it): two receipt lines "bơ 227 g" and "bơ 1 hộp" in one import once
+  produced 64.000.000đ/kg. Recipe lines are costed in the ingredient's own unit
+  (`lineQuantity`: eggs by count, flour by grams); `pnpm check:costing`.
 - Gotcha worth keeping: an `<input type="number">` whose `step` does not divide
   `value - min` fails HTML validation and the form silently never submits
   (hit with min=1 step=1000 on a price field).
 
 ## Deferred — do not build yet
-
-Receipt-photo reading and Claude/MCP price entry — **to be built together with
-the cookbook** (owner decision 2026-09-18): one flow that reads a Bách Hóa Xanh
-or supermarket receipt, puts the food into the cookbook pantry, ticks off the
-shopping list, and records the bakery price. Until then prices are typed in.
 
 Drops/limited batches table, loyalty, subscriptions, referral, discount codes,
 delivery API booking, MoMo/ZaloPay, SEO district pages, B2B
