@@ -23,7 +23,7 @@ export function CheckoutForm({ calendar }: { calendar: DayAvailability[] }) {
   if (!cart) return <div className="h-96 animate-pulse rounded-3xl bg-surface/60 motion-reduce:animate-none" aria-label="Đang mở giỏ" />
   if (cart.lines.length === 0) {
     return (
-      <Card className="mt-4 flex flex-col items-center gap-3 px-6 py-10 text-center">
+      <Card className="mx-auto mt-4 flex max-w-md flex-col items-center gap-3 px-6 py-10 text-center">
         <StampIcon name="gift" size={64} print={PRINT.lemon} />
         <p className="font-display text-xl font-bold">Giỏ đang trống</p>
         <p className="text-muted">Chọn một chiếc bánh cho người bạn thương nhé.</p>
@@ -82,8 +82,9 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
   const bad = (field: string) => (state?.field === field ? true : undefined)
 
   return (
-    <form action={action} className="flex flex-col">
+    <form action={action} className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-start lg:gap-8">
       <input type="hidden" name="payload" value={payload} />
+      <div className="contents lg:block">
 
       <Card className="flex flex-col gap-3.5">
         {cart.lines.map((l) => (
@@ -279,7 +280,10 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
         <input id="note" value={f.note} onChange={set('note')} maxLength={500} placeholder="Ít ngọt, dị ứng đậu phộng…" className={input} />
       </Card>
 
-      <Card className="mt-4 flex flex-col gap-1.5 text-sm tabular-nums">
+      </div>
+
+      <div className="lg:sticky lg:top-24">
+      <Card className="mt-4 flex flex-col gap-1.5 text-sm tabular-nums lg:mt-0">
         <Row k="Tạm tính" v={formatVnd(subtotal)} />
         {fulfillment === 'delivery' && <Row k="Phí giao" v={zone ? formatVnd(fee) : 'chọn khu vực'} />}
         <div className="my-1 border-t border-dashed border-line" />
@@ -306,6 +310,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
       <button type="submit" disabled={pending || !slot || !date} className={`${buttonClass} mt-4 h-14 w-full text-base`}>
         {pending ? 'Đang gửi đơn…' : !slot ? 'Chọn khung giờ nhận' : `Đặt bánh · ${deposit < total ? 'cọc ' : ''}${formatVnd(deposit)}`}
       </button>
+      </div>
     </form>
   )
 }

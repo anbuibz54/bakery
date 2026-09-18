@@ -50,13 +50,13 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
   const notes = order.events.filter((e) => !e.status && e.message)
 
   return (
-    <main className="mx-auto w-full max-w-md pb-10">
-      <header className="rounded-b-[32px] bg-pink px-5 pt-[18px] pb-5">
+    <main className="mx-auto w-full max-w-md pb-10 lg:max-w-5xl">
+      <header className="rounded-b-[32px] bg-pink px-5 pt-[18px] pb-5 lg:rounded-b-[40px] lg:px-10 lg:pt-8 lg:pb-8">
         <p className="text-[13px] text-[#8C3B5E]">
           Đơn {order.code}
           {order.recipientName && ` · gửi ${order.recipientName}`}
         </p>
-        <h1 className="mt-1 font-display text-[26px] leading-tight font-bold text-balance">
+        <h1 className="mt-1 font-display text-[26px] leading-tight font-bold text-balance lg:text-4xl">
           {whose} {HEADLINE[order.status]}
         </h1>
         <p className="mt-2 text-sm text-[#5E4B5C]">
@@ -65,7 +65,7 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
         </p>
       </header>
 
-      <div className="px-5">
+      <div className="px-5 lg:grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start lg:gap-8 lg:px-10">
         {order.status === 'cancelled' ? (
           <Card className="mt-5 flex flex-col gap-3 text-center">
             <p>Đơn này đã huỷ. Có gì thắc mắc, bạn nhắn tiệm nhé.</p>
@@ -82,7 +82,7 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
               </Card>
             )}
 
-            <ol className="mt-[22px]">
+            <ol className="mt-[22px] lg:col-start-1">
               {steps.map((s, i) => {
                 const event = reached.get(s.status)
                 const done = i <= current
@@ -123,7 +123,7 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
           </Card>
         )}
 
-        <Card className="mt-3.5">
+        <Card className="mt-3.5 lg:col-start-2 lg:row-start-1 lg:mt-[22px]">
           <p className="mb-2 font-bold">Trong hộp</p>
           <ul className="flex flex-col gap-2 text-sm">
             {order.items.map((it, i) => (
@@ -150,7 +150,7 @@ export default async function TrackingPage({ params }: PageProps<'/don/[token]'>
           </div>
         )}
 
-        <div className="mt-5 text-center text-[13px] text-muted">
+        <div className="mt-5 text-center text-[13px] text-muted lg:col-span-2">
           <p className="mb-2">Cần dặn thêm? Nhắn tiệm kèm mã đơn {order.code}:</p>
           <SocialLinks />
           <p className="mt-4">Link này không cần đăng nhập, gửi cho người nhà xem cũng được.</p>

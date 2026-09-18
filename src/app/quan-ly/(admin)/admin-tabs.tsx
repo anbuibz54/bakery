@@ -8,7 +8,7 @@ import { StampIcon, type StampName } from '@/components/stamp-icon'
 export function AdminTabs({ tabs }: { tabs: { href: string; label: string; icon: StampName; print: string }[] }) {
   const pathname = usePathname()
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-10 px-3 pb-[max(12px,env(safe-area-inset-bottom))]" aria-label="Khu quản lý">
+    <nav className="fixed inset-x-0 bottom-0 z-10 px-3 pb-[max(12px,env(safe-area-inset-bottom))] md:hidden" aria-label="Khu quản lý">
       <div className="mx-auto grid max-w-md grid-cols-4 gap-1 rounded-[26px] bg-foreground p-2 shadow-lg">
         {tabs.map((t) => {
           const active = t.href === '/quan-ly' ? pathname === t.href : pathname.startsWith(t.href)
@@ -25,6 +25,29 @@ export function AdminTabs({ tabs }: { tabs: { href: string; label: string; icon:
           )
         })}
       </div>
+    </nav>
+  )
+}
+
+/** The same four screens as links, for a laptop where a thumb bar makes no sense. */
+export function AdminTopNav({ tabs }: { tabs: { href: string; label: string; icon: StampName; print: string }[] }) {
+  const pathname = usePathname()
+  return (
+    <nav className="hidden items-center gap-1 md:flex" aria-label="Khu quản lý">
+      {tabs.map((t) => {
+        const active = t.href === '/quan-ly' ? pathname === t.href : pathname.startsWith(t.href)
+        return (
+          <Link
+            key={t.href}
+            href={t.href}
+            aria-current={active ? 'page' : undefined}
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold ${active ? 'bg-foreground text-white' : 'hover:bg-surface'}`}
+          >
+            <StampIcon name={t.icon} size={20} print={active ? t.print : 'rgb(58 46 57 / 0.12)'} />
+            {t.label}
+          </Link>
+        )
+      })}
     </nav>
   )
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { connection } from 'next/server'
-import { CartButton } from '@/components/cart-button'
 import { PRINT, StampIcon } from '@/components/stamp-icon'
-import { ProductArt, TitleBar } from '@/components/ui'
+import { SiteFooter, SiteHeader, SitePage } from '@/components/site-chrome'
+import { ProductArt } from '@/components/ui'
 import { dayState } from '@/lib/availability'
 import { CATEGORIES } from '@/lib/catalog'
 import { inlineDay } from '@/lib/dates'
@@ -29,10 +29,13 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
     .filter((s) => s.items.length > 0)
 
   return (
-    <main className="mx-auto w-full max-w-md px-5 pb-10">
-      <TitleBar back="/" title="Menu" right={<CartButton />} />
+    <SitePage>
+      <SiteHeader active="menu" />
 
-      <nav aria-label="Loại bánh" className="-mx-5 flex gap-2 overflow-x-auto px-5 pt-1 pb-2">
+      <h1 className="mt-2 font-display text-2xl font-bold md:text-4xl">Menu</h1>
+
+      {/* Phone: the categories as chips. Desktop has them in the header. */}
+      <nav aria-label="Loại bánh" className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-2 md:hidden">
         <Chip href="/menu" active={!active}>
           Tất cả
         </Chip>
@@ -44,9 +47,9 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
       </nav>
 
       {sections.map((s) => (
-        <section key={s.slug} className="mt-5">
-          <h2 className="font-display text-xl leading-tight font-bold">{s.title}</h2>
-          <p className="mt-1 mb-3 text-[13px] text-muted">
+        <section key={s.slug} className="mt-5 md:mt-10">
+          <h2 className="font-display text-xl leading-tight font-bold md:text-2xl">{s.title}</h2>
+          <p className="mt-1 mb-3 text-[13px] text-muted md:text-sm">
             {s.note}
             {s.earliest && (
               <>
@@ -54,14 +57,14 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
               </>
             )}
           </p>
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-5 lg:grid-cols-3">
             {s.items.map((p) => (
               <li key={p.id}>
                 {p.soldOutNote ? (
-                  <div className="grid grid-cols-[92px_minmax(0,1fr)] gap-3 rounded-[22px] bg-[#F4EEF2] p-2.5">
-                    <div className="h-[92px] rounded-2xl bg-[#EAE2E8]" aria-hidden="true" />
-                    <div className="flex min-w-0 flex-col justify-center">
-                      <div className="leading-tight font-bold text-[#8F818D]">{p.name}</div>
+                  <div className="grid h-full grid-cols-[92px_minmax(0,1fr)] gap-3 rounded-[22px] bg-[#F4EEF2] p-2.5 md:grid-cols-1 md:gap-0 md:p-0">
+                    <div className="h-[92px] rounded-2xl bg-[#EAE2E8] md:h-44 md:rounded-b-none" aria-hidden="true" />
+                    <div className="flex min-w-0 flex-col justify-center md:p-4">
+                      <div className="leading-tight font-bold text-[#8F818D] md:text-lg">{p.name}</div>
                       <div className="text-[13px] text-[#A597A3]">{p.soldOutNote}</div>
                       <div className="mt-1 text-xs font-bold text-[#A597A3]">Tạm hết</div>
                     </div>
@@ -69,15 +72,15 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
                 ) : (
                   <Link
                     href={`/banh/${p.slug}`}
-                    className="grid grid-cols-[92px_minmax(0,1fr)] gap-3 rounded-[22px] bg-surface p-2.5 shadow-[var(--shadow-soft)] focus-visible:outline-2 focus-visible:outline-berry"
+                    className="grid h-full grid-cols-[92px_minmax(0,1fr)] gap-3 overflow-hidden rounded-[22px] bg-surface p-2.5 shadow-[var(--shadow-soft)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-berry md:grid-cols-1 md:gap-0 md:p-0"
                   >
-                    <ProductArt tone={p.tone} icon={s.icon} className="h-[92px] rounded-2xl" size={40} />
-                    <div className="flex min-w-0 flex-col justify-between py-0.5">
+                    <ProductArt tone={p.tone} icon={s.icon} className="h-[92px] rounded-2xl md:h-44 md:rounded-none" size={40} />
+                    <div className="flex min-w-0 flex-col justify-between py-0.5 md:p-4">
                       <div>
-                        <div className="leading-tight font-bold">{p.name}</div>
-                        {p.summary && <div className="text-[13px] text-muted">{p.summary}</div>}
+                        <div className="leading-tight font-bold md:text-lg">{p.name}</div>
+                        {p.summary && <div className="text-[13px] text-muted md:text-sm">{p.summary}</div>}
                       </div>
-                      <div className="flex items-center justify-between gap-2">
+                      <div className="mt-1 flex items-center justify-between gap-2">
                         <span className="font-bold tabular-nums">
                           {p.hasOptions ? 'từ ' : ''}
                           {formatVnd(p.basePriceVnd)}
@@ -103,7 +106,9 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
         <StampIcon name="house" size={24} print={PRINT.mint} />
         Làm tại nhà, mỗi ngày nhận số đơn có hạn.
       </p>
-    </main>
+
+      <SiteFooter />
+    </SitePage>
   )
 }
 

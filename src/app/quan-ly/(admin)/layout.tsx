@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { requireOwner } from '@/lib/auth/owner'
 import { PRINT, StampIcon, type StampName } from '@/components/stamp-icon'
 import { signOutAction } from '../_actions'
-import { AdminTabs } from './admin-tabs'
+import { AdminTabs, AdminTopNav } from './admin-tabs'
 
 export const TABS: { href: string; label: string; icon: StampName; print: string }[] = [
   { href: '/quan-ly', label: 'Đơn', icon: 'letter', print: PRINT.pink },
@@ -14,13 +14,14 @@ export const TABS: { href: string; label: string; icon: StampName; print: string
 export default async function AdminLayout({ children }: LayoutProps<'/quan-ly'>) {
   const owner = await requireOwner()
   return (
-    <div className="mx-auto w-full max-w-5xl px-5 pb-28">
+    <div className="mx-auto w-full max-w-5xl px-5 pb-28 md:max-w-6xl md:px-8 md:pb-10">
       <header className="flex items-center justify-between gap-3 py-3.5">
         <Link href="/quan-ly" className="flex items-center gap-2">
           <StampIcon name="house" size={28} print={PRINT.pink} />
           <span className="font-display text-lg font-bold">Quản lý</span>
         </Link>
-        <nav className="flex items-center gap-2 text-[13px]">
+        <AdminTopNav tabs={TABS} />
+        <nav className="flex items-center gap-2 text-[13px]" aria-label="Khác">
           <Link href="/quan-ly/nguyen-lieu" className="rounded-full bg-surface px-3 py-2 font-bold shadow-[var(--shadow-soft)]">
             Nguyên liệu
           </Link>

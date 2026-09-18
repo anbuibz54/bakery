@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { connection } from 'next/server'
+import { SiteFooter, SiteHeader, SitePage } from '@/components/site-chrome'
 import { BackLink, ProductArt } from '@/components/ui'
 import { category } from '@/lib/catalog'
 import { getProduct } from '@/server/catalog/service'
@@ -21,26 +22,37 @@ export default async function ProductPage({ params, searchParams }: PageProps<'/
   const cat = category(product.category)
 
   return (
-    <main className="mx-auto w-full max-w-md pb-32">
-      <div className="relative mx-3 mt-3">
-        <ProductArt tone={product.tone} icon={cat?.icon ?? 'cake'} className="h-[290px] rounded-[32px]" size={96} />
-        <div className="absolute top-3.5 left-3.5">
-          <BackLink href={`/menu?loai=${product.category}`} />
+    <SitePage className="pb-32 lg:pb-10">
+      <div className="hidden md:block">
+        <SiteHeader />
+      </div>
+
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:items-start lg:gap-10">
+        <div className="lg:sticky lg:top-24">
+          <div className="relative -mx-2 mt-3 md:mx-0">
+            <ProductArt tone={product.tone} icon={cat?.icon ?? 'cake'} className="h-[290px] rounded-[32px] lg:h-[420px]" size={96} />
+            <div className="absolute top-3.5 left-3.5 md:hidden">
+              <BackLink href={`/menu?loai=${product.category}`} />
+            </div>
+          </div>
+          <div className="pt-5">
+            <h1 className="font-display text-[28px] leading-tight font-bold text-balance lg:text-4xl">{product.name}</h1>
+            {product.description && <p className="mt-1.5 text-[#5E4B5C] lg:text-lg">{product.description}</p>}
+          </div>
+        </div>
+
+        <div className="lg:pt-3">
+          {product.soldOutNote ? (
+            <p className="mt-5 rounded-3xl bg-[#F4EEF2] px-4 py-3 text-[#8F818D]">
+              <b>Tạm hết.</b> {product.soldOutNote}
+            </p>
+          ) : (
+            <CakeBuilder product={product} calendar={calendar} startAsGift={qua === '1'} />
+          )}
         </div>
       </div>
 
-      <div className="px-5 pt-5">
-        <h1 className="font-display text-[28px] leading-tight font-bold text-balance">{product.name}</h1>
-        {product.description && <p className="mt-1.5 text-[#5E4B5C]">{product.description}</p>}
-      </div>
-
-      {product.soldOutNote ? (
-        <p className="mx-5 mt-5 rounded-3xl bg-[#F4EEF2] px-4 py-3 text-[#8F818D]">
-          <b>Tạm hết.</b> {product.soldOutNote}
-        </p>
-      ) : (
-        <CakeBuilder product={product} calendar={calendar} startAsGift={qua === '1'} />
-      )}
-    </main>
+      <SiteFooter />
+    </SitePage>
   )
 }

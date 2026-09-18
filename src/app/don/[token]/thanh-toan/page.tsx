@@ -19,7 +19,7 @@ export default async function PaymentPage({ params, searchParams }: PageProps<'/
   if (!view) notFound()
 
   return (
-    <main className="mx-auto min-h-dvh w-full max-w-md px-5 pb-10">
+    <main className="mx-auto min-h-dvh w-full max-w-md px-5 pb-10 lg:max-w-lg">
       {moi === '1' && <ClearCart />}
       <PaymentLive token={token} initial={view} />
     </main>

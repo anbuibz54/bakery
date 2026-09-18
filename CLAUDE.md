@@ -200,8 +200,14 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 ## Storefront (built 2026-09-17)
 
 - Pages: `/` home, `/menu?loai=`, `/banh/[slug]`, `/gio` cart + checkout,
-  `/don/[token]` tracking, `/don/[token]/thanh-toan` payment. All mobile-first,
-  max-w-md.
+  `/don/[token]` tracking, `/don/[token]/thanh-toan` payment.
+- **Mobile-first, but a real web layout from `md` up** (2026-09-18): shared
+  `SiteHeader` / `SiteFooter` / `SitePage` in `src/components/site-chrome.tsx`
+  (max-w-md on a phone, max-w-6xl on a laptop). Desktop: category nav in the
+  header instead of chips, 4-up cards, product page splits into art + builder
+  with the price bar inline, checkout puts the summary in a sticky right column,
+  tracking splits timeline and box. Admin does the same: bottom tabs on a phone,
+  top nav from `md`.
 - **Cart is localStorage** (`src/lib/cart.ts`, `useSyncExternalStore`, null on
   the server). It holds choices and display prices; `src/server/checkout`
   re-prices everything, checks options, lead time and slot capacity.
@@ -218,6 +224,10 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
   server action, so forms that can return an error use controlled inputs.
 - The home page has no customer testimonial on purpose — add a real one (with
   permission) when there is one.
+
+**Owner account:** anbuibz66@gmail.com (`OWNER_EMAILS`). The local .env.local
+also allows the cookbook test account for browser tests; production should list
+only the owner.
 
 **Open questions for the owner (placeholders in code):** pickup address, delivery
 zones and fees, orders per day/slot, time slots, the menu itself and prices,
@@ -283,6 +293,11 @@ Mockup: canvas page "Vòng 3 — Quản lý & chiến lược". Admin lives unde
   (hit with min=1 step=1000 on a price field).
 
 ## Deferred — do not build yet
+
+Receipt-photo reading and Claude/MCP price entry — **to be built together with
+the cookbook** (owner decision 2026-09-18): one flow that reads a Bách Hóa Xanh
+or supermarket receipt, puts the food into the cookbook pantry, ticks off the
+shopping list, and records the bakery price. Until then prices are typed in.
 
 Drops/limited batches table, loyalty, subscriptions, referral, discount codes,
 delivery API booking, MoMo/ZaloPay, SEO district pages, B2B

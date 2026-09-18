@@ -53,7 +53,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
   return (
     <>
       {product.groups.length > 0 && (
-        <Card className="mx-5 mt-[18px]">
+        <Card className="mt-[18px]">
           {product.groups.map((g, gi) => (
             <fieldset key={g.name} className={gi > 0 ? 'mt-4 min-w-0' : 'min-w-0'}>
               <legend className="mb-2.5 font-bold">{g.name === 'size' ? 'Bánh cho mấy người?' : g.name}</legend>
@@ -92,7 +92,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
         </Card>
       )}
 
-      <Card className="mx-5 mt-3.5">
+      <Card className="mt-3.5">
         {product.takesDeposit ? (
           <>
             <label htmlFor="cake-message" className="mb-2.5 block font-bold">
@@ -137,7 +137,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
         </label>
       </Card>
 
-      <Card className="mx-5 mt-3.5">
+      <Card className="mt-3.5">
         <fieldset className="min-w-0">
           <legend className="mb-2.5 font-bold">Nhận ngày nào?</legend>
           <div className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
@@ -165,13 +165,13 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
       </Card>
 
       {product.takesDeposit && (
-        <p className="mx-5 mt-3.5 rounded-[20px] bg-lemon px-4 py-3 text-[13px] text-[#5C4A12]">
+        <p className="mt-3.5 rounded-[20px] bg-lemon px-4 py-3 text-[13px] text-[#5C4A12]">
           Cọc <b>50%</b> để giữ lịch nướng. Phần còn lại trả khi nhận. Hủy trước 48 giờ được hoàn cọc.
         </p>
       )}
 
-      <div className="fixed inset-x-0 bottom-0 z-10 px-3 pb-[max(12px,env(safe-area-inset-bottom))]">
-        <div className="mx-auto flex max-w-md items-center justify-between gap-3 rounded-[26px] bg-foreground py-2.5 pr-2.5 pl-5 text-white shadow-lg">
+      <div className="fixed inset-x-0 bottom-0 z-10 px-3 pb-[max(12px,env(safe-area-inset-bottom))] lg:static lg:mt-4 lg:px-0 lg:pb-0">
+        <div className="mx-auto flex max-w-md items-center justify-between gap-3 rounded-[26px] bg-foreground py-2.5 pr-2.5 pl-5 text-white shadow-lg lg:max-w-none lg:py-3.5 lg:pr-3.5 lg:pl-6">
           <div>
             <div className="font-display text-lg leading-tight font-bold tabular-nums">{formatVnd(total)}</div>
             {deposit !== null && <div className="text-xs text-white/70 tabular-nums">cọc {formatVnd(deposit)}</div>}
