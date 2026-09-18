@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Nunito, Quicksand } from 'next/font/google'
+import { RememberChannel } from '@/components/remember-channel'
 import './globals.css'
 
 const nunito = Nunito({
@@ -30,7 +31,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="vi" className={`${nunito.variable} ${quicksand.variable} h-full antialiased`}>
-      <body className="min-h-full font-sans">{children}</body>
+      <body className="min-h-full font-sans">
+        {children}
+        <RememberChannel />
+      </body>
     </html>
   )
 }

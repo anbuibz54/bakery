@@ -11,6 +11,7 @@
 
 import { z } from 'zod'
 import { productsForPricing } from '../catalog/service'
+import { costProduct, getSettings, pricedIngredients } from '../costing/service'
 import { createOrder, normalizePhone } from '../orders/service'
 import { bookingCalendar } from '../schedule/service'
 import { slotOpen } from '../../lib/availability'
@@ -43,6 +44,7 @@ export const checkoutInput = z.object({
   hidePrice: z.boolean(),
   saveOccasion: z.boolean(),
   note: z.string().trim().max(500).optional(),
+  channel: z.enum(['instagram', 'facebook', 'tiktok', 'direct', 'other']).default('direct'),
 })
 export type CheckoutInput = z.infer<typeof checkoutInput>
 
@@ -81,7 +83,7 @@ export async function placeOrder(raw: unknown) {
     return {
       productId: product.id,
       productName: product.name,
-      options: chosen.map((o) => ({ group: o.group, label: o.detail ? `${o.label} · ${o.detail}` : o.label, priceDeltaVnd: o.priceDeltaVnd })),
+      options: chosen.map((o) => ({ optionId: o.id, group: o.group, label: o.detail ? `${o.label} · ${o.detail}` : o.label, priceDeltaVnd: o.priceDeltaVnd })),
       cakeMessage: product.takesDeposit ? line.cakeMessage || undefined : undefined,
       quantity: line.quantity,
       unitPriceVnd: product.basePriceVnd + chosen.reduce((s, o) => s + o.priceDeltaVnd, 0),
@@ -112,6 +114,20 @@ export async function placeOrder(raw: unknown) {
     throw new CheckoutError('Số điện thoại người nhận chưa đúng.', 'recipientPhone')
   }
 
+  // Cost every line now, so this order's margin never moves when prices do.
+  // A costing failure must not block a sale: the line is stored uncosted.
+  const [pool, settings] = await Promise.all([pricedIngredients(), getSettings()])
+  const costed = await Promise.all(
+    items.map(async (i) => {
+      try {
+        const cost = await costProduct(i.productId, input.lines.find((l) => l.productId === i.productId)?.optionIds ?? [], pool, settings)
+        return { ...i, unitCostVnd: cost && cost.missing.length === 0 ? cost.unitCostVnd : null }
+      } catch {
+        return { ...i, unitCostVnd: null }
+      }
+    }),
+  )
+
   const hasCake = items.some((i) => i.takesDeposit)
   const occasion =
     input.saveOccasion && hasCake
@@ -130,12 +146,13 @@ export async function placeOrder(raw: unknown) {
     scheduledFor: vnInstant(input.date, slot.startHour),
     deliveryAddress: input.fulfillment === 'delivery' ? input.address : undefined,
     deliveryFeeVnd,
-    items: items.map((i) => ({ ...i, leadTimeHours: undefined })),
+    items: costed.map((i) => ({ ...i, leadTimeHours: undefined })),
     recipientName: input.gift ? input.recipientName : undefined,
     recipientPhone: input.gift ? input.recipientPhone || undefined : undefined,
     giftNote: input.gift ? input.giftNote || undefined : undefined,
     hidePrice: input.gift && input.hidePrice,
     customerNote: input.note || undefined,
+    channel: input.channel,
     occasion,
   })
 }

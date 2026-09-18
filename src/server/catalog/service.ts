@@ -49,7 +49,7 @@ export type ProductDetail = NonNullable<Awaited<ReturnType<typeof getProduct>>>
 
 export async function getProduct(slug: string) {
   const [product] = await db
-    .select({ ...card, description: products.description })
+    .select({ ...card, description: products.description, labourMinutes: products.labourMinutes, ovenMinutes: products.ovenMinutes })
     .from(products)
     .where(and(eq(products.slug, slug), eq(products.isActive, true)))
   if (!product) return null

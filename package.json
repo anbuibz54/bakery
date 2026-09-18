@@ -18,6 +18,8 @@
     "menu:seed": "tsx --env-file=.env.local scripts/seed-menu.mts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
     "next": "16.3.0",

@@ -35,12 +35,14 @@ export const orderInput = z.object({
       z.object({
         productId: z.string().uuid().optional(),
         productName: z.string().min(1),
-        options: z.array(z.object({ group: z.string(), label: z.string(), priceDeltaVnd: z.number().int() })).default([]),
+        options: z.array(z.object({ optionId: z.string().uuid().optional(), group: z.string(), label: z.string(), priceDeltaVnd: z.number().int() })).default([]),
         cakeMessage: z.string().max(60).optional(),
         quantity: z.number().int().min(1).max(50),
         unitPriceVnd: z.number().int().min(0),
         /** Custom cakes take a deposit; ready-made goods are paid in full. */
         takesDeposit: z.boolean(),
+        /** What one unit cost to make, worked out at checkout. Null = not costable yet. */
+        unitCostVnd: z.number().int().nullish(),
       }),
     )
     .min(1),
@@ -49,6 +51,8 @@ export const orderInput = z.object({
   giftNote: z.string().max(300).optional(),
   hidePrice: z.boolean().default(false),
   customerNote: z.string().max(500).optional(),
+  /** Where the customer came from, for the channel report. */
+  channel: z.enum(['instagram', 'facebook', 'tiktok', 'direct', 'other']).default('direct'),
   /** "Lưu ngày này" ticked at checkout: the customer consented just now. */
   occasion: z
     .object({ label: z.string().max(80), personName: z.string().max(80).optional(), month: z.number().int().min(1).max(12), day: z.number().int().min(1).max(31) })
@@ -106,6 +110,7 @@ export async function createOrder(raw: OrderInput) {
             depositVnd,
             paymentDueAt: new Date(Date.now() + PAYMENT_HOLD_MINUTES * 60_000),
             customerNote: input.customerNote,
+            channel: input.channel,
           })
           .returning({ id: orders.id, code: orders.code, trackToken: orders.trackToken })
 
@@ -119,6 +124,7 @@ export async function createOrder(raw: OrderInput) {
             quantity: l.quantity,
             unitPriceVnd: l.unitPriceVnd,
             lineTotalVnd: l.lineTotalVnd,
+            unitCostVnd: l.unitCostVnd ?? null,
           })),
         )
         if (input.occasion) {

@@ -18,10 +18,12 @@
 import { sql } from 'drizzle-orm'
 import {
   boolean,
+  date,
   index,
   integer,
   jsonb,
   pgSchema,
+  real,
   smallint,
   text,
   timestamp,
@@ -92,6 +94,9 @@ export const products = bakery.table('products', {
   basePriceVnd: integer('base_price_vnd').notNull(),
   /** Hours of notice needed. Drives the earliest date the checkout offers. */
   leadTimeHours: integer('lead_time_hours').notNull().default(24),
+  /** Hands-on minutes and oven minutes for one of these — labour and energy cost. */
+  labourMinutes: integer('labour_minutes').notNull().default(0),
+  ovenMinutes: integer('oven_minutes').notNull().default(0),
   recipeId: uuid('recipe_id'),
   /** Made to order (custom cakes): 50% deposit. Otherwise paid in full up front. */
   takesDeposit: boolean('takes_deposit').notNull().default(false),
@@ -239,6 +244,8 @@ export const orders = bakery.table('orders', {
   customerNote: text('customer_note'),
   /** utm_source / utm_campaign etc. captured at landing. Marketing attribution. */
   attribution: jsonb('attribution').notNull().default(sql`'{}'::jsonb`),
+  /** Derived from `attribution` at checkout: instagram | facebook | tiktok | direct | other. */
+  channel: text('channel').notNull().default('direct'),
 
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
@@ -266,6 +273,8 @@ export const orderItems = bakery.table('order_items', {
   quantity: smallint('quantity').notNull(),
   unitPriceVnd: integer('unit_price_vnd').notNull(),
   lineTotalVnd: integer('line_total_vnd').notNull(),
+  /** Cost of one unit when the order was placed. Null = it could not be costed. */
+  unitCostVnd: integer('unit_cost_vnd'),
 }, (t) => [
   index('order_items_order_idx').on(t.orderId),
   index('order_items_product_idx').on(t.productId),
@@ -325,4 +334,145 @@ export const payments = bakery.table('payments', {
   uniqueIndex('payments_provider_ref_idx').on(t.provider, t.providerRef),
   index('payments_order_idx').on(t.orderId),
   index('payments_unmatched_idx').on(t.receivedAt).where(sql`${t.orderId} is null`),
+])
+
+/* -------------------------------------------------------------------------- */
+/* Costing and supply                                                          */
+/* -------------------------------------------------------------------------- */
+
+/** Where the shop buys: "Bếp Bánh Q.7", "Chợ Tân Mỹ", "Bách Hóa Xanh". */
+export const suppliers = bakery.table('suppliers', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  note: text('note'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex('suppliers_name_idx').on(t.name)])
+
+/**
+ * A thing the shop buys, as the shop says it ("Bơ lạt Anchor").
+ *
+ * `matchKey` is the normalised name, so a recipe line ("bơ lạt Anchor, cắt
+ * nhỏ") finds its price without a foreign key across schemas. `foodId` points
+ * at `cookbook.foods.id` when the ingredient is linked there — the stronger
+ * match, tried first. No FK: different repo, independent deploys.
+ *
+ * `unit` is what the price is per: 'g' for anything weighed, 'ml' for liquids,
+ * 'cai' for counted things (trứng, hộp).
+ */
+export const ingredients = bakery.table('ingredients', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  matchKey: text('match_key').notNull(),
+  foodId: uuid('food_id'),
+  unit: text('unit').notNull().default('g'),
+  /** Packaging and other non-food buys are costed the same way. */
+  isPackaging: boolean('is_packaging').notNull().default(false),
+  note: text('note'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [
+  uniqueIndex('ingredients_match_key_idx').on(t.matchKey),
+  index('ingredients_food_idx').on(t.foodId),
+])
+
+/**
+ * One purchase price, kept forever. The newest row prices new orders; the old
+ * rows draw the trend and explain an old order's margin.
+ *
+ * `packQuantity` is in the ingredient's unit (1000 for a 1kg pack), so the
+ * unit cost is `priceVnd / packQuantity`.
+ */
+export const ingredientPrices = bakery.table('ingredient_prices', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  ingredientId: uuid('ingredient_id').notNull().references(() => ingredients.id, { onDelete: 'cascade' }),
+  supplierId: uuid('supplier_id').references(() => suppliers.id, { onDelete: 'set null' }),
+  /** As written on the shelf: "1kg", "hộp 10 cái". */
+  packLabel: text('pack_label'),
+  packQuantity: real('pack_quantity').notNull(),
+  priceVnd: integer('price_vnd').notNull(),
+  boughtOn: date('bought_on').notNull(),
+  /** 'hand' | 'receipt' | 'mcp' — how it got here. */
+  source: text('source').notNull().default('hand'),
+  note: text('note'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [
+  index('ingredient_prices_latest_idx').on(t.ingredientId, t.boughtOn),
+  index('ingredient_prices_supplier_idx').on(t.supplierId),
+])
+
+/**
+ * What a product is made of: either a cookbook recipe scaled by `multiplier`,
+ * or a direct ingredient line (250g dâu on top, the box it ships in).
+ *
+ * `optionId` set = the component only applies when that option is chosen, so a
+ * 22cm cake can use more cream than a 14cm one.
+ */
+export const productComponents = bakery.table('product_components', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  productId: uuid('product_id').notNull().references(() => products.id, { onDelete: 'cascade' }),
+  optionId: uuid('option_id').references(() => productOptions.id, { onDelete: 'cascade' }),
+  label: text('label'),
+  /** `cookbook.recipes.id`. No FK on purpose (other repo's schema). */
+  recipeId: uuid('recipe_id'),
+  multiplier: real('multiplier').notNull().default(1),
+  ingredientId: uuid('ingredient_id').references(() => ingredients.id, { onDelete: 'set null' }),
+  /** In the ingredient's unit. */
+  quantity: real('quantity'),
+  position: smallint('position').notNull().default(0),
+}, (t) => [
+  index('product_components_product_idx').on(t.productId, t.position),
+  index('product_components_option_idx').on(t.optionId),
+  index('product_components_ingredient_idx').on(t.ingredientId),
+])
+
+/**
+ * The rates behind every cost that is not an ingredient. One row; `id` is
+ * always 'shop' so it cannot be duplicated.
+ */
+export const shopSettings = bakery.table('shop_settings', {
+  id: text('id').primaryKey().default('shop'),
+  labourPerHourVnd: integer('labour_per_hour_vnd').notNull().default(40_000),
+  electricityPerKwhVnd: integer('electricity_per_kwh_vnd').notNull().default(3_000),
+  ovenKw: real('oven_kw').notNull().default(2),
+  /** Monthly payment-provider plan, spread over the orders in the month. */
+  paymentPlanMonthlyVnd: integer('payment_plan_monthly_vnd').notNull().default(0),
+  /** What the shop pays out of pocket per delivery, if anything. */
+  deliverySubsidyVnd: integer('delivery_subsidy_vnd').notNull().default(0),
+  /** Warn when ingredients pass this share of the price. */
+  targetIngredientPct: real('target_ingredient_pct').notNull().default(0.35),
+  /** The real margin (after labour) the owner wants. */
+  targetMarginPct: real('target_margin_pct').notNull().default(0.35),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+})
+
+/**
+ * Yardsticks the dashboard compares the shop against: a published range for
+ * small bakeries, or a competitor's real price. Entered by hand (or by Claude
+ * with a source) — never scraped silently, never guessed.
+ */
+export const benchmarks = bakery.table('benchmarks', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  /** 'ingredient_pct' | 'margin_pct' | 'aov_vnd' | 'orders_per_week' … */
+  metric: text('metric').notNull(),
+  label: text('label').notNull(),
+  lowValue: real('low_value'),
+  highValue: real('high_value'),
+  source: text('source'),
+  note: text('note'),
+  checkedOn: date('checked_on'),
+}, (t) => [uniqueIndex('benchmarks_metric_idx').on(t.metric)])
+
+/** A competitor's price for a comparable cake, for the price-position view. */
+export const competitorPrices = bakery.table('competitor_prices', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  shopName: text('shop_name').notNull(),
+  category: text('category').notNull(),
+  productLabel: text('product_label').notNull(),
+  /** "18cm", "hộp 4 cái" — compare like with like. */
+  sizeLabel: text('size_label'),
+  priceVnd: integer('price_vnd').notNull(),
+  url: text('url'),
+  checkedOn: date('checked_on').notNull(),
+  note: text('note'),
+}, (t) => [
+  index('competitor_prices_category_idx').on(t.category, t.checkedOn),
 ])

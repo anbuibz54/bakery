@@ -7,6 +7,7 @@ import { PRINT, StampIcon } from '@/components/stamp-icon'
 import { buttonClass, Card, ProductArt, SectionTitle } from '@/components/ui'
 import { dayState, slotOpen, type DayAvailability } from '@/lib/availability'
 import { cartActions, useCart, type Cart } from '@/lib/cart'
+import { currentChannel } from '@/lib/channel'
 import { dayMonth } from '@/lib/dates'
 import { formatK, formatVnd } from '@/lib/money'
 import { DELIVERY_ZONES, PICKUP_ADDRESS } from '@/lib/shop'
@@ -75,6 +76,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
     giftNote: f.giftNote || undefined,
     hidePrice,
     saveOccasion: hasCake && saveOccasion,
+    channel: typeof window === 'undefined' ? 'direct' : currentChannel(),
     note: f.note || undefined,
   })
   const bad = (field: string) => (state?.field === field ? true : undefined)

@@ -188,8 +188,9 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 4. ✅ Cart + checkout (`/gio`, no account, phone first, gift mode, birthday
    consent), SePay payment page, webhook, ledger, reconcile (tested with
    simulated webhooks; real SePay account not connected yet).
-5. Admin: orders by bake day, status buttons that write `order_events`, photo
-   upload, customer notes. Owner signs in with Supabase Auth.
+5. ✅ Admin (`/quan-ly`): sign-in, orders by bake day, status buttons that write
+   `order_events`, notes to the customer, costing, ingredient prices, settings,
+   dashboard. Photo upload still to do.
 6. ✅ Tracking page (`/don/[trackToken]`). QR thank-you page still to do.
 7. ✅ Occasions saved at checkout and from the home page. Daily reminder job
    still to do — channel undecided (SMS brandname, or the owner texting by hand
@@ -222,10 +223,10 @@ Script runner note: `pnpm exec tsx` hung once in a non-interactive shell;
 zones and fees, orders per day/slot, time slots, the menu itself and prices,
 TikTok link (Instagram and Facebook set 2026-09-17), reminder channel, the "hủy trước 48 giờ được hoàn cọc" policy.
 
-## Costing, supply and dashboard (decided 2026-09-17, mockup round 3)
+## Costing, supply and dashboard (built 2026-09-18)
 
-Canvas page "Vòng 3 — Quản lý & chiến lược". Not built yet; needs owner sign-in
-(build order step 5) first.
+Mockup: canvas page "Vòng 3 — Quản lý & chiến lược". Admin lives under
+`/quan-ly`; see "Admin area" below.
 
 - **Split:** cookbook owns recipes (how to make). Bakery owns ingredient prices,
   suppliers, packaging, labour and fees (business). Bakery reads
@@ -248,6 +249,38 @@ Canvas page "Vòng 3 — Quản lý & chiến lược". Not built yet; needs own
   slot heatmap; channels (Instagram/Facebook/other); repeat and gift share,
   lead time; next 30 days (booked orders, saved birthdays); rule-based
   suggestions computed from the data (no AI guessing).
+
+## Admin area (`/quan-ly`)
+
+- **Auth:** Supabase Auth, browser sign-in at `/quan-ly/dang-nhap`.
+  `requireOwner()` (src/lib/auth/owner.ts) is the boundary and checks the
+  `OWNER_EMAILS` allowlist — unset means nobody gets in. `proxy.ts` only does
+  the optimistic redirect, and matches `/quan-ly/:path*` so the storefront pays
+  nothing. Every server action calls `requireOwner()` again.
+- **Costing** (`src/server/costing`): a product is made of `product_components`
+  — a cookbook recipe × multiplier, or one ingredient × quantity; a component
+  bound to an option only counts when that option is chosen. Ingredient prices
+  are append-only (`ingredient_prices`), newest row wins, unit cost =
+  price / pack quantity. Recipe lines match an ingredient by `food_id` first,
+  then by normalised name (`matchKey`). Anything unpriced is listed by name and
+  the product is reported as "chưa tính được" — never silently skipped.
+  Unit cost = ingredients + packaging + oven energy + labour; payment-plan share
+  and delivery subsidy are per order, added by the order-level code.
+- **Cookbook access:** `src/server/db/cookbook.ts` declares the few cookbook
+  tables read-only. They are NOT in `schema.ts`, so drizzle-kit never touches
+  them.
+- **Dashboard** (`src/server/admin/analytics.ts`): revenue, orders, AOV, real
+  margin, capacity, abandoned checkouts, 8-week trend, **profit per channel**,
+  menu matrix, slot heatmap, known demand, repeat customers. Margin only counts
+  orders whose lines all carry `order_items.unit_cost_vnd`, and the page says
+  what share of revenue that is. Channel comes from `orders.channel`, captured
+  first-touch in the browser (`src/lib/channel.ts`) from utm_source/referrer.
+- **"So với tiệm khác" is manual by design:** `benchmarks` (a range plus its
+  source) and `competitor_prices` (a real observed price) are typed in at
+  `/quan-ly/cai-dat`. Nothing scrapes a competitor, and no number is invented.
+- Gotcha worth keeping: an `<input type="number">` whose `step` does not divide
+  `value - min` fails HTML validation and the form silently never submits
+  (hit with min=1 step=1000 on a price field).
 
 ## Deferred — do not build yet
 
