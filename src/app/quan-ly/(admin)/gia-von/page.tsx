@@ -6,7 +6,7 @@ import { formatVnd } from '@/lib/money'
 import { listMenu } from '@/server/catalog/service'
 import { costProduct, defaultOptionIds, getSettings, pricedIngredients } from '@/server/costing/service'
 
-export const metadata: Metadata = { title: 'Giá vốn · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Giá vốn', robots: { index: false } }
 
 export default async function CostListPage() {
   await connection()

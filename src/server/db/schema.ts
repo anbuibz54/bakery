@@ -476,3 +476,30 @@ export const competitorPrices = bakery.table('competitor_prices', {
 }, (t) => [
   index('competitor_prices_category_idx').on(t.category, t.checkedOn),
 ])
+
+/* -------------------------------------------------------------------------- */
+/* Brand                                                                       */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * What the shop is called and how it looks, editable by the owner at
+ * /quan-ly/thuong-hieu. One row, `id` always 'shop'. No row = the defaults in
+ * src/lib/brand.ts.
+ *
+ * `palette` holds the CSS colour tokens (see BRAND_TOKENS); the root layout
+ * writes them onto <html>, so every page follows without a redeploy.
+ * `logoPath` is a file in the public `bakery-brand` Storage bucket.
+ */
+export const brandSettings = bakery.table('brand_settings', {
+  id: text('id').primaryKey().default('shop'),
+  name: text('name').notNull(),
+  /** How the name is drawn in the header, e.g. lower case "vibe baking". */
+  wordmark: text('wordmark').notNull(),
+  tagline: text('tagline'),
+  logoPath: text('logo_path'),
+  palette: jsonb('palette').notNull().default(sql`'{}'::jsonb`),
+  instagramUrl: text('instagram_url'),
+  facebookUrl: text('facebook_url'),
+  tiktokUrl: text('tiktok_url'),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+})

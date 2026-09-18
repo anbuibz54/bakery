@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 /*
- * Vibe Bánh — direction C "Hộp quà pastel", approved 2026-09-17.
+ * Direction C "Hộp quà pastel", approved 2026-09-17. These are the defaults;
+ * the owner can override every token at /quan-ly/thuong-hieu (root layout
+ * writes them onto <html>).
  * Source of truth: design/mockups (canvas page "Hướng C — luồng đặt bánh").
  * One deliberate look (a pastel gift box), so a single light theme.
  */

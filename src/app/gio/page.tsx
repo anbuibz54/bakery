@@ -5,7 +5,7 @@ import { TitleBar } from '@/components/ui'
 import { bookingCalendar } from '@/server/schedule/service'
 import { CheckoutForm } from './checkout-form'
 
-export const metadata: Metadata = { title: 'Giỏ bánh · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Giỏ bánh', robots: { index: false } }
 
 export default async function CartPage() {
   await connection()

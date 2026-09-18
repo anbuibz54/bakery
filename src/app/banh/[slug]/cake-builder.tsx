@@ -132,7 +132,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
           <input type="checkbox" checked={gift} onChange={(e) => setGiftChoice(e.target.checked)} className="peer sr-only" />
           <span
             aria-hidden="true"
-            className="relative h-[30px] w-[50px] rounded-full bg-[#E5D8DF] transition-colors peer-checked:bg-berry peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-berry after:absolute after:top-[3px] after:left-[3px] after:size-6 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"
+            className="relative h-[30px] w-[50px] rounded-full bg-line transition-colors peer-checked:bg-berry peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-berry after:absolute after:top-[3px] after:left-[3px] after:size-6 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"
           />
         </label>
       </Card>
@@ -148,7 +148,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
                 <label
                   key={day.date}
                   className={`min-w-[62px] flex-none rounded-2xl py-2 text-center text-[13px] has-focus-visible:outline-2 has-focus-visible:outline-berry ${
-                    disabled ? 'bg-[#F4EEF2] text-[#B8AAB6]' : on ? 'cursor-pointer bg-sky font-bold' : 'cursor-pointer bg-background'
+                    disabled ? 'bg-line/70 text-muted/70' : on ? 'cursor-pointer bg-sky font-bold' : 'cursor-pointer bg-background'
                   }`}
                 >
                   <input type="radio" name="date" value={day.date} disabled={disabled} checked={on} onChange={() => setDateChoice(day.date)} className="sr-only" />
@@ -165,7 +165,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
       </Card>
 
       {product.takesDeposit && (
-        <p className="mt-3.5 rounded-[20px] bg-lemon px-4 py-3 text-[13px] text-[#5C4A12]">
+        <p className="mt-3.5 rounded-[20px] bg-lemon px-4 py-3 text-[13px] text-foreground/85">
           Cọc <b>50%</b> để giữ lịch nướng. Phần còn lại trả khi nhận. Hủy trước 48 giờ được hoàn cọc.
         </p>
       )}

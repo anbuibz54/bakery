@@ -28,7 +28,7 @@ export default async function HomePage() {
           <h1 className="max-w-[260px] font-display text-[31px] leading-[1.2] font-bold text-balance md:max-w-none md:text-5xl">
             Một chiếc bánh, một lời chúc đúng ngày.
           </h1>
-          <p className="mt-2.5 mb-4 max-w-[200px] text-sm text-[#5E4B5C] md:mb-6 md:max-w-md md:text-lg">
+          <p className="mt-2.5 mb-4 max-w-[200px] text-sm text-foreground/80 md:mb-6 md:max-w-md md:text-lg">
             Làm tại nhà theo đơn. Viết lời chúc, giấu giá, giao tận tay người nhận.
           </p>
           <div className="flex flex-wrap items-center gap-4">

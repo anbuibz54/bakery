@@ -8,6 +8,7 @@ import { log } from '@/server/logger'
 import { advanceStatus, addNote, type OrderStatus } from '@/server/admin/orders'
 import { CostingError, addComponent, recordPrice, removeComponent, setProductTimes } from '@/server/costing/ingredients'
 import { saveSettings } from '@/server/costing/service'
+import { BrandError, removeLogo, saveBrand, uploadLogo } from '@/server/brand/service'
 import { db } from '@/server/db'
 import { benchmarks, competitorPrices, products } from '@/server/db/schema'
 import { eq } from 'drizzle-orm'
@@ -200,4 +201,57 @@ export async function signOutAction() {
   await supabase.auth.signOut()
   revalidatePath('/quan-ly', 'layout')
   redirect('/quan-ly/dang-nhap')
+}
+
+/* -------------------------------------------------------------------------- */
+/* Brand                                                                       */
+/* -------------------------------------------------------------------------- */
+
+export async function saveBrandAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    const palette: Record<string, string> = {}
+    for (const [key, value] of form.entries()) {
+      if (key.startsWith('color_')) palette[key.slice(6)] = String(value)
+    }
+    await saveBrand({
+      name: String(form.get('name') ?? ''),
+      wordmark: String(form.get('wordmark') ?? '') || String(form.get('name') ?? '').toLowerCase(),
+      tagline: String(form.get('tagline') ?? ''),
+      palette,
+      instagramUrl: String(form.get('instagramUrl') ?? ''),
+      facebookUrl: String(form.get('facebookUrl') ?? ''),
+      tiktokUrl: String(form.get('tiktokUrl') ?? ''),
+    })
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã lưu thương hiệu. Tải lại trang cửa hàng để xem.' }
+  } catch (error) {
+    if (error instanceof BrandError) return { error: error.message }
+    return fail(error, 'Chưa lưu được thương hiệu.')
+  }
+}
+
+export async function uploadLogoAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    const file = form.get('logo')
+    if (!(file instanceof Blob) || file.size === 0) return { error: 'Chọn một file ảnh logo.' }
+    await uploadLogo(file)
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã đổi logo.' }
+  } catch (error) {
+    if (error instanceof BrandError) return { error: error.message }
+    return fail(error, 'Chưa tải logo lên được.')
+  }
+}
+
+export async function removeLogoAction(): Promise<AdminState> {
+  await guard()
+  try {
+    await removeLogo()
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã bỏ logo, cửa hàng dùng chữ.' }
+  } catch (error) {
+    return fail(error, 'Chưa bỏ được logo.')
+  }
 }

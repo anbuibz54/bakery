@@ -36,6 +36,13 @@
       "when": 1789706206227,
       "tag": "0004_costing",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789723717574,
+      "tag": "0005_brand",
+      "breakpoints": true
     }
   ]
 }

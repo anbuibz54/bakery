@@ -3,8 +3,6 @@
  * owner still has to confirm (see CLAUDE.md "Open questions").
  */
 
-export const SHOP_NAME = 'Vibe Bánh'
-
 /** PLACEHOLDER: pickup point from the mockup. */
 export const PICKUP_ADDRESS = 'Nguyễn Thị Thập, Q.7'
 
@@ -18,20 +16,6 @@ export const DELIVERY_ZONES = [
   { id: 'xa', label: 'Quận khác trong TP.HCM', feeVnd: 50_000 },
 ] as const
 export type DeliveryZoneId = (typeof DELIVERY_ZONES)[number]['id']
-
-/**
- * Where customers talk to the shop. No Zalo on purpose — the shop lives on
- * Instagram, Facebook and TikTok. An entry with an empty url is hidden.
- *
- * Link straight into a chat where the platform allows it:
- * Instagram DM `https://ig.me/m/<username>`, Messenger `https://m.me/<page>`.
- */
-export const SOCIALS: readonly { id: 'instagram' | 'facebook' | 'tiktok'; label: string; action: string; url: string }[] = [
-  { id: 'instagram', label: 'Instagram', action: 'nhắn DM', url: 'https://ig.me/m/alordoflove' },
-  { id: 'facebook', label: 'Facebook', action: 'Messenger', url: 'https://m.me/khanh.an.bui.oan' },
-  { id: 'tiktok', label: 'TikTok', action: 'xem bánh mới', url: '' }, // TODO: when the shop account opens
-]
-export type SocialId = (typeof SOCIALS)[number]['id']
 
 /** Receiving windows, Vietnam time. `scheduled_for` stores the start. */
 export const SLOTS = [

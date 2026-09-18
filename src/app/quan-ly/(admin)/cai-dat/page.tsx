@@ -10,7 +10,7 @@ import { getSettings } from '@/server/costing/service'
 import { BenchmarkForms } from './benchmark-forms'
 import { SettingsForm } from './settings-form'
 
-export const metadata: Metadata = { title: 'Cài đặt · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Cài đặt', robots: { index: false } }
 
 export default async function SettingsPage() {
   await connection()

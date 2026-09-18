@@ -11,7 +11,7 @@ import { formatVnd } from '@/lib/money'
 import { listMenu } from '@/server/catalog/service'
 import { bookingCalendar } from '@/server/schedule/service'
 
-export const metadata: Metadata = { title: 'Menu · Vibe Bánh' }
+export const metadata: Metadata = { title: 'Menu' }
 
 export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
   await connection()
@@ -61,12 +61,12 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
             {s.items.map((p) => (
               <li key={p.id}>
                 {p.soldOutNote ? (
-                  <div className="grid h-full grid-cols-[92px_minmax(0,1fr)] gap-3 rounded-[22px] bg-[#F4EEF2] p-2.5 md:grid-cols-1 md:gap-0 md:p-0">
-                    <div className="h-[92px] rounded-2xl bg-[#EAE2E8] md:h-44 md:rounded-b-none" aria-hidden="true" />
+                  <div className="grid h-full grid-cols-[92px_minmax(0,1fr)] gap-3 rounded-[22px] bg-line/70 p-2.5 md:grid-cols-1 md:gap-0 md:p-0">
+                    <div className="h-[92px] rounded-2xl bg-line md:h-44 md:rounded-b-none" aria-hidden="true" />
                     <div className="flex min-w-0 flex-col justify-center md:p-4">
-                      <div className="leading-tight font-bold text-[#8F818D] md:text-lg">{p.name}</div>
-                      <div className="text-[13px] text-[#A597A3]">{p.soldOutNote}</div>
-                      <div className="mt-1 text-xs font-bold text-[#A597A3]">Tạm hết</div>
+                      <div className="leading-tight font-bold text-muted md:text-lg">{p.name}</div>
+                      <div className="text-[13px] text-muted/80">{p.soldOutNote}</div>
+                      <div className="mt-1 text-xs font-bold text-muted/80">Tạm hết</div>
                     </div>
                   </div>
                 ) : (

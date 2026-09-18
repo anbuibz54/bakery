@@ -8,7 +8,7 @@ import { formatK, formatVnd } from '@/lib/money'
 import { slotLabelForHour } from '@/lib/shop'
 import { bakeDayShopping, ordersOnDay, upcomingBakeDays } from '@/server/admin/orders'
 
-export const metadata: Metadata = { title: 'Mẻ nướng · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Mẻ nướng', robots: { index: false } }
 
 export default async function BakeDayPage({ searchParams }: PageProps<'/quan-ly/me-nuong'>) {
   await connection()
@@ -96,7 +96,7 @@ export default async function BakeDayPage({ searchParams }: PageProps<'/quan-ly/
       </div>
 
       {shopping.missing.length > 0 && (
-        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-[#5C4A12]">
+        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-foreground/85">
           <b>Chưa tính được giá:</b> {shopping.missing.join(', ')}. Thêm ở trang Nguyên liệu hoặc khai thành phần ở Giá vốn.
         </p>
       )}

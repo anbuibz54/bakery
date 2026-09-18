@@ -5,7 +5,7 @@ import { paymentView } from '@/server/payments/service'
 import { PaymentLive } from './payment-live'
 
 export const metadata: Metadata = {
-  title: 'Thanh toán · Vibe Bánh',
+  title: 'Thanh toán',
   robots: { index: false },
 }
 

@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { getOwner } from '@/lib/auth/owner'
 import { SignInForm } from './sign-in-form'
 
-export const metadata: Metadata = { title: 'Đăng nhập · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Đăng nhập', robots: { index: false } }
 
 export default async function SignInPage({ searchParams }: PageProps<'/quan-ly/dang-nhap'>) {
   const { next } = await searchParams

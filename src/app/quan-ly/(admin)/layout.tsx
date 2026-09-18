@@ -21,9 +21,12 @@ export default async function AdminLayout({ children }: LayoutProps<'/quan-ly'>)
           <span className="font-display text-lg font-bold">Quản lý</span>
         </Link>
         <AdminTopNav tabs={TABS} />
-        <nav className="flex items-center gap-2 text-[13px]" aria-label="Khác">
+        <nav className="flex flex-wrap items-center justify-end gap-2 text-[13px]" aria-label="Khác">
           <Link href="/quan-ly/nguyen-lieu" className="rounded-full bg-surface px-3 py-2 font-bold shadow-[var(--shadow-soft)]">
             Nguyên liệu
+          </Link>
+          <Link href="/quan-ly/thuong-hieu" className="rounded-full bg-surface px-3 py-2 font-bold shadow-[var(--shadow-soft)]">
+            Thương hiệu
           </Link>
           <Link href="/quan-ly/cai-dat" className="rounded-full bg-surface px-3 py-2 font-bold shadow-[var(--shadow-soft)]">
             Cài đặt

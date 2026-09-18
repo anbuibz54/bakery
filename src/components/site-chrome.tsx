@@ -3,19 +3,26 @@ import { CartButton } from './cart-button'
 import { SocialLinks } from './social-links'
 import { PRINT, StampIcon } from './stamp-icon'
 import { CATEGORIES } from '@/lib/catalog'
-import { PICKUP_ADDRESS, SHOP_NAME, SLOTS } from '@/lib/shop'
+import { PICKUP_ADDRESS, SLOTS } from '@/lib/shop'
+import { getBrand, logoUrl } from '@/server/brand/service'
 
 /**
  * The storefront's frame. On a phone it is the same slim bar as before; from
  * `md` up it grows a real menu, because a bakery link shared on Facebook gets
  * opened on desktops too.
  */
-export function SiteHeader({ active }: { active?: 'menu' } = {}) {
+export async function SiteHeader({ active }: { active?: 'menu' } = {}) {
+  const brand = await getBrand()
+  const logo = logoUrl(brand.logoPath)
   return (
     <header className="sticky top-0 z-20 -mx-5 mb-1 bg-background/85 px-5 backdrop-blur md:-mx-8 md:px-8">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 py-3.5">
-        <Link href="/" className="font-display text-[22px] font-bold text-berry">
-          vibe bánh
+        <Link href="/" className="flex min-w-0 items-center gap-2 font-display text-[22px] font-bold text-berry" aria-label={`${brand.name}, trang chủ`}>
+          {logo && (
+            // eslint-disable-next-line @next/next/no-img-element -- owner-uploaded logo from Storage
+            <img src={logo} alt="" width={36} height={36} className="size-9 flex-none rounded-xl object-contain" />
+          )}
+          <span className="truncate">{brand.wordmark}</span>
         </Link>
         <nav className="hidden items-center gap-1 md:flex" aria-label="Menu bánh">
           <Link
@@ -36,13 +43,14 @@ export function SiteHeader({ active }: { active?: 'menu' } = {}) {
   )
 }
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const brand = await getBrand()
   return (
     <footer className="mt-12 -mx-5 bg-surface px-5 py-8 md:-mx-8 md:px-8">
       <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
         <div>
-          <p className="font-display text-lg font-bold text-berry">{SHOP_NAME}</p>
-          <p className="mt-1 text-sm text-muted">Bánh làm tại nhà theo đơn. Đặt trước, chọn ngày giờ nhận.</p>
+          <p className="font-display text-lg font-bold text-berry">{brand.name}</p>
+          <p className="mt-1 text-sm text-muted">{brand.tagline}</p>
           <div className="mt-3">
             <SocialLinks className="justify-start" />
           </div>

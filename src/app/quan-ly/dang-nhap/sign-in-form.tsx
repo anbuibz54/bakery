@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { PRINT, StampIcon } from '@/components/stamp-icon'
 import { buttonClass, Card } from '@/components/ui'
+import { useBrand } from '@/components/brand-context'
 import { createClient } from '@/lib/supabase/client'
 
 /**
@@ -12,6 +13,7 @@ import { createClient } from '@/lib/supabase/client'
  */
 export function SignInForm({ next }: { next?: string }) {
   const router = useRouter()
+  const brand = useBrand()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -36,7 +38,7 @@ export function SignInForm({ next }: { next?: string }) {
       <div className="flex items-center gap-3">
         <StampIcon name="house" size={40} print={PRINT.pink} />
         <div>
-          <h1 className="font-display text-xl font-bold">Vibe Bánh · quản lý</h1>
+          <h1 className="font-display text-xl font-bold">{brand.name} · quản lý</h1>
           <p className="text-[13px] text-muted">Chỉ chủ tiệm đăng nhập được.</p>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { formatK, formatVnd } from '@/lib/money'
 import { ORDERS_PER_SLOT } from '@/lib/shop'
 import { dashboard } from '@/server/admin/analytics'
 
-export const metadata: Metadata = { title: 'Số liệu · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Số liệu', robots: { index: false } }
 
 const DAY_LABELS = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']
 const CHANNEL_LABEL: Record<string, string> = {
@@ -66,7 +66,7 @@ export default async function DashboardPage({ searchParams }: PageProps<'/quan-l
           </div>
 
           {now.costedShare < 0.999 && (
-            <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-[#5C4A12]">
+            <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-foreground/85">
               Chỉ <b>{Math.round(now.costedShare * 100)}%</b> doanh thu có giá vốn đầy đủ, nên lãi ở trên chỉ tính trên phần đó. Khai thành phần và
               nhập giá cho các món còn lại để con số đủ tin.
             </p>

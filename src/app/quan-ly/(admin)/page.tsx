@@ -8,7 +8,7 @@ import { slotLabelForHour } from '@/lib/shop'
 import { NEXT_STATUS, ordersOnDay, upcomingBakeDays, type OrderStatus } from '@/server/admin/orders'
 import { OrderCard } from './order-card'
 
-export const metadata: Metadata = { title: 'Đơn · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Đơn', robots: { index: false } }
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   pending: 'Chờ cọc',

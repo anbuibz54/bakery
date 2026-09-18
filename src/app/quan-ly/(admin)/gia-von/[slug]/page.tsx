@@ -9,7 +9,7 @@ import { costProduct, feePerOrderVnd, getSettings, suggestedPriceVnd } from '@/s
 import { ComponentEditor } from './component-editor'
 import { PriceBox } from './price-box'
 
-export const metadata: Metadata = { title: 'Giá vốn món · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Giá vốn món', robots: { index: false } }
 
 export default async function ProductCostPage({ params, searchParams }: PageProps<'/quan-ly/gia-von/[slug]'>) {
   await connection()
@@ -72,15 +72,15 @@ export default async function ProductCostPage({ params, searchParams }: PageProp
       <div className="mt-4 rounded-3xl bg-pink px-5 py-4">
         <div className="grid grid-cols-3 gap-2 text-center">
           <div>
-            <div className="text-xs text-[#8C3B5E]">Giá bán</div>
+            <div className="text-xs text-berry">Giá bán</div>
             <div className="font-display text-xl font-bold">{formatVnd(priceVnd)}</div>
           </div>
           <div>
-            <div className="text-xs text-[#8C3B5E]">Giá vốn</div>
+            <div className="text-xs text-berry">Giá vốn</div>
             <div className="font-display text-xl font-bold">{complete ? formatVnd(cost.unitCostVnd) : '—'}</div>
           </div>
           <div>
-            <div className="text-xs text-[#8C3B5E]">Lãi thật</div>
+            <div className="text-xs text-berry">Lãi thật</div>
             <div className="font-display text-xl font-bold">{complete ? formatVnd(profit) : '—'}</div>
           </div>
         </div>
@@ -88,9 +88,9 @@ export default async function ProductCostPage({ params, searchParams }: PageProp
           <>
             <div className="mt-3 flex h-3 overflow-hidden rounded-full bg-white/60">
               <span style={{ width: `${Math.min(100, (cost.ingredientsVnd / priceVnd) * 100)}%` }} className="bg-berry" />
-              <span style={{ width: `${Math.min(100, ((cost.unitCostVnd - cost.ingredientsVnd) / priceVnd) * 100)}%` }} className="bg-[#D97BA0]" />
+              <span style={{ width: `${Math.min(100, ((cost.unitCostVnd - cost.ingredientsVnd) / priceVnd) * 100)}%` }} className="bg-berry/60" />
             </div>
-            <div className="mt-1.5 flex justify-between text-xs text-[#5E4B5C]">
+            <div className="mt-1.5 flex justify-between text-xs text-foreground/80">
               <span>nguyên liệu {Math.round((cost.ingredientsVnd / priceVnd) * 100)}%</span>
               <span>chi phí khác {Math.round(((cost.unitCostVnd - cost.ingredientsVnd) / priceVnd) * 100)}%</span>
               <span className="font-bold">lãi {Math.round((profit / priceVnd) * 100)}%</span>
@@ -100,12 +100,12 @@ export default async function ProductCostPage({ params, searchParams }: PageProp
       </div>
 
       {cost.missing.length > 0 && (
-        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-[#5C4A12]">
+        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-foreground/85">
           <b>Chưa đủ dữ liệu:</b> {cost.missing.join(', ')}. Thêm giá ở trang Nguyên liệu, hoặc khai thành phần bên dưới.
         </p>
       )}
       {complete && cost.ingredientsVnd / priceVnd > settings.targetIngredientPct && (
-        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-[#5C4A12]">
+        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-foreground/85">
           Nguyên liệu chiếm <b>{Math.round((cost.ingredientsVnd / priceVnd) * 100)}%</b> giá bán, cao hơn mức{' '}
           {Math.round(settings.targetIngredientPct * 100)}% bạn đặt. Để lãi {Math.round(settings.targetMarginPct * 100)}% cần bán{' '}
           <b>{formatVnd(suggested)}</b>.

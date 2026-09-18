@@ -16,7 +16,9 @@ speed and convenience; almost nobody competes on **feeling**. The site must make
 a customer remember the shop and come back — and later be the hub for marketing
 and sales.
 
-Shop name: **Vibe Bánh** (2026-09-17). Brand vibe: **ấm áp, vui nhộn**.
+Shop name: **Vibe Baking** (renamed 2026-09-18; was Vibe Bánh). Name, wordmark,
+tagline, logo, palette and social links are **owner-editable** at
+`/quan-ly/thuong-hieu` — never hardcode them. Brand vibe: **ấm áp, vui nhộn**.
 Operating model: **pre-order, made at home**; pickup or delivery, customer picks
 date and time slot.
 
@@ -259,6 +261,21 @@ Mockup: canvas page "Vòng 3 — Quản lý & chiến lược". Admin lives unde
   slot heatmap; channels (Instagram/Facebook/other); repeat and gift share,
   lead time; next 30 days (booked orders, saved birthdays); rule-based
   suggestions computed from the data (no AI guessing).
+
+## Brand settings (`/quan-ly/thuong-hieu`)
+
+- One row in `bakery.brand_settings`; no row = defaults in `src/lib/brand.ts`
+  (Vibe Baking, palette "Hộp quà pastel", the owner's Instagram/Messenger).
+- The root layout reads it (`getBrand()`, React-cached per request), writes the
+  palette as CSS variables on `<html style>`, sets the title template and theme
+  colour, and passes name/links to client components via `BrandProvider`.
+- **Use palette tokens in classes, never hex** (`text-foreground/80`, not
+  `text-[#5E4B5C]`) — a hardcoded colour does not follow the owner's palette.
+  Product tones and the icon print colours are the only fixed colours.
+- Saving refuses a palette where white-on-accent or text-on-background is below
+  WCAG 4.5:1; softer pairs only warn. Four presets + a picker per token.
+- Logo: public Storage bucket `bakery-brand` (created on first upload), PNG /
+  JPG / WebP ≤ 1 MB, SVG refused (can carry script). Server actions allow 2 MB.
 
 ## Admin area (`/quan-ly`)
 

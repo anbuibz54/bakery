@@ -15,7 +15,7 @@ import { depositFor } from '@/server/payments/status'
 import { placeOrderAction, type CheckoutState } from '../_actions/shop'
 
 const input =
-  'h-12 w-full min-w-0 rounded-2xl bg-background px-3.5 placeholder:text-[#B8AAB6] focus-visible:outline-2 focus-visible:outline-berry aria-invalid:outline-2 aria-invalid:outline-berry'
+  'h-12 w-full min-w-0 rounded-2xl bg-background px-3.5 placeholder:text-muted/60 focus-visible:outline-2 focus-visible:outline-berry aria-invalid:outline-2 aria-invalid:outline-berry'
 const label = 'mb-1.5 block text-[13px] font-bold'
 
 export function CheckoutForm({ calendar }: { calendar: DayAvailability[] }) {
@@ -150,7 +150,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
                   <label
                     key={s.id}
                     className={`flex h-11 flex-1 items-center justify-center rounded-full text-sm has-focus-visible:outline-2 has-focus-visible:outline-berry ${
-                      !open ? 'bg-[#F4EEF2] text-[#B8AAB6]' : s.id === slotId ? 'cursor-pointer bg-foreground font-bold text-white' : 'cursor-pointer bg-background'
+                      !open ? 'bg-line/70 text-muted/70' : s.id === slotId ? 'cursor-pointer bg-foreground font-bold text-white' : 'cursor-pointer bg-background'
                     }`}
                   >
                     <input type="radio" name="slot" className="sr-only" disabled={!open} checked={s.id === slotId} onChange={() => setSlotId(s.id)} />
@@ -245,7 +245,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
                   maxLength={300}
                   rows={3}
                   placeholder="Con thương mẹ. Chúc mẹ vẫn cười nhiều như vầy nha!"
-                  className="w-full rounded-2xl bg-lemon px-3.5 py-3 placeholder:text-[#A8964F] focus-visible:outline-2 focus-visible:outline-berry"
+                  className="w-full rounded-2xl bg-lemon px-3.5 py-3 placeholder:text-muted/70 focus-visible:outline-2 focus-visible:outline-berry"
                 />
               </div>
               <label className="flex items-start gap-2.5 text-sm">
@@ -264,7 +264,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
             <p className="font-bold">
               Lưu ngày {dayMonth(date)} là sinh nhật {gift && f.recipientName ? f.recipientName : 'người nhận bánh'}?
             </p>
-            <p className="mt-0.5 text-[13px] text-[#3F5563]">Năm sau tiệm nhắn tin nhắc bạn trước 7 ngày. Một tin mỗi năm, tắt lúc nào cũng được.</p>
+            <p className="mt-0.5 text-[13px] text-foreground/75">Năm sau tiệm nhắn tin nhắc bạn trước 7 ngày. Một tin mỗi năm, tắt lúc nào cũng được.</p>
             <label className="mt-2 flex items-start gap-2.5 text-sm">
               <input type="checkbox" checked={saveOccasion} onChange={(e) => setSaveOccasion(e.target.checked)} className="mt-0.5 size-5 accent-berry" />
               Tôi đồng ý để tiệm lưu ngày này và số điện thoại của tôi để nhắn nhắc.

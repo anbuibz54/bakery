@@ -6,7 +6,7 @@ import { formatVnd } from '@/lib/money'
 import { listIngredients, listSuppliers } from '@/server/costing/ingredients'
 import { PriceForm } from './price-form'
 
-export const metadata: Metadata = { title: 'Nguyên liệu · Vibe Bánh', robots: { index: false } }
+export const metadata: Metadata = { title: 'Nguyên liệu', robots: { index: false } }
 
 const unitLabel: Record<string, string> = { g: 'kg', ml: 'lít', cai: 'cái' }
 
@@ -25,7 +25,7 @@ export default async function IngredientsPage() {
       <PriceForm ingredients={rows.map((r) => ({ id: r.id, name: r.name, unit: r.unit }))} suppliers={suppliers.map((s) => s.name)} today={vnDate()} />
 
       {unpriced.length > 0 && (
-        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-[#5C4A12]">
+        <p className="mt-3 rounded-2xl bg-lemon px-4 py-3 text-sm text-foreground/85">
           <b>Chưa có giá:</b> {unpriced.map((r) => r.name).join(', ')}.
         </p>
       )}

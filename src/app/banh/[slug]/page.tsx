@@ -11,7 +11,7 @@ import { CakeBuilder } from './cake-builder'
 export async function generateMetadata({ params }: PageProps<'/banh/[slug]'>): Promise<Metadata> {
   const { slug } = await params
   const product = await getProduct(slug)
-  return { title: product ? `${product.name} · Vibe Bánh` : 'Vibe Bánh', description: product?.summary ?? undefined }
+  return { title: product?.name, description: product?.summary ?? undefined }
 }
 
 export default async function ProductPage({ params, searchParams }: PageProps<'/banh/[slug]'>) {
@@ -37,13 +37,13 @@ export default async function ProductPage({ params, searchParams }: PageProps<'/
           </div>
           <div className="pt-5">
             <h1 className="font-display text-[28px] leading-tight font-bold text-balance lg:text-4xl">{product.name}</h1>
-            {product.description && <p className="mt-1.5 text-[#5E4B5C] lg:text-lg">{product.description}</p>}
+            {product.description && <p className="mt-1.5 text-foreground/80 lg:text-lg">{product.description}</p>}
           </div>
         </div>
 
         <div className="lg:pt-3">
           {product.soldOutNote ? (
-            <p className="mt-5 rounded-3xl bg-[#F4EEF2] px-4 py-3 text-[#8F818D]">
+            <p className="mt-5 rounded-3xl bg-line/70 px-4 py-3 text-muted">
               <b>Tạm hết.</b> {product.soldOutNote}
             </p>
           ) : (
