@@ -89,7 +89,7 @@ function Filled({ cart, calendar }: { cart: Cart; calendar: DayAvailability[] })
       <Card className="flex flex-col gap-3.5">
         {cart.lines.map((l) => (
           <div key={l.key} className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-3">
-            <ProductArt tone={l.tone} icon={l.takesDeposit ? 'cake' : 'croissant'} className="size-16 rounded-2xl" size={28} />
+            <ProductArt tone={l.tone} icon={l.takesDeposit ? 'cake' : 'croissant'} photoUrl={l.photoUrl} className="size-16 rounded-2xl" size={28} />
             <div className="min-w-0">
               <Link href={`/banh/${l.slug}`} className="block leading-tight font-bold">
                 {l.name}

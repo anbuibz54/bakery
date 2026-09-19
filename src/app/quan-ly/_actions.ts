@@ -10,6 +10,9 @@ import { CostingError, addComponent, recordPrice, removeComponent, setProductTim
 import { saveSettings } from '@/server/costing/service'
 import { BrandError, removeLogo, saveBrand, uploadLogo } from '@/server/brand/service'
 import { importReceiptLines } from '@/server/costing/receipts'
+import { ProductError, createFromRecipe, createProduct, deleteProduct, removeProductPhoto, saveOptions, setProductPhoto, updateProduct, type ProductInput } from '@/server/catalog/admin'
+import { CategoryError, deleteCategory, saveCategory } from '@/server/catalog/categories'
+import { ImageError } from '@/server/storage/public-images'
 import { db } from '@/server/db'
 import { benchmarks, competitorPrices, products } from '@/server/db/schema'
 import { eq } from 'drizzle-orm'
@@ -273,5 +276,148 @@ export async function importReceiptPricesAction(_prev: AdminState, form: FormDat
     return { ok: `Đã nhập ${imported} giá.${skipped.length ? ` Bỏ qua: ${skipped.join(', ')}.` : ''}` }
   } catch (error) {
     return fail(error, 'Chưa nhập được giá từ hóa đơn.')
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Products and categories                                                     */
+/* -------------------------------------------------------------------------- */
+
+function productFromForm(form: FormData): ProductInput {
+  return {
+    name: String(form.get('name') ?? ''),
+    category: String(form.get('category') ?? ''),
+    summary: String(form.get('summary') ?? ''),
+    description: String(form.get('description') ?? ''),
+    basePriceVnd: Math.round(num(form, 'basePriceVnd')),
+    leadTimeHours: Math.round(num(form, 'leadTimeHours', 24)),
+    takesDeposit: form.get('takesDeposit') === 'on',
+    featured: form.get('featured') === 'on',
+    soldOutNote: form.get('soldOut') === 'on' ? String(form.get('soldOutNote') ?? '').trim() || 'Tạm hết' : '',
+    tone: String(form.get('tone') ?? '#fde3ec'),
+    isActive: form.get('isActive') === 'on',
+    position: Math.round(num(form, 'position', 0)),
+    recipeId: String(form.get('recipeId') ?? '') || null,
+  }
+}
+
+function productFail(error: unknown, fallback: string): AdminState {
+  if (error instanceof ProductError || error instanceof CategoryError || error instanceof ImageError) return { error: error.message }
+  return fail(error, fallback)
+}
+
+export async function createProductAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  let id: string
+  try {
+    id = await createProduct(productFromForm(form))
+  } catch (error) {
+    return productFail(error, 'Chưa tạo được bánh.')
+  }
+  revalidatePath('/', 'layout')
+  redirect(`/quan-ly/san-pham/${id}?moi=1`)
+}
+
+export async function createFromRecipeAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  let id: string
+  try {
+    id = await createFromRecipe({
+      recipeId: String(form.get('recipeId') ?? ''),
+      category: String(form.get('category') ?? ''),
+      basePriceVnd: Math.round(num(form, 'basePriceVnd')),
+      takesDeposit: form.get('takesDeposit') === 'on',
+    })
+  } catch (error) {
+    return productFail(error, 'Chưa tạo được bánh từ công thức.')
+  }
+  revalidatePath('/', 'layout')
+  redirect(`/quan-ly/san-pham/${id}?moi=1`)
+}
+
+export async function updateProductAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    await updateProduct(String(form.get('productId')), productFromForm(form))
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã lưu.' }
+  } catch (error) {
+    return productFail(error, 'Chưa lưu được.')
+  }
+}
+
+export async function saveOptionsAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    await saveOptions(String(form.get('productId')), JSON.parse(String(form.get('options') ?? '[]')))
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã lưu các lựa chọn.' }
+  } catch (error) {
+    return productFail(error, 'Chưa lưu được các lựa chọn.')
+  }
+}
+
+export async function productPhotoAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    const file = form.get('photo')
+    if (!(file instanceof Blob) || file.size === 0) return { error: 'Chọn một ảnh.' }
+    await setProductPhoto(String(form.get('productId')), file)
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã đổi ảnh.' }
+  } catch (error) {
+    return productFail(error, 'Chưa tải ảnh lên được.')
+  }
+}
+
+export async function removeProductPhotoAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    await removeProductPhoto(String(form.get('productId')))
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã bỏ ảnh.' }
+  } catch (error) {
+    return productFail(error, 'Chưa bỏ được ảnh.')
+  }
+}
+
+export async function deleteProductAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    await deleteProduct(String(form.get('productId')))
+  } catch (error) {
+    return productFail(error, 'Chưa xoá được.')
+  }
+  revalidatePath('/', 'layout')
+  redirect('/quan-ly/san-pham')
+}
+
+export async function saveCategoryAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    await saveCategory({
+      slug: String(form.get('slug') ?? '') || undefined,
+      title: String(form.get('title') ?? ''),
+      chip: String(form.get('chip') ?? ''),
+      note: String(form.get('note') ?? ''),
+      icon: String(form.get('icon') ?? 'cake'),
+      position: Math.round(num(form, 'position', 0)),
+      isActive: form.get('isActive') === 'on',
+    })
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã lưu loại bánh.' }
+  } catch (error) {
+    return productFail(error, 'Chưa lưu được loại bánh.')
+  }
+}
+
+export async function deleteCategoryAction(_prev: AdminState, form: FormData): Promise<AdminState> {
+  await guard()
+  try {
+    await deleteCategory(String(form.get('slug')))
+    revalidatePath('/', 'layout')
+    return { ok: 'Đã xoá loại bánh.' }
+  } catch (error) {
+    return productFail(error, 'Chưa xoá được.')
   }
 }

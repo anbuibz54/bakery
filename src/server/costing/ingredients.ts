@@ -8,10 +8,11 @@
  * No `next/*` imports.
  */
 
-import { and, asc, desc, eq, ilike, inArray, or, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, ilike, inArray, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '../db'
-import { cbRecipes } from '../db/cookbook'
+import { cbRecipes, cbUsers } from '../db/cookbook'
+import { ownerEmails } from '../owner'
 import { ingredientPrices, ingredients, productComponents, products, suppliers } from '../db/schema'
 import { matchKey } from './service'
 
@@ -237,13 +238,19 @@ export async function setProductTimes(productId: string, labourMinutes: number, 
     .where(eq(products.id, productId))
 }
 
-/** Recipes in the owner's cookbook, for picking a component. */
-export async function searchRecipes(query: string, limit = 12) {
+/**
+ * Recipes in the owner's cookbook, for picking a component. ONLY the owner's:
+ * the cookbook database holds other people's recipes too.
+ */
+export async function searchRecipes(query: string, limit = 200) {
+  const emails = ownerEmails()
+  if (emails.length === 0) return []
   const q = query.trim()
   return db
     .select({ id: cbRecipes.id, title: cbRecipes.title, servings: cbRecipes.servings, yieldLabel: cbRecipes.yieldLabel })
     .from(cbRecipes)
-    .where(q ? or(ilike(cbRecipes.title, `%${q}%`), sql`false`) : undefined)
+    .innerJoin(cbUsers, eq(cbUsers.id, cbRecipes.userId))
+    .where(and(inArray(sql`lower(${cbUsers.email})`, emails), q ? ilike(cbRecipes.title, `%${q}%`) : undefined))
     .orderBy(asc(cbRecipes.title))
     .limit(limit)
 }

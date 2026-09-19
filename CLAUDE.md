@@ -262,6 +262,29 @@ Mockup: canvas page "Vòng 3 — Quản lý & chiến lược". Admin lives unde
   lead time; next 30 days (booked orders, saved birthdays); rule-based
   suggestions computed from the data (no AI guessing).
 
+## Products (`/quan-ly/san-pham`, built 2026-09-19)
+
+- List by section; add a product **from a cookbook recipe** (name, blurb and a
+  costing component recipe × 1 come with it) or **by hand**. New products start
+  hidden until the owner adds a photo/sizes and turns on "Đang bán".
+- Edit: name, section, blurb, description, base price, lead time, deposit,
+  featured, sold out + note, placeholder colour, position, linked recipe;
+  photo (shrunk to 1600 px in the browser, public bucket `bakery-products`,
+  new file name each time); options editor (group, label, detail, price delta,
+  order).
+- History rules (`src/server/catalog/admin.ts`): the slug is set once (shared
+  links); removed options are switched off, never deleted (costing components
+  and order snapshots refer to them); a product that was ever ordered can only
+  be hidden.
+- **Sections are a table now** (`bakery.categories`, seeded with the four from
+  the mockup): title, short chip, note, stamp icon, position, shown/hidden.
+  The header nav, menu, home and product page read it (`listCategories`,
+  request-cached). A section with products cannot be deleted, only hidden.
+  Products in hidden sections drop off the menu.
+- Recipes offered anywhere in the admin come from the OWNER_EMAILS cookbook
+  accounts only (`src/server/owner.ts`) — the cookbook schema holds other
+  people's recipes too; the first version listed everyone's.
+
 ## Brand settings (`/quan-ly/thuong-hieu`)
 
 - One row in `bakery.brand_settings`; no row = defaults in `src/lib/brand.ts`

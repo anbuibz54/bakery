@@ -5,7 +5,7 @@ import { PRINT, StampIcon } from '@/components/stamp-icon'
 import { SiteFooter, SiteHeader, SitePage } from '@/components/site-chrome'
 import { ProductArt } from '@/components/ui'
 import { dayState } from '@/lib/availability'
-import { CATEGORIES } from '@/lib/catalog'
+import { listCategories } from '@/server/catalog/categories'
 import { inlineDay } from '@/lib/dates'
 import { formatVnd } from '@/lib/money'
 import { listMenu } from '@/server/catalog/service'
@@ -16,10 +16,10 @@ export const metadata: Metadata = { title: 'Menu' }
 export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
   await connection()
   const { loai } = await searchParams
-  const active = CATEGORIES.find((c) => c.slug === loai)?.slug ?? null
-  const [menu, calendar] = await Promise.all([listMenu(), bookingCalendar()])
+  const [menu, calendar, categories] = await Promise.all([listMenu(), bookingCalendar(), listCategories()])
+  const active = categories.find((c) => c.slug === loai)?.slug ?? null
 
-  const sections = CATEGORIES.filter((c) => !active || c.slug === active)
+  const sections = categories.filter((c) => !active || c.slug === active)
     .map((c) => {
       const items = menu.filter((p) => p.category === c.slug)
       const lead = Math.min(...items.filter((p) => !p.soldOutNote).map((p) => p.leadTimeHours))
@@ -39,7 +39,7 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
         <Chip href="/menu" active={!active}>
           Tất cả
         </Chip>
-        {CATEGORIES.map((c) => (
+        {categories.map((c) => (
           <Chip key={c.slug} href={`/menu?loai=${c.slug}`} active={active === c.slug}>
             {c.chip}
           </Chip>
@@ -74,7 +74,7 @@ export default async function MenuPage({ searchParams }: PageProps<'/menu'>) {
                     href={`/banh/${p.slug}`}
                     className="grid h-full grid-cols-[92px_minmax(0,1fr)] gap-3 overflow-hidden rounded-[22px] bg-surface p-2.5 shadow-[var(--shadow-soft)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-berry md:grid-cols-1 md:gap-0 md:p-0"
                   >
-                    <ProductArt tone={p.tone} icon={s.icon} className="h-[92px] rounded-2xl md:h-44 md:rounded-none" size={40} />
+                    <ProductArt tone={p.tone} icon={s.icon} photoUrl={p.photoUrl} alt={p.name} className="h-[92px] w-full rounded-2xl md:h-44 md:rounded-none" size={40} />
                     <div className="flex min-w-0 flex-col justify-between py-0.5 md:p-4">
                       <div>
                         <div className="leading-tight font-bold md:text-lg">{p.name}</div>

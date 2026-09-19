@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { CartButton } from './cart-button'
 import { SocialLinks } from './social-links'
 import { PRINT, StampIcon } from './stamp-icon'
-import { CATEGORIES } from '@/lib/catalog'
 import { PICKUP_ADDRESS, SLOTS } from '@/lib/shop'
 import { getBrand, logoUrl } from '@/server/brand/service'
+import { listCategories } from '@/server/catalog/categories'
 
 /**
  * The storefront's frame. On a phone it is the same slim bar as before; from
@@ -12,7 +12,7 @@ import { getBrand, logoUrl } from '@/server/brand/service'
  * opened on desktops too.
  */
 export async function SiteHeader({ active }: { active?: 'menu' } = {}) {
-  const brand = await getBrand()
+  const [brand, sections] = await Promise.all([getBrand(), listCategories()])
   const logo = logoUrl(brand.logoPath)
   return (
     <header className="sticky top-0 z-20 -mx-5 mb-1 bg-background/85 px-5 backdrop-blur md:-mx-8 md:px-8">
@@ -31,7 +31,7 @@ export async function SiteHeader({ active }: { active?: 'menu' } = {}) {
           >
             Tất cả bánh
           </Link>
-          {CATEGORIES.map((c) => (
+          {sections.map((c) => (
             <Link key={c.slug} href={`/menu?loai=${c.slug}`} className="rounded-full px-4 py-2 text-sm hover:bg-surface">
               {c.chip}
             </Link>

@@ -37,7 +37,27 @@ export function TitleBar({ back, title, right }: { back: string; title: string; 
  * Stand-in for a product photo: the product's tone with its category stamp.
  * Swap for the real photo once `photo_key` is set.
  */
-export function ProductArt({ tone, icon, className, size = 40 }: { tone: string; icon: StampName; className?: string; size?: number }) {
+export function ProductArt({
+  tone,
+  icon,
+  className,
+  size = 40,
+  photoUrl,
+  alt = '',
+}: {
+  tone: string
+  icon: StampName
+  className?: string
+  size?: number
+  photoUrl?: string | null
+  alt?: string
+}) {
+  if (photoUrl) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- owner-uploaded photo from public Storage
+      <img src={photoUrl} alt={alt} loading="lazy" className={cn('object-cover', className)} style={{ background: tone }} />
+    )
+  }
   return (
     <div className={cn('flex items-center justify-center', className)} style={{ background: tone }} aria-hidden="true">
       <StampIcon name={icon} size={size} print="rgb(255 255 255 / 0.7)" className="opacity-80" />

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { connection } from 'next/server'
 import { SiteFooter, SiteHeader, SitePage } from '@/components/site-chrome'
 import { BackLink, ProductArt } from '@/components/ui'
-import { category } from '@/lib/catalog'
+import { listCategories } from '@/server/catalog/categories'
 import { getProduct } from '@/server/catalog/service'
 import { bookingCalendar } from '@/server/schedule/service'
 import { CakeBuilder } from './cake-builder'
@@ -17,9 +17,9 @@ export async function generateMetadata({ params }: PageProps<'/banh/[slug]'>): P
 export default async function ProductPage({ params, searchParams }: PageProps<'/banh/[slug]'>) {
   await connection()
   const [{ slug }, { qua }] = await Promise.all([params, searchParams])
-  const [product, calendar] = await Promise.all([getProduct(slug), bookingCalendar()])
+  const [product, calendar, sections] = await Promise.all([getProduct(slug), bookingCalendar(), listCategories()])
   if (!product) notFound()
-  const cat = category(product.category)
+  const cat = sections.find((c) => c.slug === product.category)
 
   return (
     <SitePage className="pb-32 lg:pb-10">
@@ -30,7 +30,7 @@ export default async function ProductPage({ params, searchParams }: PageProps<'/
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:items-start lg:gap-10">
         <div className="lg:sticky lg:top-24">
           <div className="relative -mx-2 mt-3 md:mx-0">
-            <ProductArt tone={product.tone} icon={cat?.icon ?? 'cake'} className="h-[290px] rounded-[32px] lg:h-[420px]" size={96} />
+            <ProductArt tone={product.tone} icon={cat?.icon ?? 'cake'} photoUrl={product.photoUrl} alt={product.name} className="h-[290px] w-full rounded-[32px] lg:h-[420px]" size={96} />
             <div className="absolute top-3.5 left-3.5 md:hidden">
               <BackLink href={`/menu?loai=${product.category}`} />
             </div>

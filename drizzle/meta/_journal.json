@@ -50,6 +50,13 @@
       "when": 1789724661173,
       "tag": "0006_receipt_import",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789795675362,
+      "tag": "0007_categories",
+      "breakpoints": true
     }
   ]
 }

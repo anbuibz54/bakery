@@ -20,6 +20,7 @@ export const cbRecipes = cookbook.table('recipes', {
   id: uuid('id').primaryKey(),
   userId: uuid('user_id').notNull(),
   title: text('title').notNull(),
+  summary: text('summary'),
   servings: real('servings').notNull(),
   yieldLabel: text('yield_label'),
   cookMinutes: text('cook_minutes'),

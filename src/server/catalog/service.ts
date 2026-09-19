@@ -7,7 +7,8 @@
 import { and, asc, eq, inArray } from 'drizzle-orm'
 import { db } from '../db'
 import { productOptions, products } from '../db/schema'
-import { CATEGORIES } from '../../lib/catalog'
+import { PRODUCT_BUCKET, publicImageUrl } from '../storage/public-images'
+import { listCategories } from './categories'
 
 const card = {
   id: products.id,
@@ -21,7 +22,10 @@ const card = {
   featured: products.featured,
   soldOutNote: products.soldOutNote,
   tone: products.tone,
+  photoKey: products.photoKey,
 }
+
+const withPhoto = <T extends { photoKey: string | null }>(row: T) => ({ ...row, photoUrl: publicImageUrl(PRODUCT_BUCKET, row.photoKey) })
 
 export type ProductCard = Awaited<ReturnType<typeof listMenu>>[number]
 
@@ -39,9 +43,12 @@ export async function listMenu() {
     .where(and(eq(productOptions.isActive, true), inArray(productOptions.productId, rows.map((r) => r.id))))
   const withOptions = new Set(priced.map((p) => p.productId))
 
-  const order = new Map<string, number>(CATEGORIES.map((c, i) => [c.slug, i]))
+  // Products in hidden or deleted sections stay off the menu.
+  const sections = await listCategories()
+  const order = new Map<string, number>(sections.map((c, i) => [c.slug, i]))
   return rows
-    .map((r) => ({ ...r, hasOptions: withOptions.has(r.id) }))
+    .filter((r) => order.has(r.category))
+    .map((r) => withPhoto({ ...r, hasOptions: withOptions.has(r.id) }))
     .sort((a, b) => (order.get(a.category) ?? 99) - (order.get(b.category) ?? 99))
 }
 
@@ -75,7 +82,7 @@ export async function getProduct(slug: string) {
   }
   groups.sort((a, b) => (a.name === 'size' ? -1 : b.name === 'size' ? 1 : 0))
 
-  return { ...product, groups }
+  return { ...withPhoto(product), groups }
 }
 
 /** Products and their options for pricing a cart. Server-side prices only. */

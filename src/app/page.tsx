@@ -3,7 +3,7 @@ import { connection } from 'next/server'
 import { PRINT, StampIcon, type StampName } from '@/components/stamp-icon'
 import { SiteFooter, SiteHeader, SitePage } from '@/components/site-chrome'
 import { buttonClass, ProductArt, SectionTitle } from '@/components/ui'
-import { category } from '@/lib/catalog'
+import { listCategories } from '@/server/catalog/categories'
 import { formatK } from '@/lib/money'
 import { listMenu } from '@/server/catalog/service'
 import { OccasionForm } from './occasion-form'
@@ -17,7 +17,9 @@ const OCCASIONS: { title: string; hint: string; icon: StampName; print: string; 
 
 export default async function HomePage() {
   await connection()
-  const featured = (await listMenu()).filter((p) => p.featured && !p.soldOutNote).slice(0, 4)
+  const [menu, sections] = await Promise.all([listMenu(), listCategories()])
+  const featured = menu.filter((p) => p.featured && !p.soldOutNote).slice(0, 4)
+  const iconOf = (slug: string) => sections.find((c) => c.slug === slug)?.icon ?? 'cake'
 
   return (
     <SitePage>
@@ -78,7 +80,7 @@ export default async function HomePage() {
                 href={`/banh/${p.slug}`}
                 className="overflow-hidden rounded-3xl bg-surface shadow-[var(--shadow-soft)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-berry"
               >
-                <ProductArt tone={p.tone} icon={category(p.category)?.icon ?? 'cake'} className="h-[140px] md:h-52" size={56} />
+                <ProductArt tone={p.tone} icon={iconOf(p.category)} photoUrl={p.photoUrl} alt={p.name} className="h-[140px] w-full md:h-52" size={56} />
                 <div className="px-3 pt-2.5 pb-3 md:px-4 md:pb-4">
                   <div className="leading-tight font-bold md:text-lg">{p.name}</div>
                   <div className="mt-1 flex items-center justify-between gap-2">

@@ -44,6 +44,7 @@ export function CakeBuilder({ product, calendar, startAsGift }: { product: Produ
         takesDeposit: product.takesDeposit,
         leadTimeHours: product.leadTimeHours,
         tone: product.tone,
+        photoUrl: product.photoUrl,
       },
       { gift, date },
     )

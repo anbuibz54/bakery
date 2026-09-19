@@ -1,37 +1,41 @@
-/** Menu categories, in menu order. `products.category` holds the slug. */
-export const CATEGORIES = [
-  {
-    slug: 'banh-kem',
-    chip: 'Bánh kem',
-    title: 'Bánh kem sinh nhật',
-    note: 'Đặt trước 2 ngày · cọc 50% · viết chữ miễn phí',
-    icon: 'cake',
-  },
-  {
-    slug: 'pastry',
-    chip: 'Pastry',
-    title: 'Pastry & ngàn lớp',
-    note: 'Nướng theo mẻ, đặt trước 1 ngày',
-    icon: 'croissant',
-  },
-  {
-    slug: 'banh-viet',
-    chip: 'Bánh Việt',
-    title: 'Bánh Việt, fusion',
-    note: 'Đặt trước 1 ngày',
-    icon: 'bowl',
-  },
-  {
-    slug: 'trung-thu',
-    chip: 'Trung thu',
-    title: 'Hộp quà Trung thu',
-    note: 'Nhận đặt đến 25/9 · đặt trước 3 ngày',
-    icon: 'lantern',
-  },
-] as const
+import type { StampName } from '@/components/stamp-icon'
 
-export type CategorySlug = (typeof CATEGORIES)[number]['slug']
+/**
+ * Menu sections live in the `categories` table (owner-editable). This file
+ * only holds what the browser and the admin form need without a query.
+ */
 
-export function category(slug: string) {
-  return CATEGORIES.find((c) => c.slug === slug)
+export type Category = {
+  slug: string
+  title: string
+  chip: string
+  note: string | null
+  icon: StampName
+  position: number
+  isActive: boolean
+}
+
+/** Stamp icons that make sense for a menu section, for the admin picker. */
+export const CATEGORY_ICONS: { icon: StampName; label: string }[] = [
+  { icon: 'cake', label: 'Bánh kem' },
+  { icon: 'croissant', label: 'Pastry' },
+  { icon: 'bowl', label: 'Bánh Việt' },
+  { icon: 'lantern', label: 'Trung thu' },
+  { icon: 'gift', label: 'Hộp quà' },
+  { icon: 'oven', label: 'Bánh nướng' },
+  { icon: 'letter', label: 'Tặng' },
+  { icon: 'calendar', label: 'Theo mùa' },
+]
+
+/** "Bánh kem sinh nhật" → "banh-kem-sinh-nhat". */
+export function slugify(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60)
 }

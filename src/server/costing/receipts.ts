@@ -19,6 +19,7 @@ import { cbReceiptLines, cbReceipts, cbUsers } from '../db/cookbook'
 import { ingredientPrices, ingredients } from '../db/schema'
 import { CostingError, recordPrice } from './ingredients'
 import { matchKey } from './service'
+import { ownerEmails } from '../owner'
 
 /** Receipt units → the bakery's three price units, with the factor to get there. */
 const UNIT: Record<string, { unit: 'g' | 'ml' | 'cai'; factor: number }> = {
@@ -36,12 +37,6 @@ export function toBakeryUnit(quantity: number | null, unit: string | null) {
   return known ? { unit: known.unit, packQuantity: quantity * known.factor } : { unit: 'cai' as const, packQuantity: quantity }
 }
 
-function ownerEmails() {
-  return (process.env.OWNER_EMAILS ?? '')
-    .split(',')
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean)
-}
 
 export type PendingLine = {
   lineId: string

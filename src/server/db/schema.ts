@@ -89,7 +89,7 @@ export const products = bakery.table('products', {
   description: text('description'),
   /** One line under the name on menu cards: "Hộp 4 cái · vỏ tự cán, nhân quế". */
   summary: text('summary'),
-  /** Slug from src/lib/catalog.ts CATEGORIES. */
+  /** Slug of a row in `categories`. Text, no FK: an unknown slug just hides the product. */
   category: text('category').notNull(),
   basePriceVnd: integer('base_price_vnd').notNull(),
   /** Hours of notice needed. Drives the earliest date the checkout offers. */
@@ -505,4 +505,27 @@ export const brandSettings = bakery.table('brand_settings', {
   facebookUrl: text('facebook_url'),
   tiktokUrl: text('tiktok_url'),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+})
+
+/* -------------------------------------------------------------------------- */
+/* Categories                                                                  */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Menu sections ("Bánh kem sinh nhật", "Pastry & ngàn lớp"…), editable by the
+ * owner at /quan-ly/san-pham. `products.category` holds the slug; the slug
+ * never changes once created, so renaming a section keeps its products.
+ * `icon` is a StampIcon name.
+ */
+export const categories = bakery.table('categories', {
+  slug: text('slug').primaryKey(),
+  title: text('title').notNull(),
+  /** Short label for chips and the header nav. */
+  chip: text('chip').notNull(),
+  /** One line under the section title: lead time, deposit… */
+  note: text('note'),
+  icon: text('icon').notNull().default('cake'),
+  position: smallint('position').notNull().default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 })

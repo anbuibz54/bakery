@@ -22,6 +22,8 @@ export type CartLine = {
   takesDeposit: boolean
   leadTimeHours: number
   tone: string
+  /** Product photo when there is one, for the cart row. */
+  photoUrl?: string | null
 }
 
 export type Cart = {
